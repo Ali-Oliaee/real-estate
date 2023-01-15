@@ -10,7 +10,7 @@ const LoginPage = () => {
   const [form] = Form.useForm()
   const [isSubmitting, setSubmitting] = useState(false)
   // const history = useHistory()
-  const { requiredNumber, requiredPassword } = useValidators()
+  const { requiredUsername, requiredPassword } = useValidators()
 
   // const handleLogin = () => {
   //   form.validateFields().then(({ phone_number, password }) => {
@@ -44,26 +44,18 @@ const LoginPage = () => {
         className="login-form"
         // initialValues={history.location.state}
       >
-        <Form.Item name="phone_number" rules={[requiredNumber]}>
-          <Input
-            type="tel"
-            className="ltr-input ltr-suffix"
-            placeholder="شماره تلفن"
-            size="large"
-            suffix="+98"
-            autoFocus
-          />
+        <h3 className="form-title">پنل مدیریتی املاک</h3>
+        <Form.Item name="phone_number" rules={[requiredUsername]}>
+          <Input placeholder="نام کاربری" size="large" autoFocus dir="ltr" />
         </Form.Item>
         <Form.Item name="password" rules={[requiredPassword]}>
           <Input.Password
             dir="ltr"
+            size="large"
             className="antd-password-input"
             placeholder="رمز عبور"
           />
         </Form.Item>
-        <p className="forgot-pass-link">
-          <Link to="/forgot-password">رمز عبور خود را فراموش کرده اید؟</Link>
-        </p>
         <Form.Item noStyle>
           <Button
             type="primary"
@@ -71,16 +63,12 @@ const LoginPage = () => {
             block
             className="cta-btn"
             loading={isSubmitting}
+            size="large"
           >
             ورود به حساب
           </Button>
         </Form.Item>
       </Form>
-      <p className="change-auth-form-link">
-        حساب کاربری ندارید؟
-        <Link to="/register">ثبت نام</Link>
-      </p>
-      <Link to="/">home</Link>
     </GuestLayout>
   )
 }

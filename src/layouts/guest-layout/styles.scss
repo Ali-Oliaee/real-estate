@@ -1,4 +1,4 @@
-.guest-layout-container {
+.guest-layout {
   min-height: 100vh;
   padding: 40px 0;
   height: auto;
@@ -6,14 +6,22 @@
   align-items: center;
   justify-content: center;
   flex-direction: column;
+  background: url('../../assets/images/login-background.jpg');
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+  background-attachment: fixed;
 
   .inner {
     margin-top: 40px;
     width: 416px;
     max-width: 90%;
-    background-color: #fff;
     padding: 40px;
     padding-bottom: 20px;
-    border-radius: 8px;
+    border-radius: 18px;
+    padding-block: 30px;
+    background-color: transparent;
+    backdrop-filter: blur(12px);
+    border: 1px solid #e5e5e5;
   }
 }

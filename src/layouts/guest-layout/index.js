@@ -2,7 +2,7 @@ import "./styles.scss"
 
 const GuestLayout = ({ children }) => {
   return (
-    <div className="guest-layout-container">
+    <div className="guest-layout">
       <div className="inner">{children}</div>
     </div>
   )

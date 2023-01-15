@@ -4,23 +4,10 @@
   justify-content: flex-start;
   align-items: stretch;
 
-  .login-link {
+  .form-title {
+    font-weight: 600;
+    margin-bottom: 20px;
     text-align: center;
-  }
-
-  .forgot-pass-link {
-    display: inline-block;
-    align-self: flex-start;
-    font-size: 12px;
-    color: #244658;
-
-    &:hover,
-    &:focus {
-      color: #f29c21;
-    }
-
-    &:active {
-      color: lighten(#f29c21, 15%);
-    }
+    color: #fff;
   }
 }

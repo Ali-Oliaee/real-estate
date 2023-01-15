@@ -1,70 +1,65 @@
 import {
-  ApiOutlined,
-  CommentOutlined,
+  CheckCircleOutlined,
   HomeOutlined,
-  InfoCircleOutlined,
-  MobileOutlined,
+  PlusCircleOutlined,
   UsergroupAddOutlined,
   UserOutlined,
-  UserSwitchOutlined,
 } from "@ant-design/icons"
 
-export const AdminMenuItems = [
+export const managerMenuItems = [
   {
-    key: "/users",
+    key: "/states",
     label: "املاک",
+    icon: <HomeOutlined />,
+  },
+  {
+    key: "/people",
+    label: "اشخاص",
     icon: <UsergroupAddOutlined />,
   },
   {
-    key: "/operators",
-    label: "پشتیبان ها",
-    icon: <UserSwitchOutlined />,
-  },
-  {
-    key: "/damage-reports",
-    label: "گزارشات خرابی",
-    icon: <ApiOutlined />,
-  },
-  {
-    key: "/damage-types",
-    label: "نوع خسارت",
-    icon: <InfoCircleOutlined />,
-  },
-  {
-    key: "/suggestions",
-    label: "پیشنهادات",
-    icon: <CommentOutlined />,
-  },
-  {
-    key: "/payment",
-    label: "تراکنش ها",
-    icon: <MobileOutlined />,
+    key: "/profile",
+    icon: <UserOutlined />,
+    label: "حساب کاربری",
   },
 ]
 
-export const OperatorMenuItems = [
+export const adminMenuItems = [
   {
-    key: "/profile",
-    label: "حساب کاربری",
-    icon: <UserOutlined />,
+    key: "/commits",
+    label: "تایید ها",
+    icon: <CheckCircleOutlined />,
+  },
+  {
+    key: "/states",
+    label: "املاک",
+    icon: <HomeOutlined />,
   },
   {
     key: "/users",
     label: "کاربران",
     icon: <UsergroupAddOutlined />,
   },
+]
+
+export const advisorMenuItems = [
   {
-    key: "/damage-reports",
-    label: "گزارشات خرابی",
-    icon: <ApiOutlined />,
+    key: "/add-state",
+    label: "ثبت ملک",
+    icon: <PlusCircleOutlined />,
+  },
+  {
+    key: "/profile",
+    icon: <UserOutlined />,
+    label: "حساب کاربری",
   },
 ]
 
-export const UserMenuItems = [
+export const userMenuItems = [
   {
-    key: "/damage-reports",
-    label: "املاک",
-    icon: <HomeOutlined />,
+    key: "/states",
+    label: "ثبت ملک",
+    icon: <PlusCircleOutlined />,
   },
   {
     key: "/profile",
