@@ -6,6 +6,10 @@ const guestRouter = createBrowserRouter([
     path: "/login",
     element: <LoginPage />,
   },
+  {
+    path: "*",
+    element: <LoginPage />,
+  },
 ])
 
 export default guestRouter

@@ -5,6 +5,7 @@ import {
   StatesPage,
   CommitsPage,
   AddStatePage,
+  NotFoundPage,
 } from "../pages"
 
 const authRouter = createBrowserRouter([
@@ -27,6 +28,10 @@ const authRouter = createBrowserRouter([
   {
     path: "/add-state",
     element: <AddStatePage />,
+  },
+  {
+    path: "*",
+    element: <NotFoundPage />,
   },
 ])
 
