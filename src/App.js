@@ -16,6 +16,10 @@ export const queryClient = new QueryClient({
 })
 
 function App() {
+  document.addEventListener("contextmenu", (e) => {
+    e.preventDefault()
+  })
+
   return (
     <QueryClientProvider client={queryClient}>
       <ConfigProvider direction="rtl" locale={IR}>
