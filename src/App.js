@@ -4,7 +4,8 @@ import React from "react"
 import { RouterProvider } from "react-router-dom"
 import { QueryClient, QueryClientProvider } from "react-query"
 import { ConfigProvider } from "antd"
-import router from "./routes/guest"
+import authRouter from "./routes/auth"
+import guestRouter from "./routes/guest"
 
 export const queryClient = new QueryClient({
   defaultOptions: {
@@ -23,7 +24,7 @@ function App() {
   return (
     <QueryClientProvider client={queryClient}>
       <ConfigProvider direction="rtl" locale={IR}>
-        <RouterProvider router={router} />
+        <RouterProvider router={true ? authRouter : guestRouter} />
       </ConfigProvider>
     </QueryClientProvider>
   )

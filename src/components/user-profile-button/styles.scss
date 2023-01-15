@@ -1,0 +1,30 @@
+.ant-popover-inner-content {
+  padding: 0;
+}
+.profile-menu {
+  padding: 0;
+  border: none;
+  border-radius: 8px;
+  overflow: hidden;
+}
+.profile-menu-item {
+  margin: 0;
+  &:not(:last-child) {
+    margin-bottom: 4px;
+  }
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+
+  .ant-menu-item-icon {
+    margin-right: unset !important;
+  }
+}
+.profile-menu-item.danger {
+  color: #ff4d4f;
+}
+.readonly {
+  cursor: auto !important;
+  color: inherit;
+  pointer-events: none;
+}

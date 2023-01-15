@@ -1,10 +1,15 @@
 import { createBrowserRouter } from "react-router-dom"
+import { ProfilePage, StatesPage } from "../pages"
 
-const router = createBrowserRouter([
+const authRouter = createBrowserRouter([
   {
     path: "/",
-    element: <div>Hello world!</div>,
+    element: <StatesPage />,
+  },
+  {
+    path: "/profile",
+    element: <ProfilePage />,
   },
 ])
 
-export default router
+export default authRouter

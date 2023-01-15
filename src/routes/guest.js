@@ -1,19 +1,11 @@
 import { createBrowserRouter } from "react-router-dom"
-import { LoginPage, StatesPage, ProfilePage } from "../pages"
+import { LoginPage } from "../pages"
 
-const router = createBrowserRouter([
+const guestRouter = createBrowserRouter([
   {
     path: "/login",
     element: <LoginPage />,
   },
-  {
-    path: "/",
-    element: <StatesPage />,
-  },
-  {
-    path: "/profile",
-    element: <ProfilePage />,
-  },
 ])
 
-export default router
+export default guestRouter
