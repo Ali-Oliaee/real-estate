@@ -6,7 +6,7 @@
   align-items: center;
   justify-content: center;
   flex-direction: column;
-  background: url('../../assets/images/login-background.jpg');
+  background: url('../../assets/images/login-background.png');
   background-repeat: no-repeat;
   background-size: cover;
   background-position: center;
@@ -20,8 +20,7 @@
     padding-bottom: 20px;
     border-radius: 18px;
     padding-block: 30px;
-    background-color: transparent;
-    backdrop-filter: blur(12px);
+    background-color: #ffffff;
     border: 1px solid #e5e5e5;
   }
 }

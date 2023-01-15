@@ -61,7 +61,7 @@ const LoginPage = () => {
             type="primary"
             htmlType="submit"
             block
-            className="cta-btn"
+            className="login-button"
             loading={isSubmitting}
             size="large"
           >

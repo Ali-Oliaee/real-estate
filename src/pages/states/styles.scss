@@ -1,0 +1,49 @@
+.states-page  {
+
+  .clickable-table-row {
+    cursor: pointer;
+  }
+  .full-width {
+    width: 100%;
+  }
+
+  .ant-table {
+    .ant-table-content {
+      border-radius: 8px;
+      overflow: hidden;
+    }
+    .ant-table-row {
+      min-height: 72px !important;
+      height: 64px;
+    }
+  }
+  .ant-table-thead > tr > th {
+    background-color: #ffffff;
+    color: #91a2ab;
+    
+    &::before {
+      content: unset !important;
+    }
+  }
+
+  .filter-dropdown-container {
+    padding: 8px;
+    width: auto;
+    max-width: 240px;
+  }
+  .filter-dropdown-input {
+    width: 100%;
+    margin-bottom: 12px;
+  }
+
+  .ant-popover-inner-content{
+    padding: 10px !important; 
+  }
+
+  .action-buttons {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    
+  }
+}

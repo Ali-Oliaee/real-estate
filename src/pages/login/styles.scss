@@ -8,6 +8,14 @@
     font-weight: 600;
     margin-bottom: 20px;
     text-align: center;
-    color: #fff;
+    color: #000;
+  }
+
+  .login-button {
+    background-color: #09172c;
+
+    &:hover {
+      background-color: #00505c;
+    }
   }
 }
