@@ -1,0 +1,15 @@
+.register-form {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: stretch;
+}
+
+.change-auth-form-link {
+  margin-top: 10px;
+  text-align: center;
+
+  a {
+    margin-inline-start: 4px;
+  }
+}
