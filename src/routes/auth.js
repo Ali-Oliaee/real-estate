@@ -1,14 +1,32 @@
 import { createBrowserRouter } from "react-router-dom"
-import { ProfilePage, StatesPage } from "../pages"
+import {
+  UsersPage,
+  ProfilePage,
+  StatesPage,
+  CommitsPage,
+  AddStatePage,
+} from "../pages"
 
 const authRouter = createBrowserRouter([
   {
-    path: "/",
+    path: "/states",
     element: <StatesPage />,
   },
   {
     path: "/profile",
     element: <ProfilePage />,
+  },
+  {
+    path: "/users",
+    element: <UsersPage />,
+  },
+  {
+    path: "/commits",
+    element: <CommitsPage />,
+  },
+  {
+    path: "/add-state",
+    element: <AddStatePage />,
   },
 ])
 

@@ -1,7 +1,7 @@
 .ant-layout-sider {
     overflow-y: auto;
     overflow-x: hidden;
-    height: 100vh;
+    min-height: 100vh;
     position: fixed;
     right: 0;
 
@@ -18,8 +18,7 @@
         padding: 24px 0 0 0;
       
         .username {
-          font-size: 0.9em;
-          font-weight: 500;
+          font-size: 1.1em;
           color: #1a3d56;
           margin-block: 8px;
         }

@@ -1,6 +1,5 @@
-import { LogoutOutlined, UserOutlined } from "@ant-design/icons"
-import { Avatar, Button, Layout, Menu } from "antd"
-import { useLocation } from "react-router-dom"
+import { Layout, Menu } from "antd"
+import { useLocation, useNavigate } from "react-router-dom"
 import UserProfileButton from "../user-profile-button"
 import {
   managerMenuItems,
@@ -13,20 +12,24 @@ import "./styles.scss"
 const SideMenu = () => {
   const { Sider } = Layout
   const location = useLocation()
+  const navigate = useNavigate()
   const { role } = JSON.parse(localStorage.getItem("user") || "{}")
 
   return (
     <Sider breakpoint="md" theme="light" width={200}>
       <div>
         <div className="user-container">
-          <Avatar icon={<UserOutlined />} size={40} shape="circle" />
-          <p className="username">UserName</p>
+          <p className="username">امیر غفوری</p>
         </div>
         <div className="divider" />
         <Menu
           theme="light"
           mode="inline"
           defaultSelectedKeys={location.pathname}
+          onClick={({ key }) => {
+            console.log(key)
+            navigate(key, { replace: true })
+          }}
           items={
             role === "manager"
               ? managerMenuItems

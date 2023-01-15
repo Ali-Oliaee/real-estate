@@ -1,3 +1,6 @@
 export { default as LoginPage } from "./login"
 export { default as StatesPage } from "./states"
 export { default as ProfilePage } from "./profile"
+export { default as UsersPage } from "./users"
+export { default as CommitsPage } from "./commits"
+export { default as AddStatePage } from "./add-state"

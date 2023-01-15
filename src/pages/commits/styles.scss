@@ -1,0 +1,66 @@
+.states-page  {
+
+  .header {
+    margin-bottom: 24px;
+
+    .title {
+      background-color: #e6f4fe;
+      padding: 16px;
+      max-width: 100px;
+      text-align: center;
+      color: #1677fe;
+      font-weight: 600;
+      border-radius: 8px;
+    }
+  }
+
+  .ant-table {
+    .ant-table-content {
+      border-radius: 8px;
+      overflow: hidden;
+    }
+    .ant-table-row {
+      min-height: 72px !important;
+      height: 64px;
+    }
+  }
+  .ant-table-thead > tr > th {
+    background-color: #ffffff;
+    color: #91a2ab;
+    
+    &::before {
+      content: unset !important;
+    }
+  }
+
+  .filter-dropdown-container {
+    padding: 8px;
+    width: auto;
+    max-width: 240px;
+  }
+  .filter-dropdown-input {
+    width: 100%;
+    margin-bottom: 12px;
+  }
+
+  .ant-popover-inner-content{
+    padding: 10px !important; 
+  }
+
+  .action-buttons {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  
+    button {
+      border: 0;
+      background-color: transparent;
+      cursor: pointer;
+      margin: 0 8px;
+    }
+
+    .delete-icon {
+      color: #ff4d4f;
+    }
+  }
+}

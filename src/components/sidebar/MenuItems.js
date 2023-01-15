@@ -13,7 +13,7 @@ export const managerMenuItems = [
     icon: <HomeOutlined />,
   },
   {
-    key: "/people",
+    key: "/users",
     label: "اشخاص",
     icon: <UsergroupAddOutlined />,
   },
@@ -36,9 +36,9 @@ export const adminMenuItems = [
     icon: <HomeOutlined />,
   },
   {
-    key: "/users",
-    label: "کاربران",
-    icon: <UsergroupAddOutlined />,
+    key: "/profile",
+    icon: <UserOutlined />,
+    label: "حساب کاربری",
   },
 ]
 
@@ -58,8 +58,8 @@ export const advisorMenuItems = [
 export const userMenuItems = [
   {
     key: "/states",
-    label: "ثبت ملک",
-    icon: <PlusCircleOutlined />,
+    label: "املاک",
+    icon: <HomeOutlined />,
   },
   {
     key: "/profile",

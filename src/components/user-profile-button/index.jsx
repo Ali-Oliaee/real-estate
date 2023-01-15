@@ -1,10 +1,7 @@
 import React from "react"
-
 import { Menu, Modal } from "antd"
 import { InfoCircleOutlined, LogoutOutlined } from "@ant-design/icons"
-
 import pkj from "../../../package.json"
-
 import "./styles.scss"
 
 /**
