@@ -1,5 +1,5 @@
 import { useState } from "react"
-import { Input, Tabs } from "antd"
+import { Col, Input, Row } from "antd"
 import { SearchOutlined } from "@ant-design/icons"
 import StatesTable from "./states-table"
 import { AdminLayout } from "../../layouts"
@@ -11,25 +11,20 @@ const StatesPage = () => {
   return (
     <AdminLayout>
       <div className="states-page">
-        <Tabs
-          type="card"
-          className="tables-tab-bar"
-          tabBarExtraContent={{
-            left: (
-              <Input
-                placeholder="جستجوی ملک"
-                onChange={(e) => setSearch(e.target.value)}
-                size="middle"
-                suffix={<SearchOutlined />}
-                className="search-input"
-              />
-            ),
-          }}
-        >
-          <Tabs.TabPane tab="لیست املاک" key="states">
-            <StatesTable searchKey={search} />
-          </Tabs.TabPane>
-        </Tabs>
+        <Row align="middle" justify="space-between" className="header">
+          <Col sm={6} md={8} lg={12}>
+            <h1 className="title">لیست املاک</h1>
+          </Col>
+          <Col sm={12} md={8} lg={8}>
+            <Input
+              placeholder="جستجو"
+              size="large"
+              suffix={<SearchOutlined />}
+              onChange={({ target: { value } }) => setSearch(value)}
+            />
+          </Col>
+        </Row>
+        <StatesTable searchKey={search} />
       </div>
     </AdminLayout>
   )

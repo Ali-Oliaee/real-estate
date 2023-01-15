@@ -4,7 +4,7 @@ import { Button, message, Popconfirm, Table } from "antd"
 import qs from "query-string"
 import Fuse from "fuse.js"
 import { DeleteOutlined, EditOutlined } from "@ant-design/icons"
-// import { useUsers } from "../../hooks"
+import columns from "./table-columns"
 // import { axios } from "../../utils"
 
 const data = [
@@ -66,35 +66,7 @@ const StatesTable = ({ searchKey }) => {
 
   return (
     <Table
-      columns={[
-        { title: "نام", dataIndex: "full_name" },
-        { title: "شماره تلفن", dataIndex: "phone_number", className: "ltr" },
-        { title: "ایمیل", dataIndex: "email" },
-        { title: "کد ملی", dataIndex: "national_code" },
-        { title: "استان", dataIndex: "province" },
-        { title: "شهر", dataIndex: "city" },
-        { title: "کد پستی", dataIndex: "postal_code" },
-        { title: "آدرس", dataIndex: "address" },
-        {
-          title: "عملیات",
-          render: (_, render) => (
-            <div className="action-buttons">
-              <Popconfirm
-                title="آیا از حذف کاربر اطمینان دارید؟"
-                // onConfirm={() => deleteUser(render)}
-                okText="بله"
-                cancelText="خیر"
-              >
-                <Button icon={<DeleteOutlined className="delete-icon" />} />
-              </Popconfirm>
-              <Button
-                icon={<EditOutlined />}
-                // onClick={() => editUser(render)}
-              />
-            </div>
-          ),
-        },
-      ]}
+      columns={columns}
       dataSource={data}
       // dataSource={
       //   !searchKey
