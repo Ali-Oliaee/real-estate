@@ -1,0 +1,32 @@
+.forgot-password {
+  .reset-code-button {
+    margin-top: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    direction: ltr;
+
+
+    div {
+      display: inline;
+      padding-inline: 4px;
+
+    }
+
+    .ant-statistic {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      &-content {
+        font-size: 1.2em;
+        color: #1a3d56;
+      }
+    }
+  }
+
+  a {
+    display: block;
+    text-align: center;
+  }
+}

@@ -4,7 +4,7 @@ import React from "react"
 import { RouterProvider } from "react-router-dom"
 import { QueryClient, QueryClientProvider } from "react-query"
 import { ConfigProvider } from "antd"
-import router from "./routes/auth"
+import router from "./routes/guest"
 
 export const queryClient = new QueryClient({
   defaultOptions: {

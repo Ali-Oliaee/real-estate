@@ -1,54 +1,49 @@
-import React, { useState } from "react"
+import { useState } from "react"
 import { Form, Input, Button, message } from "antd"
-import { Link, useHistory } from "react-router-dom"
-import dayjs from "dayjs"
+import { Link } from "react-router-dom"
 import axios from "../../utils/axios"
-import { Heading } from "../../components"
 import { useValidators } from "../../hooks"
+import { GuestLayout } from "../../layouts"
 import "./styles.scss"
 
 const LoginPage = () => {
   const [form] = Form.useForm()
   const [isSubmitting, setSubmitting] = useState(false)
-  const history = useHistory()
+  // const history = useHistory()
   const { requiredNumber, requiredPassword } = useValidators()
 
-  const handleLogin = () => {
-    form.validateFields().then(({ phone_number, password }) => {
-      setSubmitting(true)
-      axios
-        .post("/users/login/", { password, phone_number: `+98${phone_number}` })
-        .then(({ data }) => {
-          const temp = {
-            ...data.user,
-            last_login: dayjs(),
-            role: data.role,
-          }
-          localStorage.setItem("api_key", JSON.stringify(data.tokens))
-          localStorage.setItem("user", JSON.stringify(temp))
-          window.location.reload()
-          history.push("/")
-        })
-        .catch(({ response }) => {
-          const { data } = response
-          message.error(data?.message ? data.message : data?.phone_number)
-        })
-        .finally(() => setSubmitting(false))
-    })
-  }
+  // const handleLogin = () => {
+  //   form.validateFields().then(({ phone_number, password }) => {
+  //     setSubmitting(true)
+  //     axios
+  //       .post("/users/login/", { password, phone_number: `+98${phone_number}` })
+  //       .then(({ data }) => {
+  //         const temp = {
+  //           ...data.user,
+  //           // last_login: dayjs(),
+  //           role: data.role,
+  //         }
+  //         localStorage.setItem("api_key", JSON.stringify(data.tokens))
+  //         localStorage.setItem("user", JSON.stringify(temp))
+  //         window.location.reload()
+  //         history.push("/")
+  //       })
+  //       .catch(({ response }) => {
+  //         const { data } = response
+  //         message.error(data?.message ? data.message : data?.phone_number)
+  //       })
+  //       .finally(() => setSubmitting(false))
+  //   })
+  // }
 
   return (
-    <>
+    <GuestLayout>
       <Form
         form={form}
-        onFinish={handleLogin}
+        // onFinish={handleLogin}
         className="login-form"
-        initialValues={history.location.state}
+        // initialValues={history.location.state}
       >
-        <Heading
-          subTitle="برای ورود لطفا شماره تلفن و رمز عبور خود را وارد کنید"
-          className="auth-layout-heading"
-        />
         <Form.Item name="phone_number" rules={[requiredNumber]}>
           <Input
             type="tel"
@@ -85,7 +80,8 @@ const LoginPage = () => {
         حساب کاربری ندارید؟
         <Link to="/register">ثبت نام</Link>
       </p>
-    </>
+      <Link to="/">home</Link>
+    </GuestLayout>
   )
 }
 

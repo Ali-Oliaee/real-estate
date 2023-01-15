@@ -1,0 +1,93 @@
+.space-top {
+  margin-top: 3rem;
+}
+.space-bottom {
+  margin-bottom: 2rem !important;
+}
+
+.inline-container {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  & > .full-width {
+    flex-basis: 100%;
+  }
+  & > * {
+    flex-basis: 48%;
+  }
+}
+.form-item {
+  width: 47% !important;
+  margin-right: 0 !important;
+  @media (max-width: 768px) {
+    width: 100% !important;
+  }
+  .ant-form-item-control {
+    width: 100%;
+  }
+}
+.mt2 {
+  margin-top: 2rem;
+}
+
+.clickable-table-row {
+  cursor: pointer;
+}
+.full-width {
+  width: 100%;
+}
+
+.ant-table {
+  .ant-table-content {
+    border-radius: 8px;
+    overflow: hidden;
+  }
+  .ant-table-row {
+    min-height: 72px !important;
+    height: 64px;
+  }
+}
+.ant-table-thead > tr > th {
+  background-color: #ffffff;
+  color: #91a2ab;
+
+  &::before {
+    content: unset !important;
+  }
+}
+
+.filter-dropdown-container {
+  //
+  padding: 8px;
+  width: auto;
+  max-width: 240px;
+}
+.filter-dropdown-input {
+  width: 100%;
+  margin-bottom: 12px;
+}
+
+.ant-popover-inner-content{
+  padding: 10px !important; 
+}
+
+.action-buttons {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+
+  .delete-icon{
+    color: red;
+  }
+  button {
+    border: 0;
+    padding: 0 !important;
+    margin: 2px;
+
+    &:hover {
+      color: unset;
+    }
+  }
+}

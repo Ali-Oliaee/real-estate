@@ -1,14 +1,15 @@
 import { useState } from "react"
 import { Form, Input, Button, message } from "antd"
-import { Link, useHistory } from "react-router-dom"
+import { Link } from "react-router-dom"
 import axios from "../../utils/axios"
 import { useValidators } from "../../hooks"
 import "./styles.scss"
+import { GuestLayout } from "../../layouts"
 
 const RegisterPage = () => {
   const [form] = Form.useForm()
   const [isSubmitting, setSubmitting] = useState(false)
-  const history = useHistory()
+  // const history = useHistory()
   const {
     requiredName,
     requiredNumber,
@@ -28,7 +29,7 @@ const RegisterPage = () => {
           phone_number: `+98${phone_number}`,
         })
         .then(() => {
-          history.push("/login")
+          // history.push("/login")
           message.success("ثبت نام با موفقیت انجام شد")
         })
         .catch(({ response }) => {
@@ -43,12 +44,12 @@ const RegisterPage = () => {
   }
 
   return (
-    <>
+    <GuestLayout>
       <Form
         form={form}
         onFinish={handleRegister}
         className="register-form"
-        initialValues={history.location.state}
+        // initialValues={history.location.state}
       >
         {/* <Heading
           subTitle="برای ثبت نام لطفا اطلاعات خود را وارد کنید"
@@ -99,7 +100,7 @@ const RegisterPage = () => {
         حساب کاربری دارید؟
         <Link to="/login">ورود به حساب</Link>
       </p>
-    </>
+    </GuestLayout>
   )
 }
 

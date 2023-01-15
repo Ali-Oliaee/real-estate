@@ -1,0 +1,19 @@
+.guest-layout-container {
+  min-height: 100vh;
+  padding: 40px 0;
+  height: auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+
+  .inner {
+    margin-top: 40px;
+    width: 416px;
+    max-width: 90%;
+    background-color: #fff;
+    padding: 40px;
+    padding-bottom: 20px;
+    border-radius: 8px;
+  }
+}
