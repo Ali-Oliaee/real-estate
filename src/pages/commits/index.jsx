@@ -12,9 +12,6 @@ const CommitsPage = () => {
     <AdminLayout>
       <div className="states-page">
         <Row align="middle" justify="space-between" className="header">
-          <Col sm={6} md={8} lg={12}>
-            <h1 className="title">لیست املاک</h1>
-          </Col>
           <Col sm={12} md={8} lg={8}>
             <Input
               placeholder="جستجو"

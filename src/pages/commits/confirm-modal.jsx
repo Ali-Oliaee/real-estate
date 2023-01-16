@@ -2,7 +2,7 @@ import { Button, Form, Input, Spin } from "antd"
 import { FloatLabel, ModalContainer } from "../../components"
 import { useValidators } from "../../hooks"
 
-const EditEstateModal = ({ isOpen, onClose, onAdd }) => {
+const ConfirmEstateModal = ({ isOpen, onClose, onAdd }) => {
   const [formInstance] = Form.useForm()
   const { requiredField } = useValidators()
   const handleConfirmStep = () => {
@@ -28,7 +28,7 @@ const EditEstateModal = ({ isOpen, onClose, onAdd }) => {
       }}
       title={
         <div className="modal-header">
-          <span>ویرایش ملک</span>
+          <span>تایید ملک</span>
         </div>
       }
       footer={
@@ -41,7 +41,16 @@ const EditEstateModal = ({ isOpen, onClose, onAdd }) => {
             block
             // loading={isSubmitting}
           >
-            ویرایش
+            تایید
+          </Button>
+          <Button
+            style={{ border: "1px solid #ff4d4f", color: "#ff4d4f" }}
+            // onClick={deleteRecord}
+            size="large"
+            block
+            // loading={isSubmitting}
+          >
+            رد
           </Button>
         </div>
       }
@@ -160,4 +169,4 @@ const EditEstateModal = ({ isOpen, onClose, onAdd }) => {
   )
 }
 
-export default EditEstateModal
+export default ConfirmEstateModal

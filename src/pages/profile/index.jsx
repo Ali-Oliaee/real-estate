@@ -70,70 +70,61 @@ const ProfilePage = () => {
 
   return (
     <AdminLayout>
-      <Tabs type="card" className="tables-tab-bar">
-        <Tabs.TabPane tab="حساب کاربری" key="profile">
-          <div className="profile-info">
-            <Form
-              form={formInstance}
-              size="large"
-              colon={false}
-              // onFinish={handleConfirmStep}
-              name="user-profile-form"
-              requiredMark={false}
-            >
-              <div className="inline-container">
-                <Form.Item name="full_name" rules={[requiredField]}>
-                  <FloatLabel label="نام">
-                    <Input readOnly disabled />
-                  </FloatLabel>
-                </Form.Item>
-                <Form.Item name="phone_number" rules={[requiredField]}>
-                  <FloatLabel label="شماره تلفن">
-                    <Input readOnly disabled type="tel" className="ltr-input" />
-                  </FloatLabel>
-                </Form.Item>
-                <Form.Item name="email" rules={[requiredField, validEmail]}>
-                  <FloatLabel label="ایمیل">
-                    <Input
-                      readOnly
-                      disabled
-                      type="email"
-                      className="ltr-input"
-                    />
-                  </FloatLabel>
-                </Form.Item>
-                <Form.Item name="national_code" rules={[requiredField]}>
-                  <FloatLabel label="کد ملی">
-                    <InputNumber
-                      className="full-width ltr-input"
-                      readOnly
-                      disabled
-                    />
-                  </FloatLabel>
-                </Form.Item>
-                <Form.Item name="province" rules={[requiredField]}>
-                  <FloatLabel label="استان">
-                    <Input readOnly disabled />
-                  </FloatLabel>
-                </Form.Item>
-                <Form.Item name="city" rules={[requiredField]}>
-                  <FloatLabel label="شهر">
-                    <Input readOnly disabled />
-                  </FloatLabel>
-                </Form.Item>
-                <Form.Item name="address" rules={[requiredField]}>
-                  <FloatLabel label="آدرس">
-                    <Input.TextArea cols="21" rows="1" readOnly disabled />
-                  </FloatLabel>
-                </Form.Item>
-              </div>
-              <Button block loading={loading} type="primary" htmlType="submit">
-                ویرایش اطلاعات
-              </Button>
-            </Form>
+      <div className="profile-info">
+        <Form
+          form={formInstance}
+          size="large"
+          colon={false}
+          // onFinish={handleConfirmStep}
+          name="user-profile-form"
+          requiredMark={false}
+        >
+          <div className="inline-container">
+            <Form.Item name="full_name" rules={[requiredField]}>
+              <FloatLabel label="نام">
+                <Input readOnly disabled />
+              </FloatLabel>
+            </Form.Item>
+            <Form.Item name="phone_number" rules={[requiredField]}>
+              <FloatLabel label="شماره تلفن">
+                <Input readOnly disabled type="tel" className="ltr-input" />
+              </FloatLabel>
+            </Form.Item>
+            <Form.Item name="email" rules={[requiredField, validEmail]}>
+              <FloatLabel label="ایمیل">
+                <Input readOnly disabled type="email" className="ltr-input" />
+              </FloatLabel>
+            </Form.Item>
+            <Form.Item name="national_code" rules={[requiredField]}>
+              <FloatLabel label="کد ملی">
+                <InputNumber
+                  className="full-width ltr-input"
+                  readOnly
+                  disabled
+                />
+              </FloatLabel>
+            </Form.Item>
+            <Form.Item name="province" rules={[requiredField]}>
+              <FloatLabel label="استان">
+                <Input readOnly disabled />
+              </FloatLabel>
+            </Form.Item>
+            <Form.Item name="city" rules={[requiredField]}>
+              <FloatLabel label="شهر">
+                <Input readOnly disabled />
+              </FloatLabel>
+            </Form.Item>
+            <Form.Item name="address" rules={[requiredField]}>
+              <FloatLabel label="آدرس">
+                <Input.TextArea cols="21" rows="1" readOnly disabled />
+              </FloatLabel>
+            </Form.Item>
           </div>
-        </Tabs.TabPane>
-      </Tabs>
+          <Button block loading={loading} type="primary" htmlType="submit">
+            ویرایش اطلاعات
+          </Button>
+        </Form>
+      </div>
     </AdminLayout>
   )
 }

@@ -24,7 +24,7 @@ function App() {
   return (
     <QueryClientProvider client={queryClient}>
       <ConfigProvider direction="rtl" locale={IR}>
-        <RouterProvider router={true ? authRouter : guestRouter} />
+        <RouterProvider router={false ? authRouter : guestRouter} />
       </ConfigProvider>
     </QueryClientProvider>
   )

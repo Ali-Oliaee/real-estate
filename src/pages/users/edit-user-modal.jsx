@@ -28,7 +28,7 @@ const EditUserModal = ({ isOpen, onClose, onAdd }) => {
       }}
       title={
         <div className="modal-header">
-          <span>افزودن شخص</span>
+          <span>ویرایش شخص</span>
         </div>
       }
       footer={
@@ -41,7 +41,7 @@ const EditUserModal = ({ isOpen, onClose, onAdd }) => {
             block
             // loading={isSubmitting}
           >
-            افزودن
+            ویرایش
           </Button>
         </div>
       }

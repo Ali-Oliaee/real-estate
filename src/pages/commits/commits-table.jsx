@@ -3,8 +3,15 @@ import { Button, message, Popconfirm, Table } from "antd"
 // import { useHistory } from "react-router-dom"
 import qs from "query-string"
 import Fuse from "fuse.js"
-import { DeleteOutlined, EditOutlined } from "@ant-design/icons"
-import columns from "./commit-columns"
+import {
+  CheckCircleFilled,
+  CheckSquareOutlined,
+  DeleteOutlined,
+  EditOutlined,
+  InfoCircleTwoTone,
+  InfoOutlined,
+} from "@ant-design/icons"
+import ConfirmEstateModal from "./confirm-modal"
 // import { axios } from "../../utils"
 
 const data = [
@@ -33,6 +40,7 @@ const data = [
 ]
 
 const CommitsTable = ({ searchKey }) => {
+  const [modalVisible, setModalVisible] = React.useState(false)
   // const { data, refetch, isLoading } = useUsers()
   // const history = useHistory()
   const { role } = JSON.parse(localStorage.getItem("user") || "{}")
@@ -65,21 +73,75 @@ const CommitsTable = ({ searchKey }) => {
   //   })
 
   return (
-    <Table
-      columns={columns}
-      dataSource={data}
-      // dataSource={
-      //   !searchKey
-      //     ? !Array.isArray(data)
-      //       ? [data]
-      //       : data
-      //     : result.map(({ item }) => item)
-      // }
-      // rowKey="id"
-      // loading={isLoading}
-      pagination={false}
-      scroll={{ x: 1024 }}
-    />
+    <>
+      <Table
+        columns={[
+          {
+            title: "ردیف",
+            dataIndex: "key",
+            render: (text, record, index) => (
+              <Button
+                style={{ border: 0, boxShadow: "none" }}
+                onClick={() => setModalVisible(true)}
+              >
+                {text}
+                <InfoCircleTwoTone />
+              </Button>
+            ),
+          },
+          { title: "شماره تلفن", dataIndex: "phone_number", className: "ltr" },
+          { title: "کد", dataIndex: "key" },
+          { title: "تاریخ", dataIndex: "national_code" },
+          { title: "مالک", dataIndex: "full_name" },
+          { title: "خیابان", dataIndex: "city" },
+          { title: "پلاک", dataIndex: "postal_code" },
+          { title: "طبقات", dataIndex: "address" },
+          {
+            title: "متراژ",
+            dataIndex: "address",
+            sorter: (a, b) => a.address - b.address,
+          },
+          {
+            title: "قیمت کل",
+            dataIndex: "",
+            sorter: (a, b) => a.address - b.address,
+          },
+          { title: "مشتری", dataIndex: "" },
+          { title: "سبک", dataIndex: "" },
+          { title: "مشتری", dataIndex: "" },
+          { title: "گرمایش", dataIndex: "" },
+          { title: "کف", dataIndex: "" },
+          { title: "برق", dataIndex: "" },
+          { title: "مطبخ", dataIndex: "" },
+          { title: "شیرآلات", dataIndex: "" },
+          { title: "و.ج", dataIndex: "" },
+          { title: "پنجره", dataIndex: "" },
+          {
+            title: "توضیحات",
+            dataIndex: "",
+            filterMode: "tree",
+            filterSearch: true,
+            onFilter: (value, record) => record.name.indexOf(value) === 0,
+          },
+        ]}
+        dataSource={data}
+        // dataSource={
+        //   !searchKey
+        //     ? !Array.isArray(data)
+        //       ? [data]
+        //       : data
+        //     : result.map(({ item }) => item)
+        // }
+        // rowKey="id"
+        // loading={isLoading}
+        pagination={false}
+        scroll={{ x: 1024 }}
+      />
+      <ConfirmEstateModal
+        isOpen={modalVisible}
+        onClose={() => setModalVisible(false)}
+      />
+    </>
   )
 }
 

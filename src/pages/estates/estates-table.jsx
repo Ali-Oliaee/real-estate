@@ -3,7 +3,11 @@ import { Button, message, Popconfirm, Table } from "antd"
 // import { useHistory } from "react-router-dom"
 import qs from "query-string"
 import Fuse from "fuse.js"
-import { DeleteOutlined, EditOutlined } from "@ant-design/icons"
+import {
+  CommentOutlined,
+  DeleteOutlined,
+  EditOutlined,
+} from "@ant-design/icons"
 import EditEstateModal from "./edit-estate-modal"
 // import { axios } from "../../utils"
 
@@ -34,9 +38,9 @@ const data = [
 
 const EstatesTable = ({ searchKey }) => {
   const [isModalVisible, setIsModalVisible] = React.useState(false)
+  const { role } = JSON.parse(localStorage.getItem("user") || "{}")
   // const { data, refetch, isLoading } = useUsers()
   // const history = useHistory()
-  const { role } = JSON.parse(localStorage.getItem("user") || "{}")
   // const fuse = new Fuse(data ?? [], {
   //   keys: [
   //     "full_name",
@@ -71,7 +75,19 @@ const EstatesTable = ({ searchKey }) => {
     <>
       <Table
         columns={[
-          { title: "ردیف", dataIndex: "key" },
+          {
+            title: "ردیف",
+            dataIndex: "key",
+            render: (text, record, index) =>
+              role !== "user" ? (
+                text
+              ) : (
+                <Button onClick={() => editUser(record)} type="link">
+                  {<CommentOutlined />}
+                  {text}
+                </Button>
+              ),
+          },
           { title: "شماره تلفن", dataIndex: "phone_number", className: "ltr" },
           { title: "کد", dataIndex: "key" },
           { title: "تاریخ", dataIndex: "national_code" },
@@ -124,8 +140,9 @@ const EstatesTable = ({ searchKey }) => {
                 />
               </div>
             ),
+            hidden: role === "user",
           },
-        ]}
+        ].filter((item) => !item.hidden)}
         dataSource={data}
         // dataSource={
         //   !searchKey
