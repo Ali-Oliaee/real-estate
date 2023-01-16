@@ -37,7 +37,7 @@ const EstatesPage = () => {
                   className="add-button"
                   onClick={() => setAddModal(true)}
                 >
-                  افزودن
+                  افزودن ملک +
                 </Button>
               </Col>
             ))}

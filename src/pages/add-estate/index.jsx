@@ -70,61 +70,110 @@ const AddEtatePage = () => {
 
   return (
     <AdminLayout>
-      <Tabs type="card" className="tables-tab-bar">
-        <Tabs.TabPane tab="افزودن ملک جدید" key="profile">
-          <div className="profile-info">
-            <Form
-              form={formInstance}
-              size="large"
-              colon={false}
-              // onFinish={handleConfirmStep}
-              name="user-profile-form"
-              requiredMark={false}
-            >
-              <div className="inline-container">
-                <Form.Item name="full_name" rules={[requiredField]}>
-                  <FloatLabel label="نام">
-                    <Input />
-                  </FloatLabel>
-                </Form.Item>
-                <Form.Item name="phone_number" rules={[requiredField]}>
-                  <FloatLabel label="شماره تلفن">
-                    <Input type="tel" className="ltr-input" />
-                  </FloatLabel>
-                </Form.Item>
-                <Form.Item name="email" rules={[requiredField, validEmail]}>
-                  <FloatLabel label="ایمیل">
-                    <Input type="email" className="ltr-input" />
-                  </FloatLabel>
-                </Form.Item>
-                <Form.Item name="national_code" rules={[requiredField]}>
-                  <FloatLabel label="کد ملی">
-                    <InputNumber className="full-width ltr-input" />
-                  </FloatLabel>
-                </Form.Item>
-                <Form.Item name="province" rules={[requiredField]}>
-                  <FloatLabel label="استان">
-                    <Input />
-                  </FloatLabel>
-                </Form.Item>
-                <Form.Item name="city" rules={[requiredField]}>
-                  <FloatLabel label="شهر">
-                    <Input />
-                  </FloatLabel>
-                </Form.Item>
-                <Form.Item name="address" rules={[requiredField]}>
-                  <FloatLabel label="آدرس">
-                    <Input.TextArea cols="21" rows="1" />
-                  </FloatLabel>
-                </Form.Item>
-              </div>
-              <Button block loading={loading} type="primary" htmlType="submit">
-                ویرایش اطلاعات
-              </Button>
-            </Form>
-          </div>
-        </Tabs.TabPane>
-      </Tabs>
+      <Form
+        form={formInstance}
+        size="large"
+        colon={false}
+        // onFinish={handleConfirmStep}
+        name="user-profile-form"
+        requiredMark={false}
+      >
+        <div className="inline-container">
+          <Form.Item name="full_name" rules={[requiredField]}>
+            <FloatLabel label="نام">
+              <Input />
+            </FloatLabel>
+          </Form.Item>
+          <Form.Item name="phone_number" rules={[requiredField]}>
+            <FloatLabel label="شماره تلفن">
+              <Input type="tel" className="ltr-input" />
+            </FloatLabel>
+          </Form.Item>
+          <Form.Item name="email" rules={[requiredField, validEmail]}>
+            <FloatLabel label="کد">
+              <Input type="email" className="ltr-input" />
+            </FloatLabel>
+          </Form.Item>
+          <Form.Item name="national_code" rules={[requiredField]}>
+            <FloatLabel label="خیابان">
+              <Input className="full-width ltr-input" />
+            </FloatLabel>
+          </Form.Item>
+          <Form.Item name="province" rules={[requiredField]}>
+            <FloatLabel label="پلاک">
+              <Input />
+            </FloatLabel>
+          </Form.Item>
+          <Form.Item name="city" rules={[requiredField]}>
+            <FloatLabel label="طبقه">
+              <Input />
+            </FloatLabel>
+          </Form.Item>
+          <Form.Item name="" rules={[requiredField]}>
+            <FloatLabel label="متراژ">
+              <Input />
+            </FloatLabel>
+          </Form.Item>
+          <Form.Item name="" rules={[requiredField]}>
+            <FloatLabel label="قیمت کل">
+              <Input />
+            </FloatLabel>
+          </Form.Item>
+          <Form.Item name="" rules={[requiredField]}>
+            <FloatLabel label="مشتری">
+              <Input />
+            </FloatLabel>
+          </Form.Item>
+          <Form.Item name="" rules={[requiredField]}>
+            <FloatLabel label="سبک">
+              <Input />
+            </FloatLabel>
+          </Form.Item>
+          <Form.Item name="" rules={[requiredField]}>
+            <FloatLabel label="گرمایش">
+              <Input />
+            </FloatLabel>
+          </Form.Item>
+          <Form.Item name="" rules={[requiredField]}>
+            <FloatLabel label="کف">
+              <Input />
+            </FloatLabel>
+          </Form.Item>
+          <Form.Item name="" rules={[requiredField]}>
+            <FloatLabel label="برق">
+              <Input />
+            </FloatLabel>
+          </Form.Item>
+          <Form.Item name="" rules={[requiredField]}>
+            <FloatLabel label="مطبخ">
+              <Input />
+            </FloatLabel>
+          </Form.Item>
+          <Form.Item name="" rules={[requiredField]}>
+            <FloatLabel label="شیرآلات">
+              <Input />
+            </FloatLabel>
+          </Form.Item>
+          <Form.Item name="" rules={[requiredField]}>
+            <FloatLabel label="و.ج">
+              <Input />
+            </FloatLabel>
+          </Form.Item>
+          <Form.Item name="" rules={[requiredField]}>
+            <FloatLabel label="پنجره">
+              <Input />
+            </FloatLabel>
+          </Form.Item>
+          <Form.Item name="" rules={[requiredField]}>
+            <FloatLabel label="توضیحات">
+              <Input.TextArea cols={21} rows={1} />
+            </FloatLabel>
+          </Form.Item>
+        </div>
+        <Button block loading={loading} type="primary" htmlType="submit">
+          ویرایش اطلاعات
+        </Button>
+      </Form>
     </AdminLayout>
   )
 }

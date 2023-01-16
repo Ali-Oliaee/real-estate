@@ -1,6 +1,5 @@
 import React from "react"
 import { Button, message, Popconfirm, Table } from "antd"
-// import { useNavigate } from "react-router-dom"
 import qs from "query-string"
 import Fuse from "fuse.js"
 import { DeleteOutlined, EditOutlined } from "@ant-design/icons"
@@ -10,47 +9,50 @@ import EditUserModal from "./edit-user-modal"
 const data = [
   {
     key: "1",
-    full_name: "محمدرضا",
+    full_name: "محمد محمدی",
     phone_number: "09123456789",
     email: "vlfv@vdf.vdf",
-    national_code: "1234567890",
-    province: "تهران",
-    city: "تهران",
-    postal_code: "1234567890",
+    date: "۱۳۹۹/۰۱/۰۱",
+    role: "مدیر",
     address: "تهران، خیابان شهید بهشتی، پلاک ۱۲۳",
   },
   {
     key: "2",
-    full_name: "محمدرضا",
+    full_name: "سینا موسوی",
+    role: "کاربر",
     phone_number: "09123456789",
     email: "vlfv@vdf.vdf",
-    national_code: "1234567890",
-    province: "تهران",
-    city: "تهران",
-    postal_code: "1234567890",
+    date: "۱۳۹۹/۰۱/۲۱",
     address: "تهران، خیابان شهید بهشتی، پلاک ۱۲۳",
+  },
+  {
+    key: "3",
+    full_name: "سینا موسوی",
+    role: "کاربر",
+    phone_number: "09123456789",
+    email: "vlfv@vdf.vf",
+    date: "۱۳۹۹/۰۱/۲۱",
+    address: "تهران، خیابان شهید بهشتی، پلاک ۱۲۳",
+  },
+  {
+    key: "4",
+    full_name: "زهرا حسینی",
+    role: "تایید کننده",
+    phone_number: "09123456789",
+    email: "vlfv@vdf.vdf",
+    date: "۱۳۹۹/۰۱/۲۱",
+    address: "مشهد، خیابان اقبالی، پلاک ۱۲۳",
   },
 ]
 
 const UsersTable = ({ searchKey }) => {
   const [isModalVisible, setIsModalVisible] = React.useState(false)
   // const { data, refetch, isLoading } = useUsers()
-  // const history = useHistory()
-  // const navigate = useNavigate()
-  // const { role } = JSON.parse(localStorage.getItem("user") || "{}")
-  // const fuse = new Fuse(data ?? [], {
-  //   keys: [
-  //     "full_name",
-  //     "email",
-  //     "phone_number",
-  //     "national_code",
-  //     "city",~
-  //     "province",
-  //     "address",
-  //     "postal_code",
-  //   ],
-  // })
-  // const result = !searchKey ? data : fuse.search(searchKey || "")
+  const { role } = JSON.parse(localStorage.getItem("user") || "{}")
+  const fuse = new Fuse(data ?? [], {
+    keys: ["full_name", "phone_number", "email", "role", "address"],
+  })
+  const result = !searchKey ? data : fuse.search(searchKey || "")
 
   // const deleteUser = ({ id }) =>
   //   axios.delete(`panel/users/${id}/`).then(() => {
@@ -75,10 +77,11 @@ const UsersTable = ({ searchKey }) => {
         columns={[
           { title: "ردیف", dataIndex: "key" },
           { title: "نام", dataIndex: "full_name" },
-          { title: "آدرس", dataIndex: "full_name" },
+          { title: "نقش", dataIndex: "role" },
           { title: "شماره تلفن", dataIndex: "phone_number", className: "ltr" },
-          { title: "کد", dataIndex: "email" },
-          { title: "تاریخ", dataIndex: "national_code" },
+          { title: "ایمیل", dataIndex: "email" },
+          { title: "آدرس", dataIndex: "address" },
+          { title: "تاریخ عضویت", dataIndex: "date" },
           {
             title: "عملیات",
             render: (_, render) => (
@@ -99,15 +102,14 @@ const UsersTable = ({ searchKey }) => {
             ),
           },
         ]}
-        dataSource={data}
-        // dataSource={
-        //   !searchKey
-        //     ? !Array.isArray(data)
-        //       ? [data]
-        //       : data
-        //     : result.map(({ item }) => item)
-        // }
-        // rowKey="id"
+        dataSource={
+          !searchKey
+            ? !Array.isArray(data)
+              ? [data]
+              : data
+            : result.map(({ item }) => item)
+        }
+        rowKey="id"
         // loading={isLoading}
         pagination={false}
         scroll={{ x: 1024 }}

@@ -37,7 +37,7 @@ const UsersPage = () => {
                   className="add-button"
                   onClick={() => setAddModalOpen(true)}
                 >
-                  افزودن
+                  افزودن شخص +
                 </Button>
               </Col>
             ))}

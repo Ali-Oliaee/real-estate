@@ -27,6 +27,9 @@
   .ant-table-thead > tr > th {
     background-color: #ffffff;
     color: #91a2ab;
+    &:last-child {
+      text-align: center;
+    }
     
     &::before {
       content: unset !important;
@@ -36,7 +39,6 @@
   .filter-dropdown-container {
     padding: 8px;
     width: auto;
-    max-width: 240px;
   }
   .filter-dropdown-input {
     width: 100%;

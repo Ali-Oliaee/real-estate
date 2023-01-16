@@ -48,12 +48,12 @@ const ProfilePage = () => {
   //   new Promise((resolve, reject) => {
   //     const payload = { id: userId, ...values }
 
-  //     // updateUserbyUser(payload)
-  //     //   .then((res) => {
-  //     //     refetch()
-  //     //     resolve(res)
-  //     //   })
-  //     //   .catch(reject)
+  // updateUserbyUser(payload)
+  //   .then((res) => {
+  //     refetch()
+  //     resolve(res)
+  //   })
+  //   .catch(reject)
   //   })
 
   // const handleConfirmStep = () => {
@@ -82,12 +82,18 @@ const ProfilePage = () => {
           <div className="inline-container">
             <Form.Item name="full_name" rules={[requiredField]}>
               <FloatLabel label="نام">
-                <Input readOnly disabled />
+                <Input readOnly disabled value="امیر غفوری" />
               </FloatLabel>
             </Form.Item>
             <Form.Item name="phone_number" rules={[requiredField]}>
               <FloatLabel label="شماره تلفن">
-                <Input readOnly disabled type="tel" className="ltr-input" />
+                <Input
+                  readOnly
+                  disabled
+                  type="tel"
+                  className="ltr-input"
+                  value="0123456789"
+                />
               </FloatLabel>
             </Form.Item>
             <Form.Item name="email" rules={[requiredField, validEmail]}>
@@ -97,21 +103,7 @@ const ProfilePage = () => {
             </Form.Item>
             <Form.Item name="national_code" rules={[requiredField]}>
               <FloatLabel label="کد ملی">
-                <InputNumber
-                  className="full-width ltr-input"
-                  readOnly
-                  disabled
-                />
-              </FloatLabel>
-            </Form.Item>
-            <Form.Item name="province" rules={[requiredField]}>
-              <FloatLabel label="استان">
-                <Input readOnly disabled />
-              </FloatLabel>
-            </Form.Item>
-            <Form.Item name="city" rules={[requiredField]}>
-              <FloatLabel label="شهر">
-                <Input readOnly disabled />
+                <Input className="full-width ltr-input" readOnly disabled />
               </FloatLabel>
             </Form.Item>
             <Form.Item name="address" rules={[requiredField]}>
