@@ -67,28 +67,12 @@ const UsersTable = ({ searchKey }) => {
   return (
     <Table
       columns={[
-        { title: "ردیف", dataIndex: "full_name" },
+        { title: "ردیف", dataIndex: "key" },
+        { title: "نام", dataIndex: "full_name" },
+        { title: "آدرس", dataIndex: "full_name" },
         { title: "شماره تلفن", dataIndex: "phone_number", className: "ltr" },
         { title: "کد", dataIndex: "email" },
         { title: "تاریخ", dataIndex: "national_code" },
-        { title: "مالک", dataIndex: "province" },
-        { title: "خیابان", dataIndex: "city" },
-        { title: "پلاک", dataIndex: "postal_code" },
-        { title: "طبقات", dataIndex: "address" },
-        { title: "متراژ", dataIndex: "address" },
-        { title: "قیمت کل", dataIndex: "" },
-        { title: "مشتری", dataIndex: "" },
-        { title: "سبک", dataIndex: "" },
-        { title: "مشتری", dataIndex: "" },
-        { title: "گرمایش", dataIndex: "" },
-        { title: "کف", dataIndex: "" },
-        { title: "برق", dataIndex: "" },
-        { title: "مطبخ", dataIndex: "" },
-        { title: "شیرآلات", dataIndex: "" },
-        { title: "مشتری", dataIndex: "" },
-        { title: "و.ج", dataIndex: "" },
-        { title: "پنجره", dataIndex: "" },
-        { title: "توضیحات", dataIndex: "" },
         {
           title: "عملیات",
           render: (_, render) => (

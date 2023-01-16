@@ -93,7 +93,7 @@ const StatesTable = ({ searchKey }) => {
           render: (_, render) => (
             <div className="action-buttons">
               <Popconfirm
-                title="آیا از حذف کاربر اطمینان دارید؟"
+                title="آیا از حذف ملک اطمینان دارید؟"
                 // onConfirm={() => deleteUser(render)}
                 okText="بله"
                 cancelText="خیر"
