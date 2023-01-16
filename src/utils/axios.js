@@ -1,5 +1,3 @@
-/* eslint-disable operator-linebreak */
-/* eslint-disable no-console */
 import { message } from "antd"
 import axios from "axios"
 

@@ -4,7 +4,6 @@ import { Button, message, Popconfirm, Table } from "antd"
 import qs from "query-string"
 import Fuse from "fuse.js"
 import { DeleteOutlined, EditOutlined } from "@ant-design/icons"
-import columns from "./table-columns"
 // import { axios } from "../../utils"
 
 const data = [
@@ -66,7 +65,49 @@ const StatesTable = ({ searchKey }) => {
 
   return (
     <Table
-      columns={columns}
+      columns={[
+        { title: "ردیف", dataIndex: "key" },
+        { title: "شماره تلفن", dataIndex: "phone_number", className: "ltr" },
+        { title: "کد", dataIndex: "key" },
+        { title: "تاریخ", dataIndex: "national_code" },
+        { title: "مالک", dataIndex: "full_name" },
+        { title: "خیابان", dataIndex: "city" },
+        { title: "پلاک", dataIndex: "postal_code" },
+        { title: "طبقات", dataIndex: "address" },
+        { title: "متراژ", dataIndex: "address" },
+        { title: "قیمت کل", dataIndex: "" },
+        { title: "مشتری", dataIndex: "" },
+        { title: "سبک", dataIndex: "" },
+        { title: "مشتری", dataIndex: "" },
+        { title: "گرمایش", dataIndex: "" },
+        { title: "کف", dataIndex: "" },
+        { title: "برق", dataIndex: "" },
+        { title: "مطبخ", dataIndex: "" },
+        { title: "شیرآلات", dataIndex: "" },
+        { title: "مشتری", dataIndex: "" },
+        { title: "و.ج", dataIndex: "" },
+        { title: "پنجره", dataIndex: "" },
+        { title: "توضیحات", dataIndex: "" },
+        {
+          title: "عملیات",
+          render: (_, render) => (
+            <div className="action-buttons">
+              <Popconfirm
+                title="آیا از حذف کاربر اطمینان دارید؟"
+                // onConfirm={() => deleteUser(render)}
+                okText="بله"
+                cancelText="خیر"
+              >
+                <Button icon={<DeleteOutlined className="delete-icon" />} />
+              </Popconfirm>
+              <Button
+                icon={<EditOutlined />}
+                // onClick={() => editUser(render)}
+              />
+            </div>
+          ),
+        },
+      ]}
       dataSource={data}
       // dataSource={
       //   !searchKey
