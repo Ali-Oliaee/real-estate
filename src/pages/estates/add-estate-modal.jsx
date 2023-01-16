@@ -1,4 +1,4 @@
-import { Button, Form, Input, InputNumber } from "antd"
+import { Button, Form, Input } from "antd"
 import { FloatLabel, ModalContainer } from "../../components"
 import { useValidators } from "../../hooks"
 

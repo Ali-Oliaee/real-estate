@@ -1,4 +1,4 @@
-import { Button, Form, Input, InputNumber } from "antd"
+import { Button, Form, Input, Select } from "antd"
 import { FloatLabel, ModalContainer } from "../../components"
 import { useValidators } from "../../hooks"
 
@@ -65,6 +65,28 @@ const AddUserModal = ({ isOpen, onClose, onAdd }) => {
         </Form.Item>
         <Form.Item name="email" rules={[requiredField]}>
           <FloatLabel label="آدرس">
+            <Input type="text" className="ltr-input" />
+          </FloatLabel>
+        </Form.Item>
+        <Select
+          placeholder="نقش"
+          options={[
+            {
+              value: "ادمین",
+              label: "ادمین",
+            },
+            {
+              value: "ویرایشگر",
+              label: "ویرایشگر",
+            },
+            {
+              value: "کاربر",
+              label: "کاربر",
+            },
+          ]}
+        />
+        <Form.Item name="password" rules={[requiredField]}>
+          <FloatLabel label="رمز عبور">
             <Input type="text" className="ltr-input" />
           </FloatLabel>
         </Form.Item>
