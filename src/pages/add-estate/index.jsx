@@ -22,7 +22,7 @@ const fieldsToValidate = [
   "account_number",
 ]
 
-const AddStatePage = () => {
+const AddEtatePage = () => {
   const { requiredField, validEmail } = useValidators()
   // const { id: userId, last_login } = JSON.parse(localStorage.getItem("user"))
   const [formInstance] = Form.useForm()
@@ -84,46 +84,37 @@ const AddStatePage = () => {
               <div className="inline-container">
                 <Form.Item name="full_name" rules={[requiredField]}>
                   <FloatLabel label="نام">
-                    <Input readOnly disabled />
+                    <Input />
                   </FloatLabel>
                 </Form.Item>
                 <Form.Item name="phone_number" rules={[requiredField]}>
                   <FloatLabel label="شماره تلفن">
-                    <Input readOnly disabled type="tel" className="ltr-input" />
+                    <Input type="tel" className="ltr-input" />
                   </FloatLabel>
                 </Form.Item>
                 <Form.Item name="email" rules={[requiredField, validEmail]}>
                   <FloatLabel label="ایمیل">
-                    <Input
-                      readOnly
-                      disabled
-                      type="email"
-                      className="ltr-input"
-                    />
+                    <Input type="email" className="ltr-input" />
                   </FloatLabel>
                 </Form.Item>
                 <Form.Item name="national_code" rules={[requiredField]}>
                   <FloatLabel label="کد ملی">
-                    <InputNumber
-                      className="full-width ltr-input"
-                      readOnly
-                      disabled
-                    />
+                    <InputNumber className="full-width ltr-input" />
                   </FloatLabel>
                 </Form.Item>
                 <Form.Item name="province" rules={[requiredField]}>
                   <FloatLabel label="استان">
-                    <Input readOnly disabled />
+                    <Input />
                   </FloatLabel>
                 </Form.Item>
                 <Form.Item name="city" rules={[requiredField]}>
                   <FloatLabel label="شهر">
-                    <Input readOnly disabled />
+                    <Input />
                   </FloatLabel>
                 </Form.Item>
                 <Form.Item name="address" rules={[requiredField]}>
                   <FloatLabel label="آدرس">
-                    <Input.TextArea cols="21" rows="1" readOnly disabled />
+                    <Input.TextArea cols="21" rows="1" />
                   </FloatLabel>
                 </Form.Item>
               </div>
@@ -138,4 +129,4 @@ const AddStatePage = () => {
   )
 }
 
-export default AddStatePage
+export default AddEtatePage

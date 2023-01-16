@@ -31,7 +31,7 @@ const data = [
   },
 ]
 
-const StatesTable = ({ searchKey }) => {
+const EstatesTable = ({ searchKey }) => {
   // const { data, refetch, isLoading } = useUsers()
   // const history = useHistory()
   const { role } = JSON.parse(localStorage.getItem("user") || "{}")
@@ -74,8 +74,16 @@ const StatesTable = ({ searchKey }) => {
         { title: "خیابان", dataIndex: "city" },
         { title: "پلاک", dataIndex: "postal_code" },
         { title: "طبقات", dataIndex: "address" },
-        { title: "متراژ", dataIndex: "address" },
-        { title: "قیمت کل", dataIndex: "" },
+        {
+          title: "متراژ",
+          dataIndex: "address",
+          sorter: (a, b) => a.address - b.address,
+        },
+        {
+          title: "قیمت کل",
+          dataIndex: "",
+          sorter: (a, b) => a.address - b.address,
+        },
         { title: "مشتری", dataIndex: "" },
         { title: "سبک", dataIndex: "" },
         { title: "مشتری", dataIndex: "" },
@@ -84,10 +92,15 @@ const StatesTable = ({ searchKey }) => {
         { title: "برق", dataIndex: "" },
         { title: "مطبخ", dataIndex: "" },
         { title: "شیرآلات", dataIndex: "" },
-        { title: "مشتری", dataIndex: "" },
         { title: "و.ج", dataIndex: "" },
         { title: "پنجره", dataIndex: "" },
-        { title: "توضیحات", dataIndex: "" },
+        {
+          title: "توضیحات",
+          dataIndex: "",
+          filterMode: "tree",
+          filterSearch: true,
+          onFilter: (value, record) => record.name.indexOf(value) === 0,
+        },
         {
           title: "عملیات",
           render: (_, render) => (
@@ -124,4 +137,4 @@ const StatesTable = ({ searchKey }) => {
   )
 }
 
-export default StatesTable
+export default EstatesTable

@@ -1,12 +1,12 @@
 import { useState } from "react"
 import { Button, Col, Input, Row } from "antd"
 import { SearchOutlined } from "@ant-design/icons"
-import StatesTable from "./states-table"
+import EstatesTable from "./estates-table"
 import { AdminLayout } from "../../layouts"
+import AddStateModal from "./add-estate-modal"
 import "./styles.scss"
-import AddStateModal from "./add-state-modal"
 
-const StatesPage = () => {
+const EstatesPage = () => {
   const [search, setSearch] = useState("")
   const [addModal, setAddModal] = useState(false)
   const { role } = JSON.parse(localStorage.getItem("user") || "{}")
@@ -42,11 +42,11 @@ const StatesPage = () => {
               </Col>
             ))}
         </Row>
-        <StatesTable searchKey={search} />
+        <EstatesTable searchKey={search} />
       </div>
       <AddStateModal isOpen={addModal} onClose={() => setAddModal(false)} />
     </AdminLayout>
   )
 }
 
-export default StatesPage
+export default EstatesPage

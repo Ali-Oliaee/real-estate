@@ -2,7 +2,7 @@ import { Button, Form, Input, InputNumber } from "antd"
 import { FloatLabel, ModalContainer } from "../../components"
 import { useValidators } from "../../hooks"
 
-const AddStateModal = ({ isOpen, onClose, onAdd }) => {
+const AddEstateModal = ({ isOpen, onClose, onAdd }) => {
   const [formInstance] = Form.useForm()
   const { requiredField } = useValidators()
   const handleConfirmStep = () => {
@@ -158,4 +158,4 @@ const AddStateModal = ({ isOpen, onClose, onAdd }) => {
   )
 }
 
-export default AddStateModal
+export default AddEstateModal

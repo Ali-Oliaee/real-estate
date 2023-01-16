@@ -8,7 +8,7 @@ import {
 
 export const managerMenuItems = [
   {
-    key: "/states",
+    key: "/estates",
     label: "املاک",
     icon: <HomeOutlined />,
   },
@@ -31,7 +31,7 @@ export const adminMenuItems = [
     icon: <CheckCircleOutlined />,
   },
   {
-    key: "/states",
+    key: "/estates",
     label: "املاک",
     icon: <HomeOutlined />,
   },
@@ -57,7 +57,7 @@ export const advisorMenuItems = [
 
 export const userMenuItems = [
   {
-    key: "/states",
+    key: "/estates",
     label: "املاک",
     icon: <HomeOutlined />,
   },

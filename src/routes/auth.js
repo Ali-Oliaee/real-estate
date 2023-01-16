@@ -2,16 +2,16 @@ import { createBrowserRouter } from "react-router-dom"
 import {
   UsersPage,
   ProfilePage,
-  StatesPage,
+  EstatesPage,
   CommitsPage,
-  AddStatePage,
+  AddEstatePage,
   NotFoundPage,
 } from "../pages"
 
 const authRouter = createBrowserRouter([
   {
-    path: "/states",
-    element: <StatesPage />,
+    path: "/estates",
+    element: <EstatesPage />,
   },
   {
     path: "/profile",
@@ -27,7 +27,7 @@ const authRouter = createBrowserRouter([
   },
   {
     path: "/add-state",
-    element: <AddStatePage />,
+    element: <AddEstatePage />,
   },
   {
     path: "*",
