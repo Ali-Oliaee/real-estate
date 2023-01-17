@@ -26,6 +26,8 @@ const ProfilePage = () => {
   const { requiredField, validEmail } = useValidators()
   // const { id: userId, last_login } = JSON.parse(localStorage.getItem("user"))
   const [formInstance] = Form.useForm()
+  const { role } = JSON.parse(localStorage.getItem("user") || "{}")
+  const hasAccess = role !== "manager"
   const [loading, setLoading] = useState(false)
   // const { data: currentUser, refetch } = useQuery("users", () =>
   //   getCurrentUser(userId)
@@ -82,14 +84,18 @@ const ProfilePage = () => {
           <div className="inline-container">
             <Form.Item name="full_name" rules={[requiredField]}>
               <FloatLabel label="نام">
-                <Input readOnly disabled value="امیر غفوری" />
+                <Input
+                  readOnly={hasAccess}
+                  disabled={hasAccess}
+                  value="امیر غفوری"
+                />
               </FloatLabel>
             </Form.Item>
             <Form.Item name="phone_number" rules={[requiredField]}>
               <FloatLabel label="شماره تلفن">
                 <Input
-                  readOnly
-                  disabled
+                  readOnly={hasAccess}
+                  disabled={hasAccess}
                   type="tel"
                   className="ltr-input"
                   value="0123456789"
@@ -98,23 +104,39 @@ const ProfilePage = () => {
             </Form.Item>
             <Form.Item name="email" rules={[requiredField, validEmail]}>
               <FloatLabel label="ایمیل">
-                <Input readOnly disabled type="email" className="ltr-input" />
+                <Input
+                  readOnly={hasAccess}
+                  disabled={hasAccess}
+                  type="email"
+                  className="ltr-input"
+                />
               </FloatLabel>
             </Form.Item>
             <Form.Item name="national_code" rules={[requiredField]}>
               <FloatLabel label="کد ملی">
-                <Input className="full-width ltr-input" readOnly disabled />
+                <Input
+                  className="full-width ltr-input"
+                  readOnly={hasAccess}
+                  disabled={hasAccess}
+                />
               </FloatLabel>
             </Form.Item>
             <Form.Item name="address" rules={[requiredField]}>
               <FloatLabel label="آدرس">
-                <Input.TextArea cols="21" rows="1" readOnly disabled />
+                <Input.TextArea
+                  cols="21"
+                  rows="1"
+                  readOnly={hasAccess}
+                  disabled={hasAccess}
+                />
               </FloatLabel>
             </Form.Item>
           </div>
-          <Button block loading={loading} type="primary" htmlType="submit">
-            ویرایش اطلاعات
-          </Button>
+          {!hasAccess && (
+            <Button block loading={loading} type="primary" htmlType="submit">
+              ویرایش اطلاعات
+            </Button>
+          )}
         </Form>
       </div>
     </AdminLayout>
