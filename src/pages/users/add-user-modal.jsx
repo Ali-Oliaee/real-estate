@@ -1,19 +1,23 @@
+import { useState } from "react"
 import { Button, Form, Input, Select } from "antd"
 import { FloatLabel, ModalContainer } from "../../components"
+import axios from "../../utils/axios"
 import { useValidators } from "../../hooks"
 
-const AddUserModal = ({ isOpen, onClose, onAdd }) => {
+const AddUserModal = ({ isOpen, onClose }) => {
   const [formInstance] = Form.useForm()
   const { requiredField } = useValidators()
-  const handleConfirmStep = () => {
-    formInstance
-      .validateFields()
-      .then((values) => {
-        console.log(values)
+  const [loading, setLoading] = useState(false)
+
+  const handleConfirmStep = (values) => {
+    console.log(values)
+    setLoading(true)
+    axios
+      .post("/users/register/", values)
+      .then((res) => {
+        console.log(res)
       })
-      .catch((errorInfo) => {
-        console.log(errorInfo)
-      })
+      .finally(() => setLoading(false))
   }
 
   return (
@@ -21,30 +25,8 @@ const AddUserModal = ({ isOpen, onClose, onAdd }) => {
       centered
       open={isOpen}
       onCancel={onClose}
-      //   confirmLoading={isSubmitting}
-      //   afterClose={() => formInstance.resetFields()}
-      wrapProps={{
-        id: "modal-with-infinite-scroll-table",
-      }}
-      title={
-        <div className="modal-header">
-          <span>افزودن شخص</span>
-        </div>
-      }
-      footer={
-        <div className="footer-cta-btns-container">
-          <Button
-            type="primary"
-            htmlType="submit"
-            onClick={handleConfirmStep}
-            size="large"
-            block
-            // loading={isSubmitting}
-          >
-            افزودن
-          </Button>
-        </div>
-      }
+      title={<span>افزودن شخص</span>}
+      footer={null}
     >
       <Form
         form={formInstance}
@@ -68,23 +50,25 @@ const AddUserModal = ({ isOpen, onClose, onAdd }) => {
             <Input type="text" className="ltr-input" />
           </FloatLabel>
         </Form.Item>
-        <Select
-          placeholder="نقش"
-          options={[
-            {
-              value: "ادمین",
-              label: "ادمین",
-            },
-            {
-              value: "ویرایشگر",
-              label: "ویرایشگر",
-            },
-            {
-              value: "کاربر",
-              label: "کاربر",
-            },
-          ]}
-        />
+        <Form.Item name="role" rules={[requiredField]}>
+          <Select
+            placeholder="نقش"
+            options={[
+              {
+                value: "ادمین",
+                label: "ادمین",
+              },
+              {
+                value: "ویرایشگر",
+                label: "ویرایشگر",
+              },
+              {
+                value: "کاربر",
+                label: "کاربر",
+              },
+            ]}
+          />
+        </Form.Item>
         <Form.Item name="password" rules={[requiredField]}>
           <FloatLabel label="رمز عبور">
             <Input type="text" className="ltr-input" />
@@ -100,6 +84,15 @@ const AddUserModal = ({ isOpen, onClose, onAdd }) => {
             <Input.TextArea cols="21" rows="1" />
           </FloatLabel>
         </Form.Item>
+        <Button
+          loading={loading}
+          htmlType="submit"
+          type="primary"
+          size="large"
+          block
+        >
+          افزودن
+        </Button>
       </Form>
     </ModalContainer>
   )

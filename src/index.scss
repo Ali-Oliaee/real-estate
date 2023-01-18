@@ -1,8 +1,14 @@
+@font-face {
+    font-family: 'vazirmatn';
+    src: url('./assets/fonts/Vazirmatn-Regular.ttf');
+}
+
 * { 
     box-sizing: border-box;
     margin: 0;
     padding: 0;
     user-select: none;
+    font-family: 'vazirmatn', sans-serif;
 
 
     .ant-table-container::after,

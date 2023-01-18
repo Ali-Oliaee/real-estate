@@ -1,6 +1,5 @@
 import { useState } from "react"
 import { Form, Input, Button, message } from "antd"
-import { Link } from "react-router-dom"
 import axios from "../../utils/axios"
 import { useValidators } from "../../hooks"
 import { GuestLayout } from "../../layouts"
@@ -9,47 +8,39 @@ import "./styles.scss"
 
 const LoginPage = () => {
   const [form] = Form.useForm()
-  const [isSubmitting, setSubmitting] = useState(false)
-  // const history = useHistory()
+  const [loading, setLoading] = useState(false)
   const { requiredUsername, requiredPassword } = useValidators()
 
-  // const handleLogin = () => {
-  //   form.validateFields().then(({ phone_number, password }) => {
-  //     setSubmitting(true)
-  //     axios
-  //       .post("/users/login/", { password, phone_number: `+98${phone_number}` })
-  //       .then(({ data }) => {
-  //         const temp = {
-  //           ...data.user,
-  //           // last_login: dayjs(),
-  //           role: data.role,
-  //         }
-  //         localStorage.setItem("api_key", JSON.stringify(data.tokens))
-  //         localStorage.setItem("user", JSON.stringify(temp))
-  //         window.location.reload()
-  //         history.push("/")
-  //       })
-  //       .catch(({ response }) => {
-  //         const { data } = response
-  //         message.error(data?.message ? data.message : data?.phone_number)
-  //       })
-  //       .finally(() => setSubmitting(false))
-  //   })
-  // }
+  const handleLogin = ({ username, password }) => {
+    console.log(username, password)
+    setLoading(true)
+    axios
+      .post("users/login/", { username, password })
+      .then((data) => {
+        console.log(data)
+        // const temp = {
+        //   ...data.user,
+        //   // last_login: dayjs(),
+        //   role: data.role,
+        // }
+        // localStorage.setItem("api_key", JSON.stringify(data.tokens))
+        // localStorage.setItem("user", JSON.stringify(temp))
+      })
+      .catch(({ response }) => {
+        const { data } = response
+        message.error(data?.message ? data.message : data?.phone_number)
+      })
+      .finally(() => setLoading(false))
+  }
 
   return (
     <GuestLayout>
       <SmoothList delay={100} transitionDuration={500} className="animate-form">
         <div className="inner">
-          <Form
-            form={form}
-            // onFinish={handleLogin}
-            className="login-form"
-            // initialValues={history.location.state}
-          >
+          <Form form={form} onFinish={handleLogin} className="login-form">
             <SmoothList delay={200} transitionDuration={400}>
               <h3 className="form-title">پنل مدیریتی املاک اشراف</h3>
-              <Form.Item name="phone_number" rules={[requiredUsername]}>
+              <Form.Item name="username" rules={[requiredUsername]}>
                 <Input
                   placeholder="نام کاربری"
                   size="large"
@@ -71,7 +62,7 @@ const LoginPage = () => {
                   htmlType="submit"
                   block
                   className="login-button"
-                  loading={isSubmitting}
+                  loading={loading}
                   size="large"
                 >
                   ورود به حساب
