@@ -17,6 +17,8 @@ export const queryClient = new QueryClient({
 })
 
 function App() {
+  const isAuth = localStorage.getItem("token")
+
   useEffect(() => {
     document.addEventListener("contextmenu", (e) => {
       e.preventDefault()
@@ -26,7 +28,7 @@ function App() {
   return (
     <QueryClientProvider client={queryClient}>
       <ConfigProvider direction="rtl" locale={IR}>
-        <RouterProvider router={true ? authRouter : guestRouter} />
+        <RouterProvider router={isAuth ? authRouter : guestRouter} />
       </ConfigProvider>
     </QueryClientProvider>
   )

@@ -1,5 +1,6 @@
 import { useState } from "react"
 import { Form, Input, Button, message } from "antd"
+import { useNavigate } from "react-router-dom"
 import axios from "../../utils/axios"
 import { useValidators } from "../../hooks"
 import { GuestLayout } from "../../layouts"
@@ -9,26 +10,23 @@ import "./styles.scss"
 const LoginPage = () => {
   const [form] = Form.useForm()
   const [loading, setLoading] = useState(false)
+  const navigate = useNavigate()
   const { requiredUsername, requiredPassword } = useValidators()
 
   const handleLogin = ({ username, password }) => {
-    console.log(username, password)
     setLoading(true)
     axios
       .post("users/login/", { username, password })
-      .then((data) => {
-        console.log(data)
-        // const temp = {
-        //   ...data.user,
-        //   // last_login: dayjs(),
-        //   role: data.role,
-        // }
-        // localStorage.setItem("api_key", JSON.stringify(data.tokens))
-        // localStorage.setItem("user", JSON.stringify(temp))
+      .then(({ data }) => {
+        localStorage.setItem("token", JSON.stringify(data.tokens))
+        localStorage.setItem("user", JSON.stringify(data.user))
+        message.success("شما با موفقیت وارد شدید")
+        navigate("/estates")
+        window.location.reload()
       })
       .catch(({ response }) => {
         const { data } = response
-        message.error(data?.message ? data.message : data?.phone_number)
+        message.error(data?.username ?? data?.password)
       })
       .finally(() => setLoading(false))
   }

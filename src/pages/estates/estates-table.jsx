@@ -3,6 +3,7 @@ import { Button, message, Popconfirm, Table } from "antd"
 import qs from "query-string"
 import Fuse from "fuse.js"
 import {
+  CloseOutlined,
   CommentOutlined,
   DeleteOutlined,
   EditOutlined,
@@ -79,7 +80,7 @@ const data = [
   },
 ]
 
-const EstatesTable = ({ searchKey }) => {
+const EstatesTable = ({ searchKey, fullscreen, setFullscreen }) => {
   const [isModalVisible, setIsModalVisible] = React.useState(false)
   const { role } = JSON.parse(localStorage.getItem("user") || "{}")
   // const { data, refetch, isLoading } = useUsers()
@@ -106,7 +107,17 @@ const EstatesTable = ({ searchKey }) => {
 
   return (
     <>
+      {fullscreen && (
+        <Button
+          type="ghost"
+          className="exit-fullscreen-button"
+          onClick={() => setFullscreen(false)}
+        >
+          <CloseOutlined />
+        </Button>
+      )}
       <Table
+        className={fullscreen && "fullscreen-table"}
         columns={[
           {
             title: "ردیف",
