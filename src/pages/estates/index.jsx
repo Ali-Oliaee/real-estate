@@ -5,9 +5,9 @@ import EstatesTable from "./estates-table"
 import { AdminLayout } from "../../layouts"
 import AddStateModal from "./add-estate-modal"
 import { getEstates } from "../../api/estates"
-import "./styles.scss"
 import SearchBar from "./search-bar"
 import { useQuery } from "react-query"
+import "./styles.scss"
 
 const EstatesPage = () => {
   const [fullscreen, setFullscreen] = useState(false)
@@ -30,24 +30,23 @@ const EstatesPage = () => {
               <Button size="large">جستجوی پیشرفته</Button>
             </Popover>
           </Col>
-          {role === "admin" ||
-            (role === "manager" && (
-              <Col
-                sm={12}
-                md={8}
-                lg={12}
-                style={{ display: "flex", justifyContent: "flex-end" }}
+          {(role === "assistant" || role === "manager") && (
+            <Col
+              sm={12}
+              md={8}
+              lg={12}
+              style={{ display: "flex", justifyContent: "flex-end" }}
+            >
+              <Button
+                size="large"
+                type="primary"
+                className="add-button"
+                onClick={() => setAddModal(true)}
               >
-                <Button
-                  size="large"
-                  type="primary"
-                  className="add-button"
-                  onClick={() => setAddModal(true)}
-                >
-                  افزودن ملک +
-                </Button>
-              </Col>
-            ))}
+                افزودن ملک +
+              </Button>
+            </Col>
+          )}
           <Button size="large" type="ghost" onClick={() => setFullscreen(true)}>
             <FullscreenOutlined />
           </Button>
@@ -60,7 +59,11 @@ const EstatesPage = () => {
           refetch={refetch}
         />
       </div>
-      <AddStateModal isOpen={addModal} onClose={() => setAddModal(false)} />
+      <AddStateModal
+        isOpen={addModal}
+        onClose={() => setAddModal(false)}
+        refetch={refetch}
+      />
     </AdminLayout>
   )
 }

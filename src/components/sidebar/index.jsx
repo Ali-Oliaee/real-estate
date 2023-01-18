@@ -31,7 +31,7 @@ const SideMenu = () => {
             navigate(key, { replace: true })
           }}
           items={
-            role === "manager"
+            role === "manager" || role === "assistant"
               ? managerMenuItems
               : role === "admin"
               ? adminMenuItems

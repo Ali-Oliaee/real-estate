@@ -19,6 +19,12 @@ const EstatesTable = ({
       refetch()
     })
 
+  const deleteEstate = (id) =>
+    axios.delete(`/estate/list/${id}/`).then(() => {
+      message.success("ملک با موفقیت حذف شد")
+      refetch()
+    })
+
   return (
     <>
       {fullscreen && (
@@ -83,11 +89,11 @@ const EstatesTable = ({
           },
           {
             title: "عملیات",
-            render: (_, render) => (
+            render: (estate) => (
               <div className="action-buttons">
                 <Popconfirm
                   title="آیا از حذف ملک اطمینان دارید؟"
-                  // onConfirm={() => deleteUser(render)}
+                  onConfirm={() => deleteEstate(estate.id)}
                   okText="بله"
                   cancelText="خیر"
                 >
