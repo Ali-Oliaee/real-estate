@@ -24,13 +24,7 @@ const AddEstatePage = () => {
 
   return (
     <AdminLayout>
-      <Form
-        size="large"
-        form={form}
-        onFinish={AddEstate}
-        name="user-profile-form"
-        requiredMark={false}
-      >
+      <Form size="large" form={form} onFinish={AddEstate} requiredMark={false}>
         <Form.Item name="owner_name">
           <FloatLabel label="نام">
             <Input />

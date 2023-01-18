@@ -1,5 +1,6 @@
 .estates-page  {
 
+
   .header {
     margin-bottom: 24px;
 
@@ -127,4 +128,14 @@
     }
   }
 
+}
+
+.add-estate-form {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: center;
+  .input {
+    width: 200px;
+  }
 }

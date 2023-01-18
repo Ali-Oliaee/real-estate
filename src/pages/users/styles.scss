@@ -67,3 +67,17 @@
     }
   }
 }
+
+.add-user-form {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: center;
+  .input {
+    width: 200px;
+  }
+  .password-input {
+    border-radius: 8px;
+    height: auto;
+  }
+}

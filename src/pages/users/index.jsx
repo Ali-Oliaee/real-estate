@@ -10,6 +10,7 @@ import "./styles.scss"
 
 const UsersPage = () => {
   const [search, setSearch] = useState("")
+  const [showModal, setShowModal] = useState(false)
   const { role } = JSON.parse(localStorage.getItem("user") || "{}")
   const { data, isLoading, refetch } = useQuery("users", () => getUsers())
 
@@ -25,19 +26,23 @@ const UsersPage = () => {
               onChange={({ target: { value } }) => setSearch(value)}
             />
           </Col>
-          {role === "admin" ||
-            (role === "manager" && (
-              <Col
-                sm={12}
-                md={8}
-                lg={12}
-                style={{ display: "flex", justifyContent: "flex-end" }}
+          {(role === "assistant" || role === "manager") && (
+            <Col
+              sm={12}
+              md={8}
+              lg={12}
+              style={{ display: "flex", justifyContent: "flex-end" }}
+            >
+              <Button
+                size="large"
+                type="primary"
+                className="add-button"
+                onClick={() => setShowModal(true)}
               >
-                <Button size="large" type="primary" className="add-button">
-                  افزودن شخص +
-                </Button>
-              </Col>
-            ))}
+                افزودن شخص +
+              </Button>
+            </Col>
+          )}
         </Row>
         <PeopleTable
           searchKey={search}
@@ -46,7 +51,11 @@ const UsersPage = () => {
           refetch={refetch}
         />
       </div>
-      <AddUserModal refetch={refetch} />
+      <AddUserModal
+        refetch={refetch}
+        isOpen={showModal}
+        onClose={() => setShowModal(false)}
+      />
     </AdminLayout>
   )
 }

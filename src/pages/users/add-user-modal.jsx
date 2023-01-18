@@ -3,6 +3,7 @@ import { Button, Form, Input, message, Select } from "antd"
 import { FloatLabel, ModalContainer } from "../../components"
 import axios from "../../utils/axios"
 import { useValidators } from "../../hooks"
+import "./styles.scss"
 
 const AddUserModal = ({ isOpen, onClose, refetch }) => {
   const [formInstance] = Form.useForm()
@@ -37,63 +38,67 @@ const AddUserModal = ({ isOpen, onClose, refetch }) => {
         onFinish={handleConfirmStep}
         requiredMark={false}
       >
-        <Form.Item name="username" rules={[requiredField]}>
-          <FloatLabel label="نام کاربری">
-            <Input />
-          </FloatLabel>
-        </Form.Item>
-        <Form.Item name="fullname" rules={[requiredField]}>
-          <FloatLabel label="نام و نام خانوادگی">
-            <Input type="text" className="ltr-input" />
-          </FloatLabel>
-        </Form.Item>
-        <Form.Item name="password" rules={[requiredField]}>
-          <FloatLabel label="رمزعبور">
-            <Input type="tel" className="ltr-input ltr-suffix" />
-          </FloatLabel>
-        </Form.Item>
-        <Form.Item name="phone">
-          <FloatLabel label="شماره تلفن">
-            <Input type="text" className="ltr-input" />
-          </FloatLabel>
-        </Form.Item>
-        <Form.Item name="address">
-          <FloatLabel label="آدرس">
-            <Input type="text" className="ltr-input" />
-          </FloatLabel>
-        </Form.Item>
-        <Form.Item name="access_codes">
-          <FloatLabel label="دسترسی">
-            <Input type="text" className="ltr-input" />
-          </FloatLabel>
-        </Form.Item>
-        <Form.Item name="role" rules={[requiredField]}>
-          <Select
-            placeholder="نقش"
-            options={[
-              {
-                value: "manager",
-                label: "مدیر",
-              },
-              {
-                value: "assistant",
-                label: "معاون",
-              },
-              {
-                value: "admin",
-                label: "ادمین",
-              },
-              {
-                value: "advisor",
-                label: "مشاور",
-              },
-              {
-                value: "user",
-                label: "کاربر",
-              },
-            ]}
-          />
-        </Form.Item>
+        <div className="add-user-form">
+          <Form.Item name="username" rules={[requiredField]}>
+            <FloatLabel label="نام کاربری">
+              <Input className="input" />
+            </FloatLabel>
+          </Form.Item>
+          <Form.Item name="fullname" rules={[requiredField]}>
+            <FloatLabel label="نام و نام خانوادگی">
+              <Input className="input" />
+            </FloatLabel>
+          </Form.Item>
+          <Form.Item name="password" rules={[requiredField]}>
+            <FloatLabel label="رمزعبور">
+              <Input.Password size="small" className="input password-input" />
+            </FloatLabel>
+          </Form.Item>
+          <Form.Item name="phone">
+            <FloatLabel label="شماره تلفن">
+              <Input className="input" />
+            </FloatLabel>
+          </Form.Item>
+          <Form.Item name="address">
+            <FloatLabel label="آدرس">
+              <Input className="input" />
+            </FloatLabel>
+          </Form.Item>
+          <Form.Item name="access_codes">
+            <FloatLabel label="دسترسی">
+              <Input className="input" />
+            </FloatLabel>
+          </Form.Item>
+          <Form.Item name="role" rules={[requiredField]}>
+            <Select
+              className="input"
+              placeholder="نقش"
+              size="large"
+              options={[
+                {
+                  value: "manager",
+                  label: "مدیر",
+                },
+                {
+                  value: "assistant",
+                  label: "معاون",
+                },
+                {
+                  value: "admin",
+                  label: "ادمین",
+                },
+                {
+                  value: "advisor",
+                  label: "مشاور",
+                },
+                {
+                  value: "user",
+                  label: "کاربر",
+                },
+              ]}
+            />
+          </Form.Item>
+        </div>
         <Button
           style={{ marginBottom: 20 }}
           loading={loading}
