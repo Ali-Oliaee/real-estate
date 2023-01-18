@@ -1,106 +1,119 @@
-import { Button, Form, Input, Spin, Select } from "antd"
+import { Button, Form, Input, Spin, Select, message } from "antd"
+import axios from "../../utils/axios"
+import { useEffect, useState } from "react"
+import { useQuery } from "react-query"
+import { useParams } from "react-router-dom"
+import { getUser } from "../../api/users"
+import { useNavigate } from "react-router-dom"
 import { FloatLabel, ModalContainer } from "../../components"
 import { useValidators } from "../../hooks"
 
-const EditUserModal = ({ isOpen, onClose, onAdd }) => {
+const EditUserModal = () => {
   const [formInstance] = Form.useForm()
+  const [loading, setLoading] = useState(false)
+  const navigate = useNavigate()
   const { requiredField } = useValidators()
-  const handleConfirmStep = () => {
-    formInstance
-      .validateFields()
-      .then((values) => {
-        console.log(values)
+  const { id } = useParams()
+  const { data, isLoading, refetch } = useQuery("user", () => getUser(id))
+
+  const handleConfirmStep = (values) => {
+    setLoading(true)
+    axios
+      .patch(`/users/list/${id}/`, values)
+      .then(() => {
+        message.success("کاربر با موفقیت ویرایش گردید.")
+        navigate("/users")
+        refetch()
       })
-      .catch((errorInfo) => {
-        console.log(errorInfo)
-      })
+      .finally(() => setLoading(false))
   }
+
+  useEffect(() => {
+    refetch()
+    data && formInstance.setFieldsValue(data)
+  }, [id])
 
   return (
     <ModalContainer
       centered
-      open={isOpen}
-      onCancel={onClose}
-      //   confirmLoading={isSubmitting}
-      //   afterClose={() => formInstance.resetFields()}
-      wrapProps={{
-        id: "modal-with-infinite-scroll-table",
+      open={!!id}
+      onCancel={() => {
+        formInstance.resetFields()
+        navigate("/users")
       }}
+      confirmLoading={isLoading}
+      afterClose={formInstance.resetFields}
       title={
         <div className="modal-header">
           <span>ویرایش شخص</span>
         </div>
       }
-      footer={
-        <div className="footer-cta-btns-container">
-          <Button
-            type="primary"
-            htmlType="submit"
-            onClick={handleConfirmStep}
-            size="large"
-            block
-            // loading={isSubmitting}
-          >
-            ویرایش
-          </Button>
-        </div>
-      }
+      footer={false}
     >
-      <Spin spinning size="large">
+      <Spin spinning={isLoading} size="large">
         <Form
           form={formInstance}
-          size="large"
           colon={false}
           onFinish={handleConfirmStep}
           requiredMark={false}
         >
-          <Form.Item name="full_name" rules={[requiredField]}>
+          <Form.Item name="fullname" rules={[requiredField]}>
             <FloatLabel label="نام">
               <Input />
             </FloatLabel>
           </Form.Item>
-          <Form.Item name="phone_number" rules={[requiredField]}>
+          <Form.Item name="username" rules={[requiredField]}>
+            <FloatLabel label="نام کاربری">
+              <Input />
+            </FloatLabel>
+          </Form.Item>
+          <Form.Item name="phone">
             <FloatLabel label="شماره تلفن">
               <Input type="tel" className="ltr-input ltr-suffix" />
             </FloatLabel>
           </Form.Item>
-          <Select
-            placeholder="نقش"
-            options={[
-              {
-                value: "ادمین",
-                label: "ادمین",
-              },
-              {
-                value: "ویرایشگر",
-                label: "ویرایشگر",
-              },
-              {
-                value: "کاربر",
-                label: "کاربر",
-              },
-            ]}
-          />
-          <Form.Item name="email" rules={[requiredField]}>
+          <Form.Item name="role">
+            <Select
+              placeholder="نقش"
+              options={[
+                {
+                  value: "manager",
+                  label: "مدیر",
+                },
+                {
+                  value: "assistant",
+                  label: "معاون",
+                },
+                {
+                  value: "admin",
+                  label: "ادمین",
+                },
+                {
+                  value: "advisor",
+                  label: "مشاور",
+                },
+                {
+                  value: "user",
+                  label: "کاربر",
+                },
+              ]}
+            />
+          </Form.Item>
+          <Form.Item name="address">
             <FloatLabel label="آدرس">
               <Input type="text" className="ltr-input" />
             </FloatLabel>
           </Form.Item>
-          <Form.Item name="email" rules={[requiredField]}>
-            <FloatLabel label="رمز عبور">
-              <Input type="text" className="ltr-input" />
-            </FloatLabel>
-          </Form.Item>
-          <Form.Item name="national_code" rules={[requiredField]}>
-            <FloatLabel label="ایمیل">
-              <Input className="full-width ltr-input" />
-            </FloatLabel>
-          </Form.Item>
-          <Form.Item name="address" rules={[requiredField]}>
-            <FloatLabel label="توضیحات">
-              <Input.TextArea cols="21" rows="1" />
-            </FloatLabel>
-          </Form.Item>
+          <Button
+            style={{ marginBottom: 20 }}
+            type="primary"
+            htmlType="submit"
+            size="large"
+            block
+            loading={loading}
+          >
+            ویرایش
+          </Button>
         </Form>
       </Spin>
     </ModalContainer>

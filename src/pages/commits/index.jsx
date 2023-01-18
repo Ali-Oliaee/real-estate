@@ -1,27 +1,33 @@
 import { useState } from "react"
-import { Col, Input, Row } from "antd"
-import { SearchOutlined } from "@ant-design/icons"
+import { Button, Col, Row } from "antd"
 import CommitsTable from "./commits-table"
 import { AdminLayout } from "../../layouts"
 import "./styles.scss"
+import { useQuery } from "react-query"
+import { getPendingEstates } from "../../api/estates"
 
 const CommitsPage = () => {
-  const [search, setSearch] = useState("")
+  const [fullscreen, setFullscreen] = useState(false)
+  const { data, refetch, isLoading } = useQuery(
+    "pending-estates",
+    getPendingEstates
+  )
 
   return (
     <AdminLayout>
-      <div className="states-page">
+      <div className="estates-page">
         <Row align="middle" justify="space-between" className="header">
           <Col sm={12} md={8} lg={8}>
-            <Input
-              placeholder="جستجو"
-              size="large"
-              suffix={<SearchOutlined />}
-              onChange={({ target: { value } }) => setSearch(value)}
-            />
+            <Button onClick={() => setFullscreen(true)}>نمایش تمام صفحه</Button>
           </Col>
         </Row>
-        <CommitsTable searchKey={search} />
+        <CommitsTable
+          fullscreen={fullscreen}
+          setFullscreen={setFullscreen}
+          data={data}
+          loading={isLoading}
+          refetch={refetch}
+        />
       </div>
     </AdminLayout>
   )

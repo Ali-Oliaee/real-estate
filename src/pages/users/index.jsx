@@ -3,13 +3,15 @@ import { Button, Col, Input, Row } from "antd"
 import { SearchOutlined } from "@ant-design/icons"
 import PeopleTable from "./users-table"
 import { AdminLayout } from "../../layouts"
-import "./styles.scss"
+import { getUsers } from "../../api/users"
+import { useQuery } from "react-query"
 import AddUserModal from "./add-user-modal"
+import "./styles.scss"
 
 const UsersPage = () => {
-  const [addModalOpen, setAddModalOpen] = useState(false)
   const [search, setSearch] = useState("")
   const { role } = JSON.parse(localStorage.getItem("user") || "{}")
+  const { data, isLoading, refetch } = useQuery("users", () => getUsers())
 
   return (
     <AdminLayout>
@@ -31,23 +33,20 @@ const UsersPage = () => {
                 lg={12}
                 style={{ display: "flex", justifyContent: "flex-end" }}
               >
-                <Button
-                  size="large"
-                  type="primary"
-                  className="add-button"
-                  onClick={() => setAddModalOpen(true)}
-                >
+                <Button size="large" type="primary" className="add-button">
                   افزودن شخص +
                 </Button>
               </Col>
             ))}
         </Row>
-        <PeopleTable searchKey={search} />
+        <PeopleTable
+          searchKey={search}
+          data={data}
+          loading={isLoading}
+          refetch={refetch}
+        />
       </div>
-      <AddUserModal
-        isOpen={addModalOpen}
-        onClose={() => setAddModalOpen(false)}
-      />
+      <AddUserModal refetch={refetch} />
     </AdminLayout>
   )
 }

@@ -1,145 +1,104 @@
-import React from "react"
 import { Button, message, Popconfirm, Table } from "antd"
-// import { useHistory } from "react-router-dom"
-import qs from "query-string"
-import Fuse from "fuse.js"
-import {
-  CheckCircleFilled,
-  CheckSquareOutlined,
-  DeleteOutlined,
-  EditOutlined,
-  InfoCircleTwoTone,
-  InfoOutlined,
-} from "@ant-design/icons"
-import ConfirmEstateModal from "./confirm-modal"
-// import { axios } from "../../utils"
+import { CheckCircleFilled, CloseOutlined } from "@ant-design/icons"
+import axios from "../../utils/axios"
+import "./styles.scss"
 
-const data = [
-  {
-    key: "1",
-    full_name: "محمدرضا",
-    phone_number: "09123456789",
-    email: "vlfv@vdf.vdf",
-    national_code: "1234567890",
-    province: "تهران",
-    city: "تهران",
-    postal_code: "1234567890",
-    address: "تهران، خیابان شهید بهشتی، پلاک ۱۲۳",
-  },
-  {
-    key: "2",
-    full_name: "محمدرضا",
-    phone_number: "09123456789",
-    email: "vlfv@vdf.vdf",
-    national_code: "1234567890",
-    province: "تهران",
-    city: "تهران",
-    postal_code: "1234567890",
-    address: "تهران، خیابان شهید بهشتی، پلاک ۱۲۳",
-  },
-]
-
-const CommitsTable = ({ searchKey }) => {
-  const [modalVisible, setModalVisible] = React.useState(false)
-  // const { data, refetch, isLoading } = useUsers()
-  // const history = useHistory()
-  const { role } = JSON.parse(localStorage.getItem("user") || "{}")
-  // const fuse = new Fuse(data ?? [], {
-  //   keys: [
-  //     "full_name",
-  //     "email",
-  //     "phone_number",
-  //     "national_code",
-  //     "city",~
-  //     "province",
-  //     "address",
-  //     "postal_code",
-  //   ],
-  // })
-  // const result = !searchKey ? data : fuse.search(searchKey || "")
-
-  // const deleteUser = ({ id }) =>
-  //   axios.delete(`panel/users/${id}/`).then(() => {
-  //     message.success("کاربر با موفقیت حذف گردید.")
-  //     refetch()
-  //   })
-
-  // const editUser = ({ id }) =>
-  //   history.push({
-  //     search: qs.stringify({
-  //       ...qs.parse(history.location.search),
-  //       user_id: id,
-  //     }),
-  //   })
+const CommitsTable = ({
+  data,
+  fullscreen,
+  setFullscreen,
+  loading,
+  refetch,
+}) => {
+  const onClick = (id, status) =>
+    axios.post("/estate/change-status/", { home: id, status }).then(() => {
+      status
+        ? message.success("ملک با موفقیت تایید شد.")
+        : message.success("ملک با موفقیت رد شد.")
+      refetch()
+    })
 
   return (
     <>
+      {fullscreen && (
+        <Button
+          type="ghost"
+          className="exit-fullscreen-button"
+          onClick={() => setFullscreen(false)}
+        >
+          <CloseOutlined />
+        </Button>
+      )}
       <Table
+        className={fullscreen && "fullscreen-table"}
         columns={[
-          {
-            title: "ردیف",
-            dataIndex: "key",
-            render: (text, record, index) => (
-              <Button
-                style={{ border: 0, boxShadow: "none" }}
-                onClick={() => setModalVisible(true)}
-              >
-                {text}
-                <InfoCircleTwoTone />
-              </Button>
-            ),
-          },
-          { title: "شماره تلفن", dataIndex: "phone_number", className: "ltr" },
-          { title: "کد", dataIndex: "key" },
-          { title: "تاریخ", dataIndex: "national_code" },
-          { title: "مالک", dataIndex: "full_name" },
-          { title: "خیابان", dataIndex: "city" },
-          { title: "پلاک", dataIndex: "postal_code" },
-          { title: "طبقات", dataIndex: "address" },
+          { title: "ردیف", dataIndex: "id" },
+          { title: "شماره تلفن", dataIndex: "owner_phone" },
+          { title: "کد", dataIndex: "area_code" },
+          { title: "تاریخ", dataIndex: "created_at" },
+          { title: "مالک", dataIndex: "owner_name" },
+          { title: "خیابان", dataIndex: "street" },
+          { title: "پلاک", dataIndex: "plaque" },
+          { title: "طبقات", dataIndex: "floors" },
           {
             title: "متراژ",
-            dataIndex: "address",
-            sorter: (a, b) => a.address - b.address,
+            dataIndex: "meterage",
+            sorter: (a, b) => a.meterage - b.meterage,
+          },
+          {
+            title: "قیمت متر مربع",
+            dataIndex: "price_per_meter",
+            sorter: (a, b) => a.cost - b.cost,
           },
           {
             title: "قیمت کل",
-            dataIndex: "",
-            sorter: (a, b) => a.address - b.address,
+            dataIndex: "total_price",
+            sorter: (a, b) => a.cost - b.cost,
           },
-          { title: "مشتری", dataIndex: "" },
-          { title: "سبک", dataIndex: "" },
-          { title: "مشتری", dataIndex: "" },
-          { title: "گرمایش", dataIndex: "" },
-          { title: "کف", dataIndex: "" },
-          { title: "برق", dataIndex: "" },
-          { title: "مطبخ", dataIndex: "" },
-          { title: "شیرآلات", dataIndex: "" },
-          { title: "و.ج", dataIndex: "" },
-          { title: "پنجره", dataIndex: "" },
+          { title: "مشتری", dataIndex: "customer_name" },
+          { title: "سبک", dataIndex: "style" },
+          { title: "گرمایش", dataIndex: "heating" },
+          { title: "کف", dataIndex: "bottom" },
+          { title: "برق", dataIndex: "electricity" },
+          { title: "مطبخ", dataIndex: "kitchen" },
+          { title: "شیرآلات", dataIndex: "faucets" },
+          { title: "وان و جکوزی", dataIndex: "bathtub" },
+          { title: "پنجره", dataIndex: "window" },
           {
             title: "توضیحات",
-            dataIndex: "",
+            dataIndex: "description",
             filterMode: "tree",
             filterSearch: true,
             onFilter: (value, record) => record.name.indexOf(value) === 0,
           },
+          {
+            title: "عملیات",
+            render: (text, record) => {
+              return (
+                <div style={{ display: "flex", alignItems: "center" }}>
+                  <Popconfirm
+                    title="آیا از رد این ملک اطمینان دارید؟"
+                    onConfirm={() => onClick(record.id, false)}
+                  >
+                    <Button type="ghost" style={{ color: "red" }}>
+                      رد
+                    </Button>
+                  </Popconfirm>
+                  <Button
+                    onClick={() => onClick(record.id, true)}
+                    type="ghost"
+                    icon={<CheckCircleFilled style={{ color: "green" }} />}
+                  />
+                </div>
+              )
+            },
+          },
         ]}
         dataSource={data}
-        // dataSource={
-        //   !searchKey
-        //     ? !Array.isArray(data)
-        //       ? [data]
-        //       : data
-        //     : result.map(({ item }) => item)
-        // }
-        // rowKey="id"
-        // loading={isLoading}
+        rowKey="id"
+        loading={loading}
         pagination={false}
         scroll={{ x: 1024 }}
-      />
-      <ConfirmEstateModal
-        isOpen={modalVisible}
-        onClose={() => setModalVisible(false)}
       />
     </>
   )

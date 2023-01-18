@@ -1,109 +1,23 @@
 import React from "react"
-import { Button, message, Popconfirm, Table } from "antd"
-import qs from "query-string"
-import Fuse from "fuse.js"
-import {
-  CloseOutlined,
-  CommentOutlined,
-  DeleteOutlined,
-  EditOutlined,
-} from "@ant-design/icons"
+import { Button, Input, message, Popconfirm, Table } from "antd"
+import { CloseOutlined, DeleteOutlined, EditOutlined } from "@ant-design/icons"
 import EditEstateModal from "./edit-estate-modal"
-// import { axios } from "../../utils"
+import axios from "../../utils/axios"
 
-const data = [
-  {
-    key: "1",
-    full_name: "محمدرضا شریفی",
-    phone_number: "09123456789",
-    code: "A2",
-    date: "1399/12/12",
-    street: "خیابان شهید بهشتی",
-    houseNumber: "12",
-    floors: "4",
-    meterage: "120",
-    cost: "1240",
-    customer: "سینا موسوی",
-    type: "مدرن",
-    heating: "گاز",
-    floor: "پارکت",
-    electric: "ندارد",
-    kitchen: "اپن",
-    faucets: "استیل",
-    vg: "ندارد",
-    window: "پنجره",
-    description: "توضیحات",
-  },
-  {
-    key: "2",
-    full_name: "محمدرضا شریفی",
-    phone_number: "09123456789",
-    code: "A2",
-    date: "1399/12/12",
-    street: "خیابان شهید بهشتی",
-    houseNumber: "12",
-    floors: "4",
-    meterage: "100",
-    cost: "1200",
-    customer: "سینا موسوی",
-    type: "مدرن",
-    heating: "گاز",
-    floor: "پارکت",
-    electric: "ندارد",
-    kitchen: "اپن",
-    faucets: "استیل",
-    vg: "ندارد",
-    window: "پنجره",
-    description: "توضیحات",
-  },
-  {
-    key: "3",
-    full_name: "محمدرضا شریفی",
-    phone_number: "09123456789",
-    code: "A2",
-    date: "1399/12/12",
-    street: "خیابان شهید بهشتی",
-    houseNumber: "12",
-    floors: "4",
-    meterage: "60",
-    cost: "700",
-    customer: "سینا موسوی",
-    type: "مدرن",
-    heating: "گاز",
-    floor: "پارکت",
-    electric: "ندارد",
-    kitchen: "اپن",
-    faucets: "استیل",
-    vg: "ندارد",
-    window: "پنجره",
-    description: "توضیحات",
-  },
-]
-
-const EstatesTable = ({ searchKey, fullscreen, setFullscreen }) => {
+const EstatesTable = ({
+  data,
+  fullscreen,
+  setFullscreen,
+  refetch,
+  loading,
+}) => {
   const [isModalVisible, setIsModalVisible] = React.useState(false)
   const { role } = JSON.parse(localStorage.getItem("user") || "{}")
-  // const { data, refetch, isLoading } = useUsers()
-  const fuse = new Fuse(data ?? [], {
-    keys: ["full_name", "phone_number", "code", "date", "street"],
-  })
-  const result = !searchKey ? data : fuse.search(searchKey || "")
-
-  // const deleteUser = ({ id }) =>
-  //   axios.delete(`panel/users/${id}/`).then(() => {
-  //     message.success("کاربر با موفقیت حذف گردید.")
-  //     refetch()
-  //   })
-
-  const editUser = ({ id }) => {
-    setIsModalVisible(true)
-    // history.push({
-    //   search: qs.stringify({
-    //     ...qs.parse(history.location.search),
-    //     user_id: id,
-    //   }),
-    // })
-  }
+  const saveDescription = (home, description) =>
+    axios.post("/estate/set-description/", { home, description }).then(() => {
+      message.success("توضیحات ذخیره شد")
+      refetch()
+    })
 
   return (
     <>
@@ -119,25 +33,13 @@ const EstatesTable = ({ searchKey, fullscreen, setFullscreen }) => {
       <Table
         className={fullscreen && "fullscreen-table"}
         columns={[
-          {
-            title: "ردیف",
-            dataIndex: "key",
-            render: (text, record, index) =>
-              role !== "user" ? (
-                text
-              ) : (
-                <Button onClick={() => editUser(record)} type="link">
-                  {<CommentOutlined />}
-                  {text}
-                </Button>
-              ),
-          },
-          { title: "شماره تلفن", dataIndex: "phone_number", className: "ltr" },
-          { title: "کد", dataIndex: "code" },
-          { title: "تاریخ", dataIndex: "date" },
-          { title: "مالک", dataIndex: "full_name" },
+          { title: "ردیف", dataIndex: "id" },
+          { title: "شماره تلفن", dataIndex: "owner_phone" },
+          { title: "کد", dataIndex: "area_code" },
+          { title: "تاریخ", dataIndex: "created_at" },
+          { title: "مالک", dataIndex: "owner_name" },
           { title: "خیابان", dataIndex: "street" },
-          { title: "پلاک", dataIndex: "houseNumber" },
+          { title: "پلاک", dataIndex: "plaque" },
           { title: "طبقات", dataIndex: "floors" },
           {
             title: "متراژ",
@@ -145,25 +47,39 @@ const EstatesTable = ({ searchKey, fullscreen, setFullscreen }) => {
             sorter: (a, b) => a.meterage - b.meterage,
           },
           {
-            title: "قیمت کل",
-            dataIndex: "cost",
+            title: "قیمت متر مربع",
+            dataIndex: "price_per_meter",
             sorter: (a, b) => a.cost - b.cost,
           },
-          { title: "مشتری", dataIndex: "customer" },
-          { title: "سبک", dataIndex: "type" },
+          {
+            title: "قیمت کل",
+            dataIndex: "total_price",
+            sorter: (a, b) => a.cost - b.cost,
+          },
+          { title: "مشتری", dataIndex: "customer_name" },
+          { title: "سبک", dataIndex: "style" },
           { title: "گرمایش", dataIndex: "heating" },
-          { title: "کف", dataIndex: "floor" },
-          { title: "برق", dataIndex: "electric" },
+          { title: "کف", dataIndex: "bottom" },
+          { title: "برق", dataIndex: "electricity" },
           { title: "مطبخ", dataIndex: "kitchen" },
           { title: "شیرآلات", dataIndex: "faucets" },
-          { title: "و.ج", dataIndex: "vg" },
+          { title: "وان و جکوزی", dataIndex: "bathtub" },
           { title: "پنجره", dataIndex: "window" },
           {
             title: "توضیحات",
             dataIndex: "description",
-            filterMode: "tree",
-            filterSearch: true,
-            onFilter: (value, record) => record.name.indexOf(value) === 0,
+            render: (description, item) =>
+              role === "user" ? (
+                <Input
+                  bordered={false}
+                  style={{ width: 150 }}
+                  defaultValue={description}
+                  placeholder="توضیحات"
+                  onBlur={(e) => saveDescription(item.id, e.target.value)}
+                />
+              ) : (
+                description
+              ),
           },
           {
             title: "عملیات",
@@ -179,23 +95,15 @@ const EstatesTable = ({ searchKey, fullscreen, setFullscreen }) => {
                 </Popconfirm>
                 <Button
                   icon={<EditOutlined />}
-                  onClick={() => editUser(render)}
+                  // onClick={() => console.log(render)}
                 />
               </div>
             ),
-            hidden: role === "user",
+            hidden: role === "user" || role === "admin",
           },
         ].filter((item) => !item.hidden)}
-        // dataSource={data}
-        dataSource={
-          !searchKey
-            ? !Array.isArray(data)
-              ? [data]
-              : data
-            : result.map(({ item }) => item)
-        }
-        rowKey="id"
-        // loading={isLoading}
+        dataSource={data}
+        loading={loading}
         pagination={false}
         scroll={{ x: 1024 }}
       />

@@ -1,21 +1,23 @@
 import { useState } from "react"
-import { Button, Form, Input, Select } from "antd"
+import { Button, Form, Input, message, Select } from "antd"
 import { FloatLabel, ModalContainer } from "../../components"
 import axios from "../../utils/axios"
 import { useValidators } from "../../hooks"
 
-const AddUserModal = ({ isOpen, onClose }) => {
+const AddUserModal = ({ isOpen, onClose, refetch }) => {
   const [formInstance] = Form.useForm()
   const { requiredField } = useValidators()
   const [loading, setLoading] = useState(false)
 
   const handleConfirmStep = (values) => {
-    console.log(values)
     setLoading(true)
     axios
       .post("/users/register/", values)
-      .then((res) => {
-        console.log(res)
+      .then(({ data }) => {
+        console.log(data)
+        message.success("کاربر با موفقیت افزوده شد.")
+        refetch()
+        onClose()
       })
       .finally(() => setLoading(false))
   }
@@ -35,18 +37,33 @@ const AddUserModal = ({ isOpen, onClose }) => {
         onFinish={handleConfirmStep}
         requiredMark={false}
       >
-        <Form.Item name="full_name" rules={[requiredField]}>
-          <FloatLabel label="نام">
+        <Form.Item name="username" rules={[requiredField]}>
+          <FloatLabel label="نام کاربری">
             <Input />
           </FloatLabel>
         </Form.Item>
-        <Form.Item name="phone_number" rules={[requiredField]}>
-          <FloatLabel label="شماره تلفن">
+        <Form.Item name="fullname" rules={[requiredField]}>
+          <FloatLabel label="نام و نام خانوادگی">
+            <Input type="text" className="ltr-input" />
+          </FloatLabel>
+        </Form.Item>
+        <Form.Item name="password" rules={[requiredField]}>
+          <FloatLabel label="رمزعبور">
             <Input type="tel" className="ltr-input ltr-suffix" />
           </FloatLabel>
         </Form.Item>
-        <Form.Item name="email" rules={[requiredField]}>
+        <Form.Item name="phone">
+          <FloatLabel label="شماره تلفن">
+            <Input type="text" className="ltr-input" />
+          </FloatLabel>
+        </Form.Item>
+        <Form.Item name="address">
           <FloatLabel label="آدرس">
+            <Input type="text" className="ltr-input" />
+          </FloatLabel>
+        </Form.Item>
+        <Form.Item name="access_codes">
+          <FloatLabel label="دسترسی">
             <Input type="text" className="ltr-input" />
           </FloatLabel>
         </Form.Item>
@@ -55,36 +72,30 @@ const AddUserModal = ({ isOpen, onClose }) => {
             placeholder="نقش"
             options={[
               {
-                value: "ادمین",
+                value: "manager",
+                label: "مدیر",
+              },
+              {
+                value: "assistant",
+                label: "معاون",
+              },
+              {
+                value: "admin",
                 label: "ادمین",
               },
               {
-                value: "ویرایشگر",
-                label: "ویرایشگر",
+                value: "advisor",
+                label: "مشاور",
               },
               {
-                value: "کاربر",
+                value: "user",
                 label: "کاربر",
               },
             ]}
           />
         </Form.Item>
-        <Form.Item name="password" rules={[requiredField]}>
-          <FloatLabel label="رمز عبور">
-            <Input type="text" className="ltr-input" />
-          </FloatLabel>
-        </Form.Item>
-        <Form.Item name="national_code" rules={[requiredField]}>
-          <FloatLabel label="ایمیل">
-            <Input className="full-width ltr-input" />
-          </FloatLabel>
-        </Form.Item>
-        <Form.Item name="address" rules={[requiredField]}>
-          <FloatLabel label="توضیحات">
-            <Input.TextArea cols="21" rows="1" />
-          </FloatLabel>
-        </Form.Item>
         <Button
+          style={{ marginBottom: 20 }}
           loading={loading}
           htmlType="submit"
           type="primary"

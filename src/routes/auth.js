@@ -22,11 +22,15 @@ const authRouter = createBrowserRouter([
     element: <UsersPage />,
   },
   {
+    path: "/users/:id",
+    element: <UsersPage />,
+  },
+  {
     path: "/commits",
     element: <CommitsPage />,
   },
   {
-    path: "/add-state",
+    path: "/add-estate",
     element: <AddEstatePage />,
   },
   {

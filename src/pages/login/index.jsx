@@ -21,7 +21,11 @@ const LoginPage = () => {
         localStorage.setItem("token", JSON.stringify(data.tokens))
         localStorage.setItem("user", JSON.stringify(data.user))
         message.success("شما با موفقیت وارد شدید")
-        navigate("/estates")
+        data.user.role === "advisor"
+          ? navigate("/add-estate")
+          : data.user.role === "admin"
+          ? navigate("/commits")
+          : navigate("/estates")
         window.location.reload()
       })
       .catch(({ response }) => {

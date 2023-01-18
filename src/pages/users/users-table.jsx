@@ -1,116 +1,66 @@
 import React from "react"
 import { Button, message, Popconfirm, Table } from "antd"
-import qs from "query-string"
-import Fuse from "fuse.js"
 import { DeleteOutlined, EditOutlined } from "@ant-design/icons"
 import axios from "../../utils/axios"
+import Fuse from "fuse.js"
+import { Link } from "react-router-dom"
 import EditUserModal from "./edit-user-modal"
 
-const data = [
-  {
-    key: "1",
-    full_name: "محمد محمدی",
-    phone_number: "09123456789",
-    email: "vlfv@vdf.vdf",
-    date: "۱۳۹۹/۰۱/۰۱",
-    role: "مدیر",
-    address: "تهران، خیابان شهید بهشتی، پلاک ۱۲۳",
-  },
-  {
-    key: "2",
-    full_name: "سینا موسوی",
-    role: "کاربر",
-    phone_number: "09123456789",
-    email: "vlfv@vdf.vdf",
-    date: "۱۳۹۹/۰۱/۲۱",
-    address: "تهران، خیابان شهید بهشتی، پلاک ۱۲۳",
-  },
-  {
-    key: "3",
-    full_name: "سینا موسوی",
-    role: "کاربر",
-    phone_number: "09123456789",
-    email: "vlfv@vdf.vf",
-    date: "۱۳۹۹/۰۱/۲۱",
-    address: "تهران، خیابان شهید بهشتی، پلاک ۱۲۳",
-  },
-  {
-    key: "4",
-    full_name: "زهرا حسینی",
-    role: "تایید کننده",
-    phone_number: "09123456789",
-    email: "vlfv@vdf.vdf",
-    date: "۱۳۹۹/۰۱/۲۱",
-    address: "مشهد، خیابان اقبالی، پلاک ۱۲۳",
-  },
-]
-
-const UsersTable = ({ searchKey }) => {
+const UsersTable = ({ searchKey, data, loading, refetch }) => {
   const [isModalVisible, setIsModalVisible] = React.useState(false)
-  // const { data, refetch, isLoading } = useUsers()
   const { role } = JSON.parse(localStorage.getItem("user") || "{}")
+
   const fuse = new Fuse(data ?? [], {
-    keys: ["full_name", "phone_number", "email", "role", "address"],
+    includeScore: true,
+    keys: ["fullname", "address", "phone", "role"],
   })
-  const result = !searchKey ? data : fuse.search(searchKey || "")
+  const result = fuse.search(searchKey).length
+    ? fuse.search(searchKey).map((user) => user.item)
+    : data
 
-  // const deleteUser = ({ id }) =>
-  //   axios.delete(`panel/users/${id}/`).then(() => {
-  //     message.success("کاربر با موفقیت حذف گردید.")
-  //     // refetch()
-  //   })
-
-  const editUser = ({ id }) => {
-    setIsModalVisible(true)
-
-    // navigate.push({
-    //   search: qs.stringify({
-    //     ...qs.parse(navigate.location.search),
-    //     user_id: id,
-    //   }),
-    // })
-  }
+  const deleteUser = ({ id }) =>
+    axios.delete(`users/list/${id}/`).then(() => {
+      message.success("کاربر با موفقیت حذف گردید.")
+      refetch()
+    })
 
   return (
     <>
       <Table
         columns={[
-          { title: "ردیف", dataIndex: "key" },
-          { title: "نام", dataIndex: "full_name" },
+          { title: "ردیف", dataIndex: "id" },
+          { title: "نام", dataIndex: "fullname" },
+          { title: "نام کاربری", dataIndex: "username" },
           { title: "نقش", dataIndex: "role" },
-          { title: "شماره تلفن", dataIndex: "phone_number", className: "ltr" },
-          { title: "ایمیل", dataIndex: "email" },
+          { title: "شماره تلفن", dataIndex: "phone" },
           { title: "آدرس", dataIndex: "address" },
-          { title: "تاریخ عضویت", dataIndex: "date" },
+          { title: "تاریخ عضویت", dataIndex: "date_joined" },
+          { title: "اخرین ورود", dataIndex: "last_login" },
           {
             title: "عملیات",
             render: (_, render) => (
               <div className="action-buttons">
                 <Popconfirm
                   title="آیا از حذف کاربر اطمینان دارید؟"
-                  // onConfirm={() => deleteUser(render)}
+                  onConfirm={() => deleteUser(render)}
                   okText="بله"
                   cancelText="خیر"
                 >
                   <Button icon={<DeleteOutlined className="delete-icon" />} />
                 </Popconfirm>
-                <Button
-                  icon={<EditOutlined />}
-                  onClick={() => editUser(render)}
-                />
+                <Link to={`/users/${render.id}`}>
+                  <Button
+                    icon={<EditOutlined />}
+                    onClick={() => setIsModalVisible(true)}
+                  ></Button>
+                </Link>
               </div>
             ),
           },
         ]}
-        dataSource={
-          !searchKey
-            ? !Array.isArray(data)
-              ? [data]
-              : data
-            : result.map(({ item }) => item)
-        }
+        dataSource={result}
         rowKey="id"
-        // loading={isLoading}
+        loading={loading}
         pagination={false}
         scroll={{ x: 1024 }}
       />

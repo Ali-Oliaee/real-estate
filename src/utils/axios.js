@@ -31,7 +31,7 @@ const instance = axios.create({
 // request handler
 instance.interceptors.request.use(
   (config) => {
-    const { access } = JSON.parse(localStorage.getItem("api_key") || "{}")
+    const { access } = JSON.parse(localStorage.getItem("token") || "{}")
     if (access) {
       // eslint-disable-next-line no-param-reassign
       config.headers.Authorization = `Bearer ${access}`

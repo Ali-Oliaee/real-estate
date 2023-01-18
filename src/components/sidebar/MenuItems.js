@@ -44,7 +44,7 @@ export const adminMenuItems = [
 
 export const advisorMenuItems = [
   {
-    key: "/add-state",
+    key: "/add-estate",
     label: "ثبت ملک",
     icon: <PlusCircleOutlined />,
   },

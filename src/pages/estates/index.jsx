@@ -1,36 +1,31 @@
 import { useState } from "react"
-import { Button, Col, Input, Popover, Row } from "antd"
-import { FullscreenOutlined, SearchOutlined } from "@ant-design/icons"
+import { Button, Col, Popover, Row } from "antd"
+import { FullscreenOutlined } from "@ant-design/icons"
 import EstatesTable from "./estates-table"
 import { AdminLayout } from "../../layouts"
 import AddStateModal from "./add-estate-modal"
+import { getEstates } from "../../api/estates"
 import "./styles.scss"
 import SearchBar from "./search-bar"
+import { useQuery } from "react-query"
 
 const EstatesPage = () => {
   const [fullscreen, setFullscreen] = useState(false)
-  const [search, setSearch] = useState(false)
   const [addModal, setAddModal] = useState(false)
   const { role } = JSON.parse(localStorage.getItem("user") || "{}")
+  const { data, isLoading, refetch } = useQuery("estates", getEstates)
 
   return (
     <AdminLayout>
       <div className="estates-page">
         <Row align="middle" justify="space-between" className="header">
           <Col sm={12} md={8} lg={10}>
-            {/* <Input
-              placeholder="جستجو بر اساس مالک، شماره تماس، آدرس و ..."
-              size="large"
-              suffix={<SearchOutlined />}
-              onChange={({ target: { value } }) => setSearch(value)}
-            /> */}
             <Popover
               placement="bottomRight"
               title="جستجوی پیشرفته"
               overlayClassName="search-bar"
               content={<SearchBar />}
               trigger="click"
-              onOpenChange={(open) => setSearch(open)}
             >
               <Button size="large">جستجوی پیشرفته</Button>
             </Popover>
@@ -57,7 +52,13 @@ const EstatesPage = () => {
             <FullscreenOutlined />
           </Button>
         </Row>
-        <EstatesTable fullscreen={fullscreen} setFullscreen={setFullscreen} />
+        <EstatesTable
+          fullscreen={fullscreen}
+          setFullscreen={setFullscreen}
+          data={data}
+          loading={isLoading}
+          refetch={refetch}
+        />
       </div>
       <AddStateModal isOpen={addModal} onClose={() => setAddModal(false)} />
     </AdminLayout>
