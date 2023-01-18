@@ -14,6 +14,10 @@ const authRouter = createBrowserRouter([
     element: <EstatesPage />,
   },
   {
+    path: "/estates/:id",
+    element: <EstatesPage />,
+  },
+  {
     path: "/profile",
     element: <ProfilePage />,
   },

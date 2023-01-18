@@ -2,6 +2,7 @@ import React from "react"
 import { Button, Input, message, Popconfirm, Table } from "antd"
 import { CloseOutlined, DeleteOutlined, EditOutlined } from "@ant-design/icons"
 import EditEstateModal from "./edit-estate-modal"
+import { useNavigate } from "react-router-dom"
 import axios from "../../utils/axios"
 
 const EstatesTable = ({
@@ -11,8 +12,8 @@ const EstatesTable = ({
   refetch,
   loading,
 }) => {
-  const [isModalVisible, setIsModalVisible] = React.useState(false)
   const { role } = JSON.parse(localStorage.getItem("user") || "{}")
+  const navigate = useNavigate()
   const saveDescription = (home, description) =>
     axios.post("/estate/set-description/", { home, description }).then(() => {
       message.success("توضیحات ذخیره شد")
@@ -55,12 +56,12 @@ const EstatesTable = ({
           {
             title: "قیمت متر مربع",
             dataIndex: "price_per_meter",
-            sorter: (a, b) => a.cost - b.cost,
+            sorter: (a, b) => a.price_per_meter - b.price_per_meter,
           },
           {
             title: "قیمت کل",
             dataIndex: "total_price",
-            sorter: (a, b) => a.cost - b.cost,
+            sorter: (a, b) => a.total_price - b.total_price,
           },
           { title: "مشتری", dataIndex: "customer_name" },
           { title: "سبک", dataIndex: "style" },
@@ -101,7 +102,7 @@ const EstatesTable = ({
                 </Popconfirm>
                 <Button
                   icon={<EditOutlined />}
-                  // onClick={() => console.log(render)}
+                  onClick={() => navigate(`/estates/${estate.id}`)}
                 />
               </div>
             ),
@@ -113,10 +114,7 @@ const EstatesTable = ({
         pagination={false}
         scroll={{ x: 1024 }}
       />
-      <EditEstateModal
-        isOpen={isModalVisible}
-        onClose={() => setIsModalVisible(false)}
-      />
+      <EditEstateModal onClose={() => navigate("/estates")} />
     </>
   )
 }

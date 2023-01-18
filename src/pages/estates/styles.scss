@@ -84,9 +84,47 @@
 
 .search-bar {
   width: max-content;
+  position: relative;
+
+  .reset-button {
+    position: absolute;
+    top: -20px;
+    left: 10px;
+    background-color: transparent;
+    border: 0;
+    cursor: pointer;
+    z-index: 20;
+    margin: 0;
+    padding: 0;
+    box-shadow: none;
+  }
 
   .slider {
     margin-inline-start: 10px;
+  }
+
+  h5 { 
+    min-width: 70px;
+  }
+  .input-number {
+    width: 70px;
+  }
+
+  .input {
+    width: 120px;
+    border: 0;
+    border-bottom: 1px solid #c9dae3;
+    border-radius: 0;
+    margin-inline-end: 50px;
+    box-shadow: none;
+
+
+    &:active,
+    &:focus {
+      border: 0;
+      box-shadow: none;
+      border-bottom: 1px solid #c9dae3;
+    }
   }
 
 }

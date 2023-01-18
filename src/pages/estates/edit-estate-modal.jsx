@@ -1,159 +1,147 @@
 import { Button, Form, Input, Spin } from "antd"
+import { useEffect, useState } from "react"
+import { useQuery } from "react-query"
+import { useParams } from "react-router-dom"
+import { getEstate } from "../../api/estates"
 import { FloatLabel, ModalContainer } from "../../components"
 import { useValidators } from "../../hooks"
 
-const EditEstateModal = ({ isOpen, onClose, onAdd }) => {
+const EditEstateModal = ({ onClose }) => {
+  const [loading, setLoading] = useState(false)
   const [formInstance] = Form.useForm()
   const { requiredField } = useValidators()
-  const handleConfirmStep = () => {
-    formInstance
-      .validateFields()
-      .then((values) => {
-        console.log(values)
-      })
-      .catch((errorInfo) => {
-        console.log(errorInfo)
-      })
+  const { id } = useParams()
+  const { data, isLoading, refetch } = useQuery("estate", () => getEstate(id))
+  const editEstate = (values) => {
+    setLoading(true)
   }
+
+  useEffect(() => {
+    formInstance.setFieldsValue(data)
+  }, [id])
 
   return (
     <ModalContainer
       centered
-      open={isOpen}
+      open={!!id}
       onCancel={onClose}
-      //   confirmLoading={isSubmitting}
-      //   afterClose={() => formInstance.resetFields()}
-      wrapProps={{
-        id: "modal-with-infinite-scroll-table",
-      }}
-      title={
-        <div className="modal-header">
-          <span>ویرایش ملک</span>
-        </div>
-      }
-      footer={
-        <div className="footer-cta-btns-container">
-          <Button
-            type="primary"
-            htmlType="submit"
-            onClick={handleConfirmStep}
-            size="large"
-            block
-            // loading={isSubmitting}
-          >
-            ویرایش
-          </Button>
-        </div>
-      }
+      afterClose={formInstance.resetFields}
+      title={<span>ویرایش ملک</span>}
+      footer={false}
     >
-      <Spin size="large" spinning>
+      <Spin size="large" spinning={isLoading}>
         <Form
           form={formInstance}
           size="large"
           colon={false}
-          onFinish={handleConfirmStep}
+          onFinish={editEstate}
           requiredMark={false}
         >
-          <Form.Item name="full_name" rules={[requiredField]}>
-            <FloatLabel label="نام">
+          <Form.Item name="owner_name">
+            <FloatLabel label="نام مالک">
               <Input />
             </FloatLabel>
           </Form.Item>
-          <Form.Item name="phone_number" rules={[requiredField]}>
-            <FloatLabel label="شماره تلفن">
+          <Form.Item name="owner_phone">
+            <FloatLabel label="شماره تلفن مالک">
               <Input type="tel" className="ltr-input ltr-suffix" />
             </FloatLabel>
           </Form.Item>
-          <Form.Item name="email" rules={[requiredField]}>
-            <FloatLabel label="مالک">
-              <Input type="text" className="ltr-input" />
-            </FloatLabel>
-          </Form.Item>
-          <Form.Item name="national_code" rules={[requiredField]}>
+          <Form.Item name="area_code" rules={[requiredField]}>
             <FloatLabel label="کد">
               <Input className="full-width ltr-input" />
             </FloatLabel>
           </Form.Item>
-          <Form.Item name="province" rules={[requiredField]}>
+          <Form.Item name="street">
             <FloatLabel label="خیابان">
               <Input />
             </FloatLabel>
           </Form.Item>
-          <Form.Item name="city" rules={[requiredField]}>
+          <Form.Item name="plaque">
             <FloatLabel label="پلاک">
               <Input />
             </FloatLabel>
           </Form.Item>
-          <Form.Item name="postal_code" rules={[requiredField]}>
+          <Form.Item name="floors">
             <FloatLabel label="طبقات">
               <Input />
             </FloatLabel>
           </Form.Item>
-          <Form.Item name="postal_code" rules={[requiredField]}>
+          <Form.Item name="meterage">
             <FloatLabel label="متراژ">
               <Input />
             </FloatLabel>
           </Form.Item>
-          <Form.Item name="postal_code" rules={[requiredField]}>
+          <Form.Item name="price_per_meter">
+            <FloatLabel label="قیمت متر مربع">
+              <Input />
+            </FloatLabel>
+          </Form.Item>
+          <Form.Item name="total_price">
             <FloatLabel label="قیمت کل">
               <Input />
             </FloatLabel>
           </Form.Item>
-          <Form.Item name="postal_code" rules={[requiredField]}>
-            <FloatLabel label="طبقات">
-              <Input />
-            </FloatLabel>
-          </Form.Item>
-          <Form.Item name="postal_code" rules={[requiredField]}>
+          <Form.Item name="customer_name">
             <FloatLabel label="مشتری">
               <Input />
             </FloatLabel>
           </Form.Item>
-          <Form.Item name="postal_code" rules={[requiredField]}>
+          <Form.Item name="style">
             <FloatLabel label="سبک">
               <Input />
             </FloatLabel>
           </Form.Item>
-          <Form.Item name="postal_code" rules={[requiredField]}>
+          <Form.Item name="heating">
             <FloatLabel label="گرمایش">
               <Input />
             </FloatLabel>
           </Form.Item>
-          <Form.Item name="postal_code" rules={[requiredField]}>
+          <Form.Item name="bottom">
             <FloatLabel label="کف">
               <Input />
             </FloatLabel>
           </Form.Item>
-          <Form.Item name="postal_code" rules={[requiredField]}>
+          <Form.Item name="electricity">
             <FloatLabel label="برق">
               <Input />
             </FloatLabel>
           </Form.Item>
-          <Form.Item name="postal_code" rules={[requiredField]}>
+          <Form.Item name="kitchen">
             <FloatLabel label="مطبخ">
               <Input />
             </FloatLabel>
           </Form.Item>
-          <Form.Item name="postal_code" rules={[requiredField]}>
+          <Form.Item name="faucets">
             <FloatLabel label="شیرآلات">
               <Input />
             </FloatLabel>
           </Form.Item>
-          <Form.Item name="postal_code" rules={[requiredField]}>
-            <FloatLabel label="و.ج">
+          <Form.Item name="bathtub">
+            <FloatLabel label="وان و جکوزی">
               <Input />
             </FloatLabel>
           </Form.Item>
-          <Form.Item name="postal_code" rules={[requiredField]}>
+          <Form.Item name="window">
             <FloatLabel label="پنجره">
               <Input />
             </FloatLabel>
           </Form.Item>
-          <Form.Item name="address" rules={[requiredField]}>
+          <Form.Item name="description">
             <FloatLabel label="توضیحات">
               <Input.TextArea cols="21" rows="1" />
             </FloatLabel>
           </Form.Item>
+          <Button
+            type="primary"
+            htmlType="submit"
+            size="large"
+            style={{ marginBottom: 20 }}
+            block
+            loading={loading}
+          >
+            ویرایش
+          </Button>
         </Form>
       </Spin>
     </ModalContainer>
