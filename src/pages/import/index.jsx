@@ -84,7 +84,11 @@ const ImportDataPage = () => {
         )}
       </Row>
       <div style={{ width: "100%", overflow: "auto", maxHeight: 600 }}>
-        <OutTable data={exel.rows} columns={exel.cols} />
+        <OutTable
+          data={exel.rows}
+          columns={exel.cols}
+          tableHeaderRowClass="heading"
+        />
       </div>
     </AdminLayout>
   )

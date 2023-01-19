@@ -1,6 +1,18 @@
-.profile-info {
+.profile-page {
   background-color: #fff;
-  padding: 1rem;
-  border-radius: 0.5rem;
-  border: 1px solid #e6e6e6;
+  border-radius: 14px;
+  min-height: 100%;
+  padding: 20px;
+
+  .item {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    margin-bottom: 20px;
+    margin-inline-end: 40px;
+
+    h4 {
+      margin-inline-end: 8px;
+    }
+  }
 }

@@ -14,9 +14,9 @@ const AddUserModal = ({ isOpen, onClose, refetch }) => {
     setLoading(true)
     axios
       .post("/users/register/", values)
-      .then(({ data }) => {
-        console.log(data)
+      .then(() => {
         message.success("کاربر با موفقیت افزوده شد.")
+        formInstance.resetFields()
         refetch()
         onClose()
       })

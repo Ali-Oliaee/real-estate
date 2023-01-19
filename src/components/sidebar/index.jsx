@@ -28,10 +28,7 @@ const SideMenu = () => {
           theme="light"
           mode="inline"
           defaultSelectedKeys={location.pathname}
-          onClick={({ key }) => {
-            console.log(key)
-            navigate(key, { replace: true })
-          }}
+          onClick={({ key }) => navigate(key, { replace: true })}
           items={
             role === "manager"
               ? managerMenuItems

@@ -1,143 +1,62 @@
-import { Button, Form, Input, InputNumber, message, Tabs } from "antd"
-import { useEffect, useState } from "react"
+import { Divider, Row, Spin } from "antd"
+import { getUser } from "../../api/users"
 import { useQuery } from "react-query"
-// import { CustomDatePicker } from "../../components/CustomDatePicker"
-import { FloatLabel } from "../../components"
-import { useValidators } from "../../hooks"
 import { AdminLayout } from "../../layouts"
-// import { getCurrentUser, updateUserbyUser } from '../../api';
+import dayjs from "dayjs"
 import "./styles.scss"
 
-const fieldsToValidate = [
-  "full_name",
-  "phone_number",
-  "email",
-  "national_code",
-  "province",
-  "city",
-  "postal_code",
-  "address",
-  "card_number",
-  "shaba_number",
-  "account_number",
-]
-
 const ProfilePage = () => {
-  const { requiredField, validEmail } = useValidators()
-  // const { id: userId, last_login } = JSON.parse(localStorage.getItem("user"))
-  const [formInstance] = Form.useForm()
-  const { role } = JSON.parse(localStorage.getItem("user") || "{}")
-  const hasAccess = role !== "manager"
-  const [loading, setLoading] = useState(false)
-  // const { data: currentUser, refetch } = useQuery("users", () =>
-  //   getCurrentUser(userId)
-  // )
-
-  // useEffect(
-  //   () =>
-  //     formInstance.setFieldsValue({
-  //       ...currentUser,
-  //       last_login,
-  //       date_joined: currentUser?.date_joined * 1000,
-  //     }),
-  //   [currentUser]
-  // )
-
-  const validateCurrentStep = () =>
-    formInstance.validateFields(fieldsToValidate)
-
-  // const submitCurrentStep = (values) =>
-  //   new Promise((resolve, reject) => {
-  //     const payload = { id: userId, ...values }
-
-  // updateUserbyUser(payload)
-  //   .then((res) => {
-  //     refetch()
-  //     resolve(res)
-  //   })
-  //   .catch(reject)
-  //   })
-
-  // const handleConfirmStep = () => {
-  //   validateCurrentStep().then((values) => {
-  //     setLoading(true)
-  //     submitCurrentStep(values)
-  //       .then(() => {
-  //         message.success("حساب کاربری با موفقیت بروزرسانی شد")
-  //       })
-  //       .catch((err) => message.error(err?.message))
-  //       .finally(() => setLoading(false))
-  //   })
-  // }
+  const { id } = JSON.parse(localStorage.getItem("user"))
+  const { data: user, isLoading } = useQuery("current-user", () => getUser(id))
 
   return (
     <AdminLayout>
-      <div className="profile-info">
-        <Form
-          form={formInstance}
-          size="large"
-          colon={false}
-          // onFinish={handleConfirmStep}
-          name="user-profile-form"
-          requiredMark={false}
-        >
-          <div className="inline-container">
-            <Form.Item name="full_name" rules={[requiredField]}>
-              <FloatLabel label="نام">
-                <Input
-                  readOnly={hasAccess}
-                  disabled={hasAccess}
-                  value="امیر غفوری"
-                />
-              </FloatLabel>
-            </Form.Item>
-            <Form.Item name="phone_number" rules={[requiredField]}>
-              <FloatLabel label="شماره تلفن">
-                <Input
-                  readOnly={hasAccess}
-                  disabled={hasAccess}
-                  type="tel"
-                  className="ltr-input"
-                  value="0123456789"
-                />
-              </FloatLabel>
-            </Form.Item>
-            <Form.Item name="email" rules={[requiredField, validEmail]}>
-              <FloatLabel label="ایمیل">
-                <Input
-                  readOnly={hasAccess}
-                  disabled={hasAccess}
-                  type="email"
-                  className="ltr-input"
-                />
-              </FloatLabel>
-            </Form.Item>
-            <Form.Item name="national_code" rules={[requiredField]}>
-              <FloatLabel label="کد ملی">
-                <Input
-                  className="full-width ltr-input"
-                  readOnly={hasAccess}
-                  disabled={hasAccess}
-                />
-              </FloatLabel>
-            </Form.Item>
-            <Form.Item name="address" rules={[requiredField]}>
-              <FloatLabel label="آدرس">
-                <Input.TextArea
-                  cols="21"
-                  rows="1"
-                  readOnly={hasAccess}
-                  disabled={hasAccess}
-                />
-              </FloatLabel>
-            </Form.Item>
-          </div>
-          {!hasAccess && (
-            <Button block loading={loading} type="primary" htmlType="submit">
-              ویرایش اطلاعات
-            </Button>
-          )}
-        </Form>
+      <div className="profile-page">
+        <Spin size="large" spinning={isLoading}>
+          <h2>اطلاعات حساب </h2>
+          <Row align="middle" justify="start" wrap style={{ marginTop: 20 }}>
+            <div className="item">
+              <h4>نام و نام خانوادگی: </h4>
+              <p>{user?.fullname ?? "-"}</p>
+            </div>
+            <div className="item">
+              <h4>نام کاربری: </h4>
+              <p>{user?.username ?? "-"}</p>
+            </div>
+            <div className="item">
+              <h4>نقش: </h4>
+              <p>{user?.role ?? "-"}</p>
+            </div>
+            <div className="item">
+              <h4>شماره تلفن: </h4>
+              <p>{user?.phone ?? "-"}</p>
+            </div>
+            <div className="item">
+              <h4>نقش: </h4>
+              <p>{user?.role ?? "-"}</p>
+            </div>
+            <div className="item">
+              <h4>نقش: </h4>
+              <p>{user?.role ?? "-"}</p>
+            </div>
+            <div className="item">
+              <h4>آدرس: </h4>
+              <p>{user?.address ?? "-"}</p>
+            </div>
+            <div className="item">
+              <h4>سطح دسترسی: </h4>
+              <p>{user?.access_codes ?? "-"}</p>
+            </div>
+            <div className="item">
+              <h4>تاریخ عضویت: </h4>
+              <p>
+                {user && dayjs(user?.date_joined * 1000).format("YYYY/MM/DD")}
+              </p>
+            </div>
+          </Row>
+          <Divider />
+          <h2>تاریخچه</h2>
+        </Spin>
       </div>
     </AdminLayout>
   )

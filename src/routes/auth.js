@@ -1,4 +1,4 @@
-import { createBrowserRouter } from "react-router-dom"
+import { createBrowserRouter, Navigate } from "react-router-dom"
 import {
   UsersPage,
   ProfilePage,
@@ -11,6 +11,10 @@ import {
 } from "../pages"
 
 const authRouter = createBrowserRouter([
+  {
+    path: "/",
+    element: <Navigate to="/estates" />,
+  },
   {
     path: "/estates",
     element: <EstatesPage />,
