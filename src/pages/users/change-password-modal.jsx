@@ -3,8 +3,9 @@ import React, { useState } from "react"
 import { FloatLabel, ModalContainer } from "../../components"
 import { useValidators } from "../../hooks"
 import axios from "../../utils/axios"
+import "./styles.scss"
 
-const ChangePasswordModal = ({ open, onClose }) => {
+const ChangePasswordModal = ({ open, onClose, id }) => {
   const { requiredField } = useValidators()
   const [loading, setLoading] = useState(false)
   const [formInstance] = Form.useForm()
@@ -12,7 +13,7 @@ const ChangePasswordModal = ({ open, onClose }) => {
   const changePassword = (values) => {
     setLoading(true)
     axios
-      .post("/users/register/", values)
+      .post("/users/change-password/", { ...values, user_id: id })
       .then(() => {
         message.success("کلمه عبور با موفقیت تغییر کرد.")
         onClose()
@@ -23,31 +24,35 @@ const ChangePasswordModal = ({ open, onClose }) => {
   return (
     <ModalContainer
       centered
+      className="change-password-modal"
       open={open}
       onCancel={() => {
         onClose()
         formInstance.resetFields()
       }}
       afterClose={formInstance.resetFields}
-      title={
-        <div className="modal-header">
-          <span>تغییر کلمه عبور</span>
-        </div>
-      }
+      title={<span>تغییر کلمه عبور</span>}
       footer={false}
     >
       <Form onFinish={changePassword}>
-        <Form.Item name="password" rules={[requiredField]}>
-          <FloatLabel label="رمزعبور">
+        <Form.Item name="user_password" rules={[requiredField]}>
+          <FloatLabel label="کلمه عبور شما">
             <Input.Password size="small" />
           </FloatLabel>
         </Form.Item>
-        <Form.Item name="password" rules={[requiredField]}>
-          <FloatLabel label="تکرار رمزعبور">
+        <Form.Item name="new_password" rules={[requiredField]}>
+          <FloatLabel label="کلمه عبور جدید کاربر">
             <Input.Password size="small" />
           </FloatLabel>
         </Form.Item>
-        <Button type="primary" htmlType="submit" size="large" loading={loading}>
+        <Button
+          block
+          type="primary"
+          htmlType="submit"
+          size="large"
+          style={{ marginBottom: 20 }}
+          loading={loading}
+        >
           تغییر کلمه عبور
         </Button>
       </Form>

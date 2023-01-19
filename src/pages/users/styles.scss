@@ -27,13 +27,17 @@
   .ant-table-thead > tr > th {
     background-color: #ffffff;
     color: #91a2ab;
-    &:last-child {
+    &:nth-last-child(2), &:last-child {
       text-align: center;
     }
     
     &::before {
       content: unset !important;
     }
+  }
+
+  .ant-table-cell:nth-last-child(2) {
+    text-align: center;
   }
 
   .filter-dropdown-container {
@@ -68,16 +72,27 @@
   }
 }
 
-.add-user-form {
+.user-form {
   display: flex;
   flex-wrap: wrap;
   justify-content: space-between;
   align-items: center;
   .input {
     width: 200px;
+    height: 54px;
+
+    .ant-select-selector {
+      min-height: 54px;
+      display: flex;
+      align-items:  center;
+    }
   }
   .password-input {
     border-radius: 8px;
     height: auto;
   }
+}
+
+.change-password-modal {
+  width: 400px !important;
 }

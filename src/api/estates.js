@@ -6,8 +6,10 @@ export const getEstates = async () => {
 }
 
 export const getEstate = async (id) => {
-  const { data } = await axios.get(`/estate/list/${id}/`)
-  return data
+  if (id) {
+    const { data } = await axios.get(`/estate/list/${id}/`)
+    return data
+  }
 }
 
 export const getPendingEstates = async () => {

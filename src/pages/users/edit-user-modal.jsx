@@ -1,5 +1,4 @@
 import { Button, Form, Input, Spin, Select, message } from "antd"
-import axios from "../../utils/axios"
 import { useEffect, useState } from "react"
 import { useQuery } from "react-query"
 import { useParams } from "react-router-dom"
@@ -8,15 +7,15 @@ import { useNavigate } from "react-router-dom"
 import { FloatLabel, ModalContainer } from "../../components"
 import { useValidators } from "../../hooks"
 import ChangePasswordModal from "./change-password-modal"
+import axios from "../../utils/axios"
 
-const EditUserModal = () => {
+const EditUserModal = ({ refetch }) => {
   const [formInstance] = Form.useForm()
   const [passwrordModal, setPasswrordModal] = useState(false)
   const [loading, setLoading] = useState(false)
-  const navigate = useNavigate()
   const { requiredField } = useValidators()
-  const { id } = useParams()
-  const { data, isLoading, refetch } = useQuery("user", () => getUser(id))
+  let { id } = useParams()
+  const navigate = useNavigate()
 
   const handleConfirmStep = (values) => {
     setLoading(true)
@@ -29,11 +28,11 @@ const EditUserModal = () => {
       })
       .finally(() => setLoading(false))
   }
+  const { data, isLoading } = useQuery(["user", id], () => getUser(id))
 
   useEffect(() => {
-    refetch()
-    data && formInstance.setFieldsValue(data)
-  }, [id])
+    formInstance.setFieldsValue(data)
+  }, [data])
 
   return (
     <ModalContainer
@@ -44,68 +43,72 @@ const EditUserModal = () => {
         navigate("/users")
       }}
       confirmLoading={isLoading}
-      afterClose={formInstance.resetFields}
-      title={
-        <div className="modal-header">
-          <span>ویرایش شخص</span>
-        </div>
-      }
+      title="ویرایش شخص"
       footer={false}
     >
       <Spin spinning={isLoading} size="large">
         <Form
           form={formInstance}
-          colon={false}
           onFinish={handleConfirmStep}
           requiredMark={false}
         >
-          <Form.Item name="fullname" rules={[requiredField]}>
-            <FloatLabel label="نام">
-              <Input />
-            </FloatLabel>
-          </Form.Item>
-          <Form.Item name="username" rules={[requiredField]}>
-            <FloatLabel label="نام کاربری">
-              <Input />
-            </FloatLabel>
-          </Form.Item>
-          <Form.Item name="phone">
-            <FloatLabel label="شماره تلفن">
-              <Input type="tel" className="ltr-input ltr-suffix" />
-            </FloatLabel>
-          </Form.Item>
-          <Form.Item name="role">
-            <Select
-              placeholder="نقش"
-              options={[
-                {
-                  value: "manager",
-                  label: "مدیر",
-                },
-                {
-                  value: "assistant",
-                  label: "معاون",
-                },
-                {
-                  value: "admin",
-                  label: "ادمین",
-                },
-                {
-                  value: "advisor",
-                  label: "مشاور",
-                },
-                {
-                  value: "user",
-                  label: "کاربر",
-                },
-              ]}
-            />
-          </Form.Item>
-          <Form.Item name="address">
-            <FloatLabel label="آدرس">
-              <Input type="text" className="ltr-input" />
-            </FloatLabel>
-          </Form.Item>
+          <div className="user-form">
+            <Form.Item name="fullname" rules={[requiredField]}>
+              <FloatLabel label="نام">
+                <Input className="input" />
+              </FloatLabel>
+            </Form.Item>
+            <Form.Item name="username" rules={[requiredField]}>
+              <FloatLabel label="نام کاربری">
+                <Input className="input" />
+              </FloatLabel>
+            </Form.Item>
+            <Form.Item name="phone">
+              <FloatLabel label="شماره تلفن">
+                <Input className="input" type="tel" />
+              </FloatLabel>
+            </Form.Item>
+            <Form.Item name="address">
+              <FloatLabel label="آدرس">
+                <Input className="input" type="text" />
+              </FloatLabel>
+            </Form.Item>
+            <Form.Item name="role">
+              <Select
+                className="input"
+                placeholder="نقش"
+                options={[
+                  {
+                    value: "manager",
+                    label: "مدیر",
+                  },
+                  {
+                    value: "assistant",
+                    label: "معاون",
+                  },
+                  {
+                    value: "admin",
+                    label: "ادمین",
+                  },
+                  {
+                    value: "advisor",
+                    label: "مشاور",
+                  },
+                  {
+                    value: "user",
+                    label: "کاربر",
+                  },
+                ]}
+              />
+            </Form.Item>
+            <Button
+              style={{ width: 200, height: 55, marginBottom: 24 }}
+              onClick={() => setPasswrordModal(true)}
+              size="large"
+            >
+              تغییر کلمه عبور
+            </Button>
+          </div>
           <Button
             style={{ marginBottom: 20 }}
             type="primary"
@@ -117,12 +120,10 @@ const EditUserModal = () => {
             ویرایش
           </Button>
         </Form>
-        <Button onClick={() => setPasswrordModal(true)} size="large">
-          تغییر کلمه عبور
-        </Button>
         <ChangePasswordModal
           open={passwrordModal}
           onClose={() => setPasswrordModal(false)}
+          id={id}
         />
       </Spin>
     </ModalContainer>

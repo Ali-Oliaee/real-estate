@@ -6,6 +6,8 @@ export const getUsers = async () => {
 }
 
 export const getUser = async (id) => {
-  const { data } = await axios.get(`/users/list/${id}/`)
-  return data
+  if (id) {
+    const { data } = await axios.get(`/users/list/${id}/`)
+    return data
+  }
 }

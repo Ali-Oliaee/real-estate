@@ -9,7 +9,6 @@ import dayjs from "dayjs"
 
 const UsersTable = ({ searchKey, data, loading, refetch }) => {
   const [isModalVisible, setIsModalVisible] = React.useState(false)
-  const { role } = JSON.parse(localStorage.getItem("user") || "{}")
 
   const fuse = new Fuse(data ?? [], {
     includeScore: true,
@@ -32,16 +31,37 @@ const UsersTable = ({ searchKey, data, loading, refetch }) => {
           { title: "ردیف", dataIndex: "id" },
           { title: "نام", dataIndex: "fullname" },
           { title: "نام کاربری", dataIndex: "username" },
-          { title: "نقش", dataIndex: "role" },
+          {
+            title: "نقش",
+            dataIndex: "role",
+            render: (role) => {
+              switch (role) {
+                case "manager":
+                  return "مدیر کل"
+                case "assistant":
+                  return "دستیار"
+                case "admin":
+                  return "مدیر"
+                case "advisor":
+                  return "مشاور"
+                case "user":
+                  return "کاربر"
+                default:
+                  return "مهمان"
+              }
+            },
+          },
           { title: "شماره تلفن", dataIndex: "phone" },
           { title: "آدرس", dataIndex: "address" },
-          { title: "تاریخ عضویت", dataIndex: "date_joined" },
+          {
+            title: "تاریخ عضویت",
+            dataIndex: "date_joined",
+            render: (date) => dayjs(date * 1000).format("YYYY/MM/DD"),
+          },
           {
             title: "اخرین ورود",
             dataIndex: "last_login",
-            render: (date) => {
-              return date && dayjs(data).format("YYYY/MM/DD")
-            },
+            render: (date) => dayjs(date * 1000).format("HH:mm YYYY/MM/DD"),
           },
           {
             title: "عملیات",
@@ -74,6 +94,7 @@ const UsersTable = ({ searchKey, data, loading, refetch }) => {
       <EditUserModal
         isOpen={isModalVisible}
         onClose={() => setIsModalVisible(false)}
+        refetch={refetch}
       />
     </>
   )

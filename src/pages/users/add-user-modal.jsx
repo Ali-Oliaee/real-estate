@@ -38,7 +38,7 @@ const AddUserModal = ({ isOpen, onClose, refetch }) => {
         onFinish={handleConfirmStep}
         requiredMark={false}
       >
-        <div className="add-user-form">
+        <div className="user-form">
           <Form.Item name="username" rules={[requiredField]}>
             <FloatLabel label="نام کاربری">
               <Input className="input" />
@@ -65,7 +65,7 @@ const AddUserModal = ({ isOpen, onClose, refetch }) => {
             </FloatLabel>
           </Form.Item>
           <Form.Item name="access_codes">
-            <FloatLabel label="دسترسی">
+            <FloatLabel label="سطح دسترسی">
               <Input className="input" />
             </FloatLabel>
           </Form.Item>

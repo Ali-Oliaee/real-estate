@@ -38,7 +38,7 @@ const AddEstateModal = ({ isOpen, onClose, refetch }) => {
         onFinish={addEstate}
         requiredMark={false}
       >
-        <div className="add-estate-form">
+        <div className="estate-form">
           <Form.Item name="owner_name">
             <FloatLabel label="نام مالک">
               <Input className="input" />

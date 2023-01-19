@@ -14,12 +14,13 @@ const SideMenu = () => {
   const location = useLocation()
   const navigate = useNavigate()
   const { role } = JSON.parse(localStorage.getItem("user") || "{}")
+  const { fullname } = JSON.parse(localStorage.getItem("user") || "{}")
 
   return (
     <Sider breakpoint="md" theme="light" width={200}>
       <div>
         <div className="user-container">
-          <p className="username">امیر غفوری</p>
+          <p className="username">{fullname}</p>
         </div>
         <div className="divider" />
         <Menu

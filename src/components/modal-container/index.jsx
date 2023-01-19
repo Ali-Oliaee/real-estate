@@ -10,7 +10,6 @@ const ModalContainer = ({ children, open, onCancel, title, ...restProps }) => (
     getContainer={false}
     onCancel={onCancel}
     width={800}
-    maskClosable={false}
     className="styled-modal"
     closeIcon={<CloseOutlined />}
     {...restProps}

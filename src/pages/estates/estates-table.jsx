@@ -119,7 +119,7 @@ const EstatesTable = ({
         pagination={false}
         scroll={{ x: 1024 }}
       />
-      <EditEstateModal onClose={() => navigate("/estates")} />
+      <EditEstateModal onClose={() => navigate("/estates")} refetch={refetch} />
     </>
   )
 }
