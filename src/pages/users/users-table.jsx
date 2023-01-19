@@ -6,6 +6,7 @@ import Fuse from "fuse.js"
 import { Link } from "react-router-dom"
 import EditUserModal from "./edit-user-modal"
 import dayjs from "dayjs"
+import UserInfoModal from "./user-info-modal"
 
 const UsersTable = ({ searchKey, data, loading, refetch }) => {
   const [isModalVisible, setIsModalVisible] = React.useState(false)
@@ -30,7 +31,13 @@ const UsersTable = ({ searchKey, data, loading, refetch }) => {
         columns={[
           { title: "ردیف", dataIndex: "id" },
           { title: "نام", dataIndex: "fullname" },
-          { title: "نام کاربری", dataIndex: "username" },
+          {
+            title: "نام کاربری",
+            dataIndex: "username",
+            render: (username, item) => (
+              <Link to={`/users/info/${item.id}`}>{username}</Link>
+            ),
+          },
           {
             title: "نقش",
             dataIndex: "role",
@@ -75,7 +82,7 @@ const UsersTable = ({ searchKey, data, loading, refetch }) => {
                 >
                   <Button icon={<DeleteOutlined className="delete-icon" />} />
                 </Popconfirm>
-                <Link to={`/users/${render.id}`}>
+                <Link to={`/users/edit/${render.id}`}>
                   <Button
                     icon={<EditOutlined />}
                     onClick={() => setIsModalVisible(true)}
@@ -91,11 +98,8 @@ const UsersTable = ({ searchKey, data, loading, refetch }) => {
         pagination={false}
         scroll={{ x: 1024 }}
       />
-      <EditUserModal
-        isOpen={isModalVisible}
-        onClose={() => setIsModalVisible(false)}
-        refetch={refetch}
-      />
+      <EditUserModal refetch={refetch} />
+      <UserInfoModal />
     </>
   )
 }

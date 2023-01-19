@@ -14,7 +14,7 @@ const EditUserModal = ({ refetch }) => {
   const [passwrordModal, setPasswrordModal] = useState(false)
   const [loading, setLoading] = useState(false)
   const { requiredField } = useValidators()
-  let { id } = useParams()
+  let { id, mode } = useParams()
   const navigate = useNavigate()
 
   const handleConfirmStep = (values) => {
@@ -32,12 +32,12 @@ const EditUserModal = ({ refetch }) => {
 
   useEffect(() => {
     formInstance.setFieldsValue(data)
-  }, [data])
+  }, [data, formInstance])
 
   return (
     <ModalContainer
       centered
-      open={!!id}
+      open={!!id && mode === "edit"}
       onCancel={() => {
         formInstance.resetFields()
         navigate("/users")

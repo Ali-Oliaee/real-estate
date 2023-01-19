@@ -36,6 +36,10 @@ const authRouter = createBrowserRouter([
     element: <UsersPage />,
   },
   {
+    path: "/users/:mode/:id",
+    element: <UsersPage />,
+  },
+  {
     path: "/commits",
     element: <CommitsPage />,
   },

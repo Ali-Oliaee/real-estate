@@ -96,3 +96,17 @@
 .change-password-modal {
   width: 400px !important;
 }
+
+.user-info-modal {
+  .item {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    margin-inline-end: 40px;
+
+    h4 {
+      margin-inline-end: 8px;
+    }
+  }
+
+}
