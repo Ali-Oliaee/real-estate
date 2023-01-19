@@ -18,6 +18,6 @@ export const getPendingEstates = async () => {
 }
 
 export const getArchiveEstates = async () => {
-  const { data } = await axios.get("/estate/archive/")
+  const { data } = await axios.get("/estate/archived-home/")
   return data
 }

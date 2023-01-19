@@ -4,8 +4,8 @@ import { FullscreenOutlined } from "@ant-design/icons"
 import { AdminLayout } from "../../layouts"
 import { getArchiveEstates } from "../../api/estates"
 import { useQuery } from "react-query"
-import EstatesTable from "../estates/estates-table"
-import SearchBar from "../estates/search-bar"
+import EstatesTable from "./estates-table"
+import SearchBar from "./search-bar"
 import "./styles.scss"
 
 const ArchiveEstates = () => {

@@ -7,6 +7,7 @@ import {
   AddEstatePage,
   NotFoundPage,
   ArchiveEstatesPage,
+  ImportDataPage,
 } from "../pages"
 
 const authRouter = createBrowserRouter([
@@ -41,6 +42,14 @@ const authRouter = createBrowserRouter([
   {
     path: "/archives",
     element: <ArchiveEstatesPage />,
+  },
+  {
+    path: "/archives/:id",
+    element: <ArchiveEstatesPage />,
+  },
+  {
+    path: "/import-data",
+    element: <ImportDataPage />,
   },
   {
     path: "*",

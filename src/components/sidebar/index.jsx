@@ -6,6 +6,7 @@ import {
   adminMenuItems,
   advisorMenuItems,
   userMenuItems,
+  assistantMenuItems,
 } from "./MenuItems"
 import "./styles.scss"
 
@@ -32,8 +33,10 @@ const SideMenu = () => {
             navigate(key, { replace: true })
           }}
           items={
-            role === "manager" || role === "assistant"
+            role === "manager"
               ? managerMenuItems
+              : role === "assistant"
+              ? assistantMenuItems
               : role === "admin"
               ? adminMenuItems
               : role === "advisor"
