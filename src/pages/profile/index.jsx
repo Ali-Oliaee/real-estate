@@ -32,14 +32,6 @@ const ProfilePage = () => {
               <p>{user?.phone ?? "-"}</p>
             </div>
             <div className="item">
-              <h4>نقش: </h4>
-              <p>{user?.role ?? "-"}</p>
-            </div>
-            <div className="item">
-              <h4>نقش: </h4>
-              <p>{user?.role ?? "-"}</p>
-            </div>
-            <div className="item">
               <h4>آدرس: </h4>
               <p>{user?.address ?? "-"}</p>
             </div>

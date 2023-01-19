@@ -29,7 +29,7 @@ const EditEstateModal = ({ onClose, refetch }) => {
 
   useEffect(() => {
     formInstance.setFieldsValue(data)
-  }, [data])
+  }, [data, formInstance])
 
   return (
     <ModalContainer
