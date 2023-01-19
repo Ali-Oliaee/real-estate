@@ -11,3 +11,8 @@ export const getUser = async (id) => {
     return data
   }
 }
+
+export const getUserHistory = async () => {
+  const { data } = await axios.get("/users/user-history/")
+  return data
+}

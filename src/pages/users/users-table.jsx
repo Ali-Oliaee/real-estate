@@ -9,8 +9,6 @@ import dayjs from "dayjs"
 import UserInfoModal from "./user-info-modal"
 
 const UsersTable = ({ searchKey, data, loading, refetch }) => {
-  const [isModalVisible, setIsModalVisible] = React.useState(false)
-
   const fuse = new Fuse(data ?? [], {
     includeScore: true,
     keys: ["fullname", "address", "phone", "role"],
@@ -83,10 +81,7 @@ const UsersTable = ({ searchKey, data, loading, refetch }) => {
                   <Button icon={<DeleteOutlined className="delete-icon" />} />
                 </Popconfirm>
                 <Link to={`/users/edit/${render.id}`}>
-                  <Button
-                    icon={<EditOutlined />}
-                    onClick={() => setIsModalVisible(true)}
-                  ></Button>
+                  <Button icon={<EditOutlined />} />
                 </Link>
               </div>
             ),

@@ -63,7 +63,19 @@ const EditUserModal = ({ refetch }) => {
                 <Input className="input" />
               </FloatLabel>
             </Form.Item>
-            <Form.Item name="phone">
+            <Form.Item
+              name="phone"
+              rules={[
+                {
+                  min: 11,
+                  message: "شماره تلفن معتبر نمیباشد",
+                },
+                {
+                  max: 11,
+                  message: "شماره تلفن معتبر نمیباشد",
+                },
+              ]}
+            >
               <FloatLabel label="شماره تلفن">
                 <Input className="input" type="tel" />
               </FloatLabel>
@@ -79,16 +91,12 @@ const EditUserModal = ({ refetch }) => {
                 placeholder="نقش"
                 options={[
                   {
-                    value: "manager",
-                    label: "مدیر",
-                  },
-                  {
                     value: "assistant",
                     label: "معاون",
                   },
                   {
                     value: "admin",
-                    label: "ادمین",
+                    label: "مدیر",
                   },
                   {
                     value: "advisor",

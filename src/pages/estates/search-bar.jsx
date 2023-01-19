@@ -8,21 +8,53 @@ import {
   Button,
   Form,
 } from "antd"
+import axios from "../../utils/axios"
 import { useState } from "react"
 import "./styles.scss"
 
-const SearchBar = () => {
+const SearchBar = ({ setData, data }) => {
   const [minPrice, setMinPrice] = useState(600)
   const [maxPrice, setMaxPrice] = useState(7000)
   const [meter, setMeter] = useState([70, 550])
   const [form] = Form.useForm()
+  const handleSubmit = ({
+    area_code,
+    style,
+    heating,
+    bottom,
+    electricity,
+    kitchen,
+    faucets,
+    window,
+    bathtub,
+  }) => {
+    axios
+      .get(
+        `/estate/list/?${area_code ? `area_code=${area_code}&` : ""}${
+          style ? `style=${style}&` : ""
+        }${heating ? `heating=${heating}&` : ""}${
+          bottom ? `bottom=${bottom}&` : ""
+        }${electricity ? `electricity=${electricity}&` : ""}${
+          kitchen ? `kitchen=${kitchen}&` : ""
+        }${faucets ? `faucets=${faucets}&` : ""}${
+          window ? `window=${window}&` : ""
+        }${bathtub ? `bathtub=${bathtub}&` : ""}`
+      )
+      .then(({ data }) => setData(data))
+  }
 
   return (
     <Row>
       <Col>
         <Row>
           <Col>
-            <Button className="reset-button" onClick={() => form.resetFields()}>
+            <Button
+              className="reset-button"
+              onClick={() => {
+                form.resetFields()
+                setData(null)
+              }}
+            >
               حذف فیلتر
             </Button>
             <Row className="price-container">
@@ -34,13 +66,25 @@ const SearchBar = () => {
                     min={0}
                     max={10000}
                     style={{ width: 320 }}
-                    onChange={setMinPrice}
+                    onChange={(value) => {
+                      setMinPrice(value)
+                      const newData = data.filter(
+                        (estate) => estate.total_price >= value
+                      )
+                      setData(newData)
+                    }}
                     value={minPrice}
                     className="slider"
                   />
                   <InputNumber
                     value={minPrice}
-                    onChange={setMinPrice}
+                    onChange={(value) => {
+                      setMinPrice(value)
+                      const newData = data.filter(
+                        (estate) => estate.total_price >= value
+                      )
+                      setData(newData)
+                    }}
                     bordered={false}
                     className="input-number"
                   />
@@ -52,13 +96,25 @@ const SearchBar = () => {
                     min={1}
                     max={10000}
                     style={{ width: 320 }}
-                    onChange={setMaxPrice}
+                    onChange={(value) => {
+                      setMaxPrice(value)
+                      const newData = data.filter(
+                        (estate) => estate.total_price <= value
+                      )
+                      setData(newData)
+                    }}
                     value={maxPrice}
                     className="slider"
                   />
                   <InputNumber
                     value={maxPrice}
-                    onChange={setMaxPrice}
+                    onChange={(value) => {
+                      setMaxPrice(value)
+                      const newData = data.filter(
+                        (estate) => estate.total_price <= value
+                      )
+                      setData(newData)
+                    }}
                     bordered={false}
                     className="input-number"
                   />
@@ -78,14 +134,22 @@ const SearchBar = () => {
                     defaultValue={[70, 550]}
                     max={10000}
                     className="slider"
-                    onChange={setMeter}
+                    onChange={(value) => {
+                      setMeter(value)
+                      const newData = data.filter(
+                        (estate) =>
+                          estate.meterage >= value[0] &&
+                          estate.meterage <= value[1]
+                      )
+                      setData(newData)
+                    }}
                   />
                   <h4> تا {meter[1]} متر</h4>
                 </Row>
               </Col>
             </Row>
             <Divider />
-            <Form form={form}>
+            <Form form={form} onFinish={handleSubmit}>
               <Row justify="start" align="middle">
                 <h5>کد: </h5>
                 <Form.Item name="area_code">
@@ -118,7 +182,7 @@ const SearchBar = () => {
               </Row>
               <Row justify="start" align="middle">
                 <h5>شیرآلات: </h5>
-                <Form.Item name="bathroom">
+                <Form.Item name="faucets">
                   <Input className="input" />
                 </Form.Item>
                 <h5>پنجره: </h5>
@@ -133,7 +197,7 @@ const SearchBar = () => {
                 </Form.Item>
               </Row>
               <Row justify="start" align="middle">
-                <Button block type="primary" size="large">
+                <Button block type="primary" size="large" htmlType="submit">
                   اعمال
                 </Button>
               </Row>

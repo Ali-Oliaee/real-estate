@@ -14,6 +14,7 @@ const EstatesPage = () => {
   const [addModal, setAddModal] = useState(false)
   const { role } = JSON.parse(localStorage.getItem("user") || "{}")
   const { data, isLoading, refetch } = useQuery("estates", getEstates)
+  const [search, setSearch] = useState()
 
   return (
     <AdminLayout>
@@ -24,7 +25,7 @@ const EstatesPage = () => {
               placement="bottomRight"
               title="جستجوی پیشرفته"
               overlayClassName="search-bar"
-              content={<SearchBar />}
+              content={<SearchBar setData={setSearch} data={data} />}
               trigger="click"
             >
               <Button size="large">جستجوی پیشرفته</Button>
@@ -58,7 +59,7 @@ const EstatesPage = () => {
         <EstatesTable
           fullscreen={fullscreen}
           setFullscreen={setFullscreen}
-          data={data}
+          data={search ?? data}
           loading={isLoading}
           refetch={refetch}
         />

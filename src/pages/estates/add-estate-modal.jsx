@@ -45,7 +45,19 @@ const AddEstateModal = ({ isOpen, onClose, refetch }) => {
             </FloatLabel>
           </Form.Item>
           <Form.Item name="owner_phone">
-            <FloatLabel label="شماره تلفن مالک">
+            <FloatLabel
+              label="شماره تلفن مالک"
+              rules={[
+                {
+                  min: 11,
+                  message: "شماره تلفن معتبر نمیباشد",
+                },
+                {
+                  max: 11,
+                  message: "شماره تلفن معتبر نمیباشد",
+                },
+              ]}
+            >
               <Input className="input" type="tel" />
             </FloatLabel>
           </Form.Item>
@@ -71,17 +83,17 @@ const AddEstateModal = ({ isOpen, onClose, refetch }) => {
           </Form.Item>
           <Form.Item name="meterage">
             <FloatLabel label="متراژ">
-              <Input className="input" />
+              <Input className="input" type="number" />
             </FloatLabel>
           </Form.Item>
           <Form.Item name="price_per_meter">
             <FloatLabel label="قیمت متر مربع">
-              <Input className="input" />
+              <Input className="input" type="number" />
             </FloatLabel>
           </Form.Item>
           <Form.Item name="total_price">
             <FloatLabel label="قیمت کل">
-              <Input className="input" />
+              <Input className="input" type="number" />
             </FloatLabel>
           </Form.Item>
           <Form.Item name="customer_name">

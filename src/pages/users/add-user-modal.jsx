@@ -54,7 +54,19 @@ const AddUserModal = ({ isOpen, onClose, refetch }) => {
               <Input.Password size="small" className="input password-input" />
             </FloatLabel>
           </Form.Item>
-          <Form.Item name="phone">
+          <Form.Item
+            name="phone"
+            rules={[
+              {
+                min: 11,
+                message: "شماره تلفن معتبر نمیباشد",
+              },
+              {
+                max: 11,
+                message: "شماره تلفن معتبر نمیباشد",
+              },
+            ]}
+          >
             <FloatLabel label="شماره تلفن">
               <Input className="input" />
             </FloatLabel>
@@ -76,16 +88,12 @@ const AddUserModal = ({ isOpen, onClose, refetch }) => {
               size="large"
               options={[
                 {
-                  value: "manager",
-                  label: "مدیر",
-                },
-                {
                   value: "assistant",
                   label: "معاون",
                 },
                 {
                   value: "admin",
-                  label: "ادمین",
+                  label: "مدیر",
                 },
                 {
                   value: "advisor",

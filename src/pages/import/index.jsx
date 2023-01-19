@@ -1,68 +1,67 @@
-import { CheckOutlined, CloseOutlined, InboxOutlined } from "@ant-design/icons"
-import Dragger from "antd/es/upload/Dragger"
-import { OutTable, ExcelRenderer } from "react-excel-renderer"
+import { CheckOutlined, CloseOutlined } from "@ant-design/icons"
 import { useState } from "react"
 import { AdminLayout } from "../../layouts"
-import { Button, Col, Row } from "antd"
+import { Button, Col, message, Row, Upload } from "antd"
+import axios from "../../utils/axios"
 
 const ImportDataPage = () => {
-  const [exel, setExel] = useState({ cols: [], rows: [] })
+  const [loading, setLoading] = useState(false)
+  const [exel, setExel] = useState()
 
-  const fileHandler = (file) => {
-    ExcelRenderer(file, (err, resp) => {
-      if (err) {
-        console.log(err)
-      } else {
-        setExel({
-          cols: resp.cols,
-          rows: resp.rows,
-        })
-      }
-    })
+  const sendExel = () => {
+    setLoading(true)
+    const formData = new FormData()
+    formData.append("file", exel)
+    console.log(exel)
+    axios
+      .post("/estate/import-excel/", formData, {
+        headers: { "content-type": "multipart/form-data" },
+      })
+      .then(() => {
+        message.success("اطلاعات با موفقیت اضافه شدند")
+      })
+      .finally(() => setLoading(false))
   }
 
   return (
     <AdminLayout>
       <Row>
-        <Col span={exel.rows.length ? 12 : 24}>
-          <Dragger
-            style={{ maxHeight: 200 }}
-            multiple={false}
-            name="file"
-            maxCount={1}
+        <Col span={24}>
+          <Upload
+            accept=".xlsx"
             showUploadList={false}
-            accept=".xlsx, .xls, .csv"
-            onChange={(info) => fileHandler(info.file.originFileObj)}
+            onChange={({ file }) => setExel(file.originFileObj)}
           >
-            <p className="ant-upload-drag-icon">
-              <InboxOutlined />
-            </p>
-            <p className="ant-upload-text">
-              فایل خود را اینجا بکشید و رها کنید
-            </p>
-            <p className="ant-upload-hint">پشتیبانی از فایل های Exel و csv</p>
-          </Dragger>
-        </Col>
-        {!!exel.rows.length && (
-          <Col span={12}>
+            <Button>Click to Upload</Button>
+          </Upload>
+          {exel && (
             <div
               style={{
                 width: "100%",
-                overflow: "auto",
                 maxHeight: 600,
                 display: "flex",
+                marginTop: 40,
                 flexDirection: "column",
                 alignItems: "center",
                 justifyContent: "center",
               }}
             >
               <h5>فایل وارد شده به انتهای لیست املاک اضافه خواهد شد! </h5>
-              <div className="buttons">
+              <div
+                style={{
+                  width: "100%",
+                  display: "flex",
+                  flexDirection: "column",
+                  alignItems: "center",
+                  justifyContent: "center",
+                }}
+              >
                 <Button
                   icon={<CheckOutlined />}
                   type="primary"
                   style={{ margin: 10, minWidth: 160 }}
-                  onClick={() => console.log(exel)}
+                  onClick={sendExel}
+                  loading={loading}
                 >
                   ثبت اطلاعات
                 </Button>
@@ -74,22 +73,18 @@ const ImportDataPage = () => {
                     border: "1px solid red",
                     color: "red",
                   }}
-                  onClick={() => setExel({ cols: [], rows: [] })}
+                  onClick={() => {
+                    setExel(null)
+                    setLoading(false)
+                  }}
                 >
                   انصراف
                 </Button>
               </div>
             </div>
-          </Col>
-        )}
+          )}
+        </Col>
       </Row>
-      <div style={{ width: "100%", overflow: "auto", maxHeight: 600 }}>
-        <OutTable
-          data={exel.rows}
-          columns={exel.cols}
-          tableHeaderRowClass="heading"
-        />
-      </div>
     </AdminLayout>
   )
 }

@@ -17,7 +17,6 @@ const logError = (err) => {
   }
 }
 
-// const API_URL = 'http://127.0.0.1:8000';
 const API_URL = "http://192.168.1.102:8000"
 const API_BASE_PATH = "/api/v1/"
 
@@ -28,20 +27,15 @@ const instance = axios.create({
   },
 })
 
-// request handler
 instance.interceptors.request.use(
   (config) => {
     const { access } = JSON.parse(localStorage.getItem("token") || "{}")
-    if (access) {
-      // eslint-disable-next-line no-param-reassign
-      config.headers.Authorization = `Bearer ${access}`
-    }
+    if (access) config.headers.Authorization = `Bearer ${access}`
     return config
   },
   (error) => Promise.reject(error)
 )
 
-// response handler
 instance.interceptors.response.use(
   (response) => response,
   (error) => {
