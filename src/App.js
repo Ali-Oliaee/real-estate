@@ -4,8 +4,14 @@ import { RouterProvider } from "react-router-dom"
 import { QueryClient, QueryClientProvider } from "react-query"
 import { ConfigProvider } from "antd"
 import authRouter from "./routes/auth"
+import dayjs from "dayjs"
 import guestRouter from "./routes/guest"
+import jalaliday from "jalaliday"
 import "dayjs/locale/fa"
+
+dayjs.extend(jalaliday)
+dayjs.locale("fa")
+dayjs.calendar("jalali")
 
 export const queryClient = new QueryClient({
   defaultOptions: {

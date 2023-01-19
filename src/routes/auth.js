@@ -6,6 +6,7 @@ import {
   CommitsPage,
   AddEstatePage,
   NotFoundPage,
+  ArchiveEstatesPage,
 } from "../pages"
 
 const authRouter = createBrowserRouter([
@@ -36,6 +37,10 @@ const authRouter = createBrowserRouter([
   {
     path: "/add-estate",
     element: <AddEstatePage />,
+  },
+  {
+    path: "/archives",
+    element: <ArchiveEstatesPage />,
   },
   {
     path: "*",

@@ -27,7 +27,10 @@
   .ant-table-thead > tr > th {
     background-color: #ffffff;
     color: #91a2ab;
-    
+    min-width:104px;
+    .ant-table-column-title{
+      width: max-content;
+    } 
     &::before {
       content: unset !important;
     }

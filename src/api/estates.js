@@ -14,3 +14,8 @@ export const getPendingEstates = async () => {
   const { data } = await axios.get("/estate/unchecked-home/")
   return data
 }
+
+export const getArchiveEstates = async () => {
+  const { data } = await axios.get("/estate/archive/")
+  return data
+}

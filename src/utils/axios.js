@@ -58,15 +58,16 @@ instance.interceptors.response.use(
     ) {
       message.error("The server is taking to long to respond")
     } else if (errCode === 401) {
-      // const terminateSession = () => {
-      //   localStorage.removeItem('api_key');
-      //   message.error("Your session has expired, you'll be logged out");
-      //   setTimeout(() => {
-      //     window.location.reload();
-      //   }, 2500);
-      // };
-      // terminateSession();
-      // return Promise.reject(error);
+      const terminateSession = () => {
+        localStorage.removeItem("token")
+        message.error("نشست شما به پایان رسیده است.")
+        message.error("لطفا دوباره وارد حساب شوید.")
+        setTimeout(() => {
+          window.location.reload()
+        }, 2500)
+      }
+      terminateSession()
+      return Promise.reject(error)
     } else if (errCode === 429) {
       message.error("Too many request")
     } else if (errCode >= 500 && errCode < 600) {

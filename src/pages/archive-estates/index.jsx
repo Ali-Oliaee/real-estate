@@ -1,19 +1,19 @@
 import { useState } from "react"
 import { Button, Col, Popover, Row } from "antd"
 import { FullscreenOutlined } from "@ant-design/icons"
-import EstatesTable from "./estates-table"
 import { AdminLayout } from "../../layouts"
-import AddStateModal from "./add-estate-modal"
-import { getEstates } from "../../api/estates"
-import SearchBar from "./search-bar"
+import { getArchiveEstates } from "../../api/estates"
 import { useQuery } from "react-query"
+import EstatesTable from "../estates/estates-table"
+import SearchBar from "../estates/search-bar"
 import "./styles.scss"
 
-const EstatesPage = () => {
+const ArchiveEstates = () => {
   const [fullscreen, setFullscreen] = useState(false)
-  const [addModal, setAddModal] = useState(false)
-  const { role } = JSON.parse(localStorage.getItem("user") || "{}")
-  const { data, isLoading, refetch } = useQuery("estates", getEstates)
+  const { data, isLoading, refetch } = useQuery(
+    "archive-estates",
+    getArchiveEstates
+  )
 
   return (
     <AdminLayout>
@@ -36,16 +36,6 @@ const EstatesPage = () => {
             lg={12}
             style={{ display: "flex", justifyContent: "flex-end" }}
           >
-            {(role === "assistant" || role === "manager") && (
-              <Button
-                size="large"
-                type="primary"
-                className="add-button"
-                onClick={() => setAddModal(true)}
-              >
-                افزودن ملک +
-              </Button>
-            )}
             <Button
               size="large"
               type="ghost"
@@ -63,13 +53,8 @@ const EstatesPage = () => {
           refetch={refetch}
         />
       </div>
-      <AddStateModal
-        isOpen={addModal}
-        onClose={() => setAddModal(false)}
-        refetch={refetch}
-      />
     </AdminLayout>
   )
 }
 
-export default EstatesPage
+export default ArchiveEstates

@@ -7,9 +7,11 @@ import { getUser } from "../../api/users"
 import { useNavigate } from "react-router-dom"
 import { FloatLabel, ModalContainer } from "../../components"
 import { useValidators } from "../../hooks"
+import ChangePasswordModal from "./change-password-modal"
 
 const EditUserModal = () => {
   const [formInstance] = Form.useForm()
+  const [passwrordModal, setPasswrordModal] = useState(false)
   const [loading, setLoading] = useState(false)
   const navigate = useNavigate()
   const { requiredField } = useValidators()
@@ -115,6 +117,13 @@ const EditUserModal = () => {
             ویرایش
           </Button>
         </Form>
+        <Button onClick={() => setPasswrordModal(true)} size="large">
+          تغییر کلمه عبور
+        </Button>
+        <ChangePasswordModal
+          open={passwrordModal}
+          onClose={() => setPasswrordModal(false)}
+        />
       </Spin>
     </ModalContainer>
   )

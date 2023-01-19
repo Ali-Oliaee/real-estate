@@ -5,6 +5,7 @@ import axios from "../../utils/axios"
 import Fuse from "fuse.js"
 import { Link } from "react-router-dom"
 import EditUserModal from "./edit-user-modal"
+import dayjs from "dayjs"
 
 const UsersTable = ({ searchKey, data, loading, refetch }) => {
   const [isModalVisible, setIsModalVisible] = React.useState(false)
@@ -35,7 +36,13 @@ const UsersTable = ({ searchKey, data, loading, refetch }) => {
           { title: "شماره تلفن", dataIndex: "phone" },
           { title: "آدرس", dataIndex: "address" },
           { title: "تاریخ عضویت", dataIndex: "date_joined" },
-          { title: "اخرین ورود", dataIndex: "last_login" },
+          {
+            title: "اخرین ورود",
+            dataIndex: "last_login",
+            render: (date) => {
+              return date && dayjs(data).format("YYYY/MM/DD")
+            },
+          },
           {
             title: "عملیات",
             render: (_, render) => (

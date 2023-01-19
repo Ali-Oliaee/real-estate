@@ -1,5 +1,6 @@
 import {
   CheckCircleOutlined,
+  FileSearchOutlined,
   HomeOutlined,
   PlusCircleOutlined,
   UsergroupAddOutlined,
@@ -16,6 +17,11 @@ export const managerMenuItems = [
     key: "/users",
     label: "اشخاص",
     icon: <UsergroupAddOutlined />,
+  },
+  {
+    key: "/archives",
+    label: "آرشیو املاک",
+    icon: <FileSearchOutlined />,
   },
   {
     key: "/profile",

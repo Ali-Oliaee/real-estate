@@ -4,6 +4,7 @@ import { CloseOutlined, DeleteOutlined, EditOutlined } from "@ant-design/icons"
 import EditEstateModal from "./edit-estate-modal"
 import { useNavigate } from "react-router-dom"
 import axios from "../../utils/axios"
+import dayjs from "dayjs"
 
 const EstatesTable = ({
   data,
@@ -43,7 +44,11 @@ const EstatesTable = ({
           { title: "ردیف", dataIndex: "id" },
           { title: "شماره تلفن", dataIndex: "owner_phone" },
           { title: "کد", dataIndex: "area_code" },
-          { title: "تاریخ", dataIndex: "created_at" },
+          {
+            title: "تاریخ",
+            dataIndex: "created_at",
+            render: (date) => dayjs(date * 1000).format("YYYY/MM/DD"),
+          },
           { title: "مالک", dataIndex: "owner_name" },
           { title: "خیابان", dataIndex: "street" },
           { title: "پلاک", dataIndex: "plaque" },
