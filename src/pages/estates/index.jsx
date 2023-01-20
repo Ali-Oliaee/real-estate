@@ -7,18 +7,15 @@ import AddStateModal from "./add-estate-modal"
 import { getEstates } from "../../api/estates"
 import SearchBar from "./search-bar"
 import { useQuery } from "react-query"
+import { useNavigate } from "react-router-dom"
 import "./styles.scss"
 
 const EstatesPage = () => {
   const [fullscreen, setFullscreen] = useState(false)
-  const [addModal, setAddModal] = useState(false)
   const { role } = JSON.parse(localStorage.getItem("user") || "{}")
-
-  const { data, isLoading, refetch } = useQuery("estates", getEstates, {
-    staleTime: Infinity,
-    cacheTime: 0,
-  })
+  const { data, isLoading, refetch } = useQuery("estates", getEstates)
   const [search, setSearch] = useState()
+  const navigate = useNavigate()
 
   return (
     <AdminLayout>
@@ -46,7 +43,7 @@ const EstatesPage = () => {
                 size="large"
                 type="primary"
                 className="add-button"
-                onClick={() => setAddModal(true)}
+                onClick={() => navigate("/estates/add/")}
               >
                 افزودن ملک +
               </Button>
@@ -68,11 +65,7 @@ const EstatesPage = () => {
           refetch={refetch}
         />
       </div>
-      <AddStateModal
-        isOpen={addModal}
-        onClose={() => setAddModal(false)}
-        refetch={refetch}
-      />
+      <AddStateModal />
     </AdminLayout>
   )
 }

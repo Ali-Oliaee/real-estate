@@ -3,12 +3,17 @@ import axios from "../../utils/axios"
 import { useState } from "react"
 import { FloatLabel, ModalContainer } from "../../components"
 import { useValidators } from "../../hooks"
+import { useNavigate, useParams } from "react-router-dom"
+import { useQueryClient } from "react-query"
 import "./styles.scss"
 
-const AddEstateModal = ({ isOpen, onClose, refetch }) => {
+const AddEstateModal = () => {
   const [loading, setLoading] = useState(false)
   const [formInstance] = Form.useForm()
+  const queryClient = useQueryClient()
+  const { mode } = useParams()
   const { requiredField } = useValidators()
+  const navigate = useNavigate()
   const addEstate = (values) => {
     setLoading(true)
     axios
@@ -16,8 +21,8 @@ const AddEstateModal = ({ isOpen, onClose, refetch }) => {
       .then(() => {
         message.success("ملک با موفقیت افزوده شد")
         formInstance.resetFields()
-        refetch()
-        onClose()
+        navigate("/estates")
+        queryClient.invalidateQueries({ predicate: (key) => key === "estates" })
       })
       .finally(() => setLoading(false))
   }
@@ -25,8 +30,8 @@ const AddEstateModal = ({ isOpen, onClose, refetch }) => {
   return (
     <ModalContainer
       centered
-      open={isOpen}
-      onCancel={onClose}
+      open={mode === "add"}
+      onCancel={() => navigate("/estates")}
       afterClose={formInstance.resetFields}
       title={<span>افزودن ملک</span>}
       footer={false}
