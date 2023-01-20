@@ -1,0 +1,15 @@
+{
+  "files": {
+    "main.css": "/real-state/static/css/main.22a73566.css",
+    "main.js": "/real-state/static/js/main.0fc0d48f.js",
+    "static/media/Vazirmatn-Regular.ttf": "/real-state/static/media/Vazirmatn-Regular.f08bc22d4f5bb01fb82f.ttf",
+    "static/media/login-background.png": "/real-state/static/media/login-background.749533c45e8713a79a64.png",
+    "index.html": "/real-state/index.html",
+    "main.22a73566.css.map": "/real-state/static/css/main.22a73566.css.map",
+    "main.0fc0d48f.js.map": "/real-state/static/js/main.0fc0d48f.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.22a73566.css",
+    "static/js/main.0fc0d48f.js"
+  ]
+}
