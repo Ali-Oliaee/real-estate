@@ -7,7 +7,7 @@ export const getUsers = async () => {
 
 export const getUser = async (id) => {
   if (id) {
-    const { data } = await axios.get(`/users/list/${id}/`)
+    const { data } = await axios.get(`/users/get-user-data/${id}/`)
     return data
   }
 }
@@ -15,4 +15,11 @@ export const getUser = async (id) => {
 export const getUserHistory = async () => {
   const { data } = await axios.get("/users/user-history/")
   return data
+}
+
+export const getUserHistoryById = async (id) => {
+  if (id) {
+    const { data } = await axios.get(`/users/user-history-list/${id}/`)
+    return data
+  }
 }

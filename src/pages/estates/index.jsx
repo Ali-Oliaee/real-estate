@@ -13,7 +13,11 @@ const EstatesPage = () => {
   const [fullscreen, setFullscreen] = useState(false)
   const [addModal, setAddModal] = useState(false)
   const { role } = JSON.parse(localStorage.getItem("user") || "{}")
-  const { data, isLoading, refetch } = useQuery("estates", getEstates)
+
+  const { data, isLoading, refetch } = useQuery("estates", getEstates, {
+    staleTime: Infinity,
+    cacheTime: 0,
+  })
   const [search, setSearch] = useState()
 
   return (

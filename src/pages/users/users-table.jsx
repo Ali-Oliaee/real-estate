@@ -44,9 +44,9 @@ const UsersTable = ({ searchKey, data, loading, refetch }) => {
                 case "manager":
                   return "مدیر کل"
                 case "assistant":
-                  return "دستیار"
+                  return "معاون"
                 case "admin":
-                  return "مدیر"
+                  return "ادمین"
                 case "advisor":
                   return "مشاور"
                 case "user":

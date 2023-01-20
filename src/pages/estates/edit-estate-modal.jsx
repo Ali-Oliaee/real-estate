@@ -54,20 +54,20 @@ const EditEstateModal = ({ onClose, refetch }) => {
                 <Input className="input" />
               </FloatLabel>
             </Form.Item>
-            <Form.Item name="owner_phone">
-              <FloatLabel
-                label="شماره تلفن مالک"
-                rules={[
-                  {
-                    min: 11,
-                    message: "شماره تلفن معتبر نمیباشد",
-                  },
-                  {
-                    max: 11,
-                    message: "شماره تلفن معتبر نمیباشد",
-                  },
-                ]}
-              >
+            <Form.Item
+              name="owner_phone"
+              rules={[
+                {
+                  min: 11,
+                  message: "شماره تلفن معتبر نمیباشد",
+                },
+                {
+                  max: 11,
+                  message: "شماره تلفن معتبر نمیباشد",
+                },
+              ]}
+            >
+              <FloatLabel label="شماره تلفن مالک">
                 <Input className="input" type="tel" />
               </FloatLabel>
             </Form.Item>

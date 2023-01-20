@@ -9,7 +9,6 @@ const ProfilePage = () => {
   const { id } = JSON.parse(localStorage.getItem("user"))
   const { data: user, isLoading } = useQuery("current-user", () => getUser(id))
   const { data: history } = useQuery("user-history", getUserHistory)
-  console.log(history)
 
   return (
     <AdminLayout>
@@ -27,7 +26,19 @@ const ProfilePage = () => {
             </div>
             <div className="item">
               <h4>نقش: </h4>
-              <p>{user?.role ?? "-"}</p>
+              <p>
+                {user?.role === "manager"
+                  ? "مدیر"
+                  : user?.role === "assistant"
+                  ? "معاون"
+                  : user?.role === "admin"
+                  ? "ادمین"
+                  : user?.role === "advisor"
+                  ? "مشاور"
+                  : user?.role === "user"
+                  ? "کاربر"
+                  : "-"}
+              </p>
             </div>
             <div className="item">
               <h4>شماره تلفن: </h4>
@@ -50,63 +61,67 @@ const ProfilePage = () => {
           </Row>
           <Divider />
           <h2 style={{ marginBottom: 20 }}>تاریخچه</h2>
-          {history?.map((item) => {
-            switch (item.title) {
-              case "create-user":
-                return (
-                  <Row align="middle" justify="start" key={item.id}>
-                    <Col span={24}>
-                      کاربر {item.low_user.username} توسط{" "}
-                      {item?.up_user?.username} ساخته شد.
-                      <Row style={{ fontSize: "0.7em", marginTop: 10 }}>
-                        {dayjs(item.created_at * 1000).format("YYYY/MM/DD")}
+          <Row wrap justify="space-between">
+            <Col span={24}>
+              {history?.map((item) => {
+                switch (item.title) {
+                  case "create-user":
+                    return (
+                      <Row align="middle" justify="start" key={item.id}>
+                        <Col span={24}>
+                          کاربر {item.low_user.username || "deleted Account "}{" "}
+                          توسط {item?.up_user?.username} ساخته شد.
+                          <Row style={{ fontSize: "0.7em", marginTop: 10 }}>
+                            {dayjs(item.created_at * 1000).format("YYYY/MM/DD")}
+                          </Row>
+                        </Col>
+                        <Divider />
                       </Row>
-                    </Col>
-                    <Divider />
-                  </Row>
-                )
-              case "update-user":
-                return (
-                  <Row align="middle" justify="start" key={item.id}>
-                    <Col span={24}>
-                      اطلاعات کاربر {item.low_user.username} توسط{" "}
-                      {item?.up_user?.username} به روز رسانی شد.
-                      <Row style={{ fontSize: "0.9em", marginTop: 10 }}>
-                        {item.description}
+                    )
+                  case "update-user":
+                    return (
+                      <Row align="middle" justify="start" key={item.id}>
+                        <Col span={24}>
+                          اطلاعات کاربر{" "}
+                          {item.low_user.username || "deleted Account "} توسط{" "}
+                          {item?.up_user?.username} به روز رسانی شد.
+                          <Row style={{ fontSize: "0.9em", marginTop: 10 }}>
+                            {item.description}
+                          </Row>
+                          <Row style={{ fontSize: "0.7em", marginTop: 10 }}>
+                            {dayjs(item.created_at * 1000).format("YYYY/MM/DD")}
+                          </Row>
+                        </Col>
+                        <Divider />
                       </Row>
-                      <Row style={{ fontSize: "0.7em", marginTop: 10 }}>
-                        {dayjs(item.created_at * 1000).format("YYYY/MM/DD")}
+                    )
+                  case "delete-user":
+                    return (
+                      <Row align="middle" justify="start" key={item.id}>
+                        <Col span={24}>
+                          کاربر {item.low_user.username || "deleted Account "}{" "}
+                          توسط {item?.up_user?.username} حذف شد.
+                          <Row style={{ fontSize: "0.7em", marginTop: 10 }}>
+                            {dayjs(item.created_at * 1000).format("YYYY/MM/DD")}
+                          </Row>
+                        </Col>
+                        <Divider />
                       </Row>
-                    </Col>
-                    <Divider />
-                  </Row>
-                )
-              case "delete-user":
-                return (
-                  <Row align="middle" justify="start" key={item.id}>
-                    <Col span={24}>
-                      کاربر {item.low_user.username} توسط{" "}
-                      {item?.up_user?.username} حذف شد.
-                      <Row style={{ fontSize: "0.7em", marginTop: 10 }}>
-                        {dayjs(item.created_at * 1000).format("YYYY/MM/DD")}
+                    )
+                  default:
+                    return (
+                      <Row align="middle" justify="start" wrap key={item.id}>
+                        - {item.description}
+                        <Divider />
                       </Row>
-                    </Col>
-                    <Divider />
-                  </Row>
-                )
-
-              default:
-                return (
-                  <Row align="middle" justify="start" wrap key={item.id}>
-                    - {item.description}
-                    <Divider />
-                  </Row>
-                )
-            }
-          })}
-          <Row align="middle" justify="start" wrap>
-            کاربر در تاریخ {dayjs(user?.created_at).format("YYYY/MM/DD")} به
-            تاریخچه اضافه شد.
+                    )
+                }
+              })}
+              <Row align="middle" justify="start" wrap>
+                کاربر در تاریخ {dayjs(user?.created_at).format("YYYY/MM/DD")} به
+                پنل اشراف اضافه شد.
+              </Row>
+            </Col>
           </Row>
         </Spin>
       </div>

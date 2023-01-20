@@ -96,7 +96,7 @@ const EditUserModal = ({ refetch }) => {
                   },
                   {
                     value: "admin",
-                    label: "مدیر",
+                    label: "ادمین",
                   },
                   {
                     value: "advisor",

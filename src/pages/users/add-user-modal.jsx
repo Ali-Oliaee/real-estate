@@ -93,7 +93,7 @@ const AddUserModal = ({ isOpen, onClose, refetch }) => {
                 },
                 {
                   value: "admin",
-                  label: "مدیر",
+                  label: "ادمین",
                 },
                 {
                   value: "advisor",

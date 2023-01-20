@@ -21,3 +21,8 @@ export const getArchiveEstates = async () => {
   const { data } = await axios.get("/estate/archived-home/")
   return data
 }
+
+export const getEstateHistory = async () => {
+  const { data } = await axios.get("/estate/home-history/")
+  return data
+}
