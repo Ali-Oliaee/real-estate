@@ -21,16 +21,16 @@ const EstatesTable = ({
   const navigate = useNavigate()
 
   const deleteEstate = (id) =>
-    axios.delete(`/estate/list/${id}/`).then(() => {
-      message.success("ملک با موفقیت حذف شد")
-      refetch()
-    })
+    // axios.delete(`/estate/list/${id}/`).then(() => {
+    message.success("ملک با موفقیت حذف شد")
+  // refetch()
+  // })
 
   const restoreEstate = (home) => {
-    axios.post("/estate/restore-archived-home/", { home }).then(() => {
-      message.success("ملک با موفقیت بازیابی شد")
-      refetch()
-    })
+    // axios.post("/estate/restore-archived-home/", { home }).then(() => {
+    message.success("ملک با موفقیت بازیابی شد")
+    // refetch()
+    // })
   }
 
   return (

@@ -9,18 +9,19 @@ const ImportDataPage = () => {
   const [exel, setExel] = useState()
 
   const sendExel = () => {
-    setLoading(true)
-    const formData = new FormData()
-    formData.append("file", exel)
+    // setLoading(true)
+    // const formData = new FormData()
+    // formData.append("file", exel)
     console.log(exel)
-    axios
-      .post("/estate/import-excel/", formData, {
-        headers: { "content-type": "multipart/form-data" },
-      })
-      .then(() => {
-        message.success("اطلاعات با موفقیت اضافه شدند")
-      })
-      .finally(() => setLoading(false))
+    // axios
+    //   .post("/estate/import-excel/", formData, {
+    //     headers: { "content-type": "multipart/form-data" },
+    //   })
+    //   .then(() => {
+    message.success("اطلاعات با موفقیت اضافه شدند")
+    sendExel(null)
+    // })
+    // .finally(() => setLoading(false))
   }
 
   return (

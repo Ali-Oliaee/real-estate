@@ -7,13 +7,23 @@ import "./styles.scss"
 
 const ProfilePage = () => {
   const { id } = JSON.parse(localStorage.getItem("user"))
-  const { data: user, isLoading } = useQuery("current-user", () => getUser(id))
-  const { data: history } = useQuery("user-history", getUserHistory)
+  // const { data: user, isLoading } = useQuery("current-user", () => getUser(id))
+  // const { data: history } = useQuery("user-history", getUserHistory)
+  const user = {
+    fullname: "محمد محمدی",
+    username: "mohammad",
+    role: "manager",
+    phone: "09123456789",
+    address: "تهران",
+    access_codes: "B2",
+    date_joined: 1610000000,
+  }
 
   return (
     <AdminLayout>
       <div className="profile-page">
-        <Spin size="large" spinning={isLoading}>
+        {/* <Spin size="large" spinning={isLoading}> */}
+        <Spin size="large" spinning={false}>
           <h2>اطلاعات حساب </h2>
           <Row align="middle" justify="start" wrap style={{ marginTop: 20 }}>
             <div className="item">
@@ -63,7 +73,7 @@ const ProfilePage = () => {
           <h2 style={{ marginBottom: 20 }}>تاریخچه</h2>
           <Row wrap justify="space-between">
             <Col span={24}>
-              {history?.map((item) => {
+              {[1].map((item) => {
                 switch (item.title) {
                   case "create-user":
                     return (

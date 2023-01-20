@@ -8,12 +8,17 @@ import {
   NotFoundPage,
   ArchiveEstatesPage,
   ImportDataPage,
+  LoginPage,
 } from "../pages"
 
 const authRouter = createBrowserRouter([
   {
+    path: "/login",
+    element: <LoginPage />,
+  },
+  {
     path: "/",
-    element: <Navigate to="/estates" />,
+    element: <Navigate to="/login" />,
   },
   {
     path: "/estates",

@@ -14,10 +14,11 @@ const EstatesPage = () => {
   const [addModal, setAddModal] = useState(false)
   const { role } = JSON.parse(localStorage.getItem("user") || "{}")
 
-  const { data, isLoading, refetch } = useQuery("estates", getEstates, {
-    staleTime: Infinity,
-    cacheTime: 0,
-  })
+  // const { data, isLoading, refetch } = useQuery("estates", getEstates, {
+  //   staleTime: Infinity,
+  //   cacheTime: 0,
+  // })
+  // console.log(data)
   const [search, setSearch] = useState()
 
   return (
@@ -29,7 +30,8 @@ const EstatesPage = () => {
               placement="bottomRight"
               title="جستجوی پیشرفته"
               overlayClassName="search-bar"
-              content={<SearchBar setData={setSearch} data={data} />}
+              // content={<SearchBar setData={setSearch} data={data} />}
+              content={<SearchBar setData={setSearch} />}
               trigger="click"
             >
               <Button size="large">جستجوی پیشرفته</Button>
@@ -63,15 +65,15 @@ const EstatesPage = () => {
         <EstatesTable
           fullscreen={fullscreen}
           setFullscreen={setFullscreen}
-          data={search ?? data}
-          loading={isLoading}
-          refetch={refetch}
+          // data={search ?? data}
+          // loading={isLoading}
+          // refetch={refetch}
         />
       </div>
       <AddStateModal
         isOpen={addModal}
         onClose={() => setAddModal(false)}
-        refetch={refetch}
+        // refetch={refetch}
       />
     </AdminLayout>
   )

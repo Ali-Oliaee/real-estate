@@ -17,31 +17,30 @@ const SearchBar = ({ setData, data }) => {
   const [maxPrice, setMaxPrice] = useState(7000)
   const [meter, setMeter] = useState([70, 550])
   const [form] = Form.useForm()
-  const handleSubmit = ({
-    area_code,
-    style,
-    heating,
-    bottom,
-    electricity,
-    kitchen,
-    faucets,
-    window,
-    bathtub,
-  }) => {
-    axios
-      .get(
-        `/estate/list/?${area_code ? `area_code=${area_code}&` : ""}${
-          style ? `style=${style}&` : ""
-        }${heating ? `heating=${heating}&` : ""}${
-          bottom ? `bottom=${bottom}&` : ""
-        }${electricity ? `electricity=${electricity}&` : ""}${
-          kitchen ? `kitchen=${kitchen}&` : ""
-        }${faucets ? `faucets=${faucets}&` : ""}${
-          window ? `window=${window}&` : ""
-        }${bathtub ? `bathtub=${bathtub}&` : ""}`
-      )
-      .then(({ data }) => setData(data))
-  }
+  // const handleSubmit = ({
+  //   area_code,
+  //   style,
+  //   heating,
+  //   bottom,
+  //   electricity,
+  //   kitchen,
+  //   faucets,
+  //   window,
+  //   bathtub,
+  // }) => {
+  //   axios.get(
+  //     `/estate/list/?${area_code ? `area_code=${area_code}&` : ""}${
+  //       style ? `style=${style}&` : ""
+  //     }${heating ? `heating=${heating}&` : ""}${
+  //       bottom ? `bottom=${bottom}&` : ""
+  //     }${electricity ? `electricity=${electricity}&` : ""}${
+  //       kitchen ? `kitchen=${kitchen}&` : ""
+  //     }${faucets ? `faucets=${faucets}&` : ""}${
+  //       window ? `window=${window}&` : ""
+  //     }${bathtub ? `bathtub=${bathtub}&` : ""}`
+  //   )
+  //   // .then(({ data }) => setData(data))
+  // }
 
   return (
     <Row>
@@ -68,10 +67,10 @@ const SearchBar = ({ setData, data }) => {
                     style={{ width: 320 }}
                     onChange={(value) => {
                       setMinPrice(value)
-                      const newData = data.filter(
-                        (estate) => estate.total_price >= value
-                      )
-                      setData(newData)
+                      // const newData = data.filter(
+                      //   (estate) => estate.total_price >= value
+                      // )
+                      // setData(newData)
                     }}
                     value={minPrice}
                     className="slider"
@@ -80,10 +79,10 @@ const SearchBar = ({ setData, data }) => {
                     value={minPrice}
                     onChange={(value) => {
                       setMinPrice(value)
-                      const newData = data.filter(
-                        (estate) => estate.total_price >= value
-                      )
-                      setData(newData)
+                      // const newData = data.filter(
+                      //   (estate) => estate.total_price >= value
+                      // )
+                      // setData(newData)
                     }}
                     bordered={false}
                     className="input-number"
@@ -98,10 +97,10 @@ const SearchBar = ({ setData, data }) => {
                     style={{ width: 320 }}
                     onChange={(value) => {
                       setMaxPrice(value)
-                      const newData = data.filter(
-                        (estate) => estate.total_price <= value
-                      )
-                      setData(newData)
+                      // const newData = data.filter(
+                      //   (estate) => estate.total_price <= value
+                      // )
+                      // setData(newData)
                     }}
                     value={maxPrice}
                     className="slider"
@@ -110,10 +109,10 @@ const SearchBar = ({ setData, data }) => {
                     value={maxPrice}
                     onChange={(value) => {
                       setMaxPrice(value)
-                      const newData = data.filter(
-                        (estate) => estate.total_price <= value
-                      )
-                      setData(newData)
+                      // const newData = data.filter(
+                      //   (estate) => estate.total_price <= value
+                      // )
+                      // setData(newData)
                     }}
                     bordered={false}
                     className="input-number"
@@ -136,12 +135,12 @@ const SearchBar = ({ setData, data }) => {
                     className="slider"
                     onChange={(value) => {
                       setMeter(value)
-                      const newData = data.filter(
-                        (estate) =>
-                          estate.meterage >= value[0] &&
-                          estate.meterage <= value[1]
-                      )
-                      setData(newData)
+                      // const newData = data.filter(
+                      //   (estate) =>
+                      //     estate.meterage >= value[0] &&
+                      //     estate.meterage <= value[1]
+                      // )
+                      // setData(newData)
                     }}
                   />
                   <h4> تا {meter[1]} متر</h4>
@@ -149,7 +148,8 @@ const SearchBar = ({ setData, data }) => {
               </Col>
             </Row>
             <Divider />
-            <Form form={form} onFinish={handleSubmit}>
+            {/* <Form form={form} onFinish={handleSubmit}> */}
+            <Form form={form}>
               <Row justify="start" align="middle">
                 <h5>کد: </h5>
                 <Form.Item name="area_code">

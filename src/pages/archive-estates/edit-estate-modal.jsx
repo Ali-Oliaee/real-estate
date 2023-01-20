@@ -12,24 +12,24 @@ const EditEstateModal = ({ onClose, refetch }) => {
   const [formInstance] = Form.useForm()
   const { requiredField } = useValidators()
   const { id } = useParams()
-  const { data, isLoading } = useQuery(["estate", id], () => getEstate(id))
+  // const { data, isLoading } = useQuery(["estate", id], () => getEstate(id))
 
   const editEstate = (values) => {
-    setLoading(true)
-    axios
-      .patch(`/estate/list/${id}/`, values)
-      .then(() => {
-        message.success("ملک با موفقیت ویرایش شد")
-        formInstance.resetFields()
-        refetch()
-        onClose()
-      })
-      .finally(() => setLoading(false))
+    // setLoading(true)
+    // axios
+    //   .patch(`/estate/list/${id}/`, values)
+    //   .then(() => {
+    message.success("ملک با موفقیت ویرایش شد")
+    formInstance.resetFields()
+    // refetch()
+    onClose()
+    // })
+    // .finally(() => setLoading(false))
   }
 
-  useEffect(() => {
-    formInstance.setFieldsValue(data)
-  }, [data])
+  // useEffect(() => {
+  //   formInstance.setFieldsValue(data)
+  // }, [data])
 
   return (
     <ModalContainer
@@ -40,7 +40,7 @@ const EditEstateModal = ({ onClose, refetch }) => {
       title={<span>ویرایش ملک</span>}
       footer={false}
     >
-      <Spin size="large" spinning={isLoading}>
+      <Spin size="large" spinning={false}>
         <Form
           form={formInstance}
           size="large"

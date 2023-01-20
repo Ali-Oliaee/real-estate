@@ -10,16 +10,16 @@ const AddEstateModal = ({ isOpen, onClose, refetch }) => {
   const [formInstance] = Form.useForm()
   const { requiredField } = useValidators()
   const addEstate = (values) => {
-    setLoading(true)
-    axios
-      .post("/estate/create-home/", values)
-      .then(() => {
-        message.success("ملک با موفقیت افزوده شد")
-        formInstance.resetFields()
-        refetch()
-        onClose()
-      })
-      .finally(() => setLoading(false))
+    // setLoading(true)
+    // axios
+    //   .post("/estate/create-home/", values)
+    //   .then(() => {
+    //     message.success("ملک با موفقیت افزوده شد")
+    //     formInstance.resetFields()
+    //     refetch()
+    onClose()
+    // })
+    // .finally(() => setLoading(false))
   }
 
   return (

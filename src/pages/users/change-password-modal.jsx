@@ -11,14 +11,14 @@ const ChangePasswordModal = ({ open, onClose, id }) => {
   const [formInstance] = Form.useForm()
 
   const changePassword = (values) => {
-    setLoading(true)
-    axios
-      .post("/users/change-password/", { ...values, user_id: id })
-      .then(() => {
-        message.success("کلمه عبور با موفقیت تغییر کرد.")
-        onClose()
-      })
-      .finally(() => setLoading(false))
+    // setLoading(true)
+    // axios
+    //   .post("/users/change-password/", { ...values, user_id: id })
+    //   .then(() => {
+    message.success("کلمه عبور با موفقیت تغییر کرد.")
+    onClose()
+    // })
+    // .finally(() => setLoading(false))
   }
 
   return (

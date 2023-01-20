@@ -8,7 +8,65 @@ import EditUserModal from "./edit-user-modal"
 import dayjs from "dayjs"
 import UserInfoModal from "./user-info-modal"
 
-const UsersTable = ({ searchKey, data, loading, refetch }) => {
+const data = [
+  {
+    access_codes: "B3",
+    address: "mashhad",
+    date_joined: "1674173132",
+    fullname: "علی علیایی",
+    id: 2,
+    last_login: "1674173278",
+    phone: "09105753695",
+    role: "user",
+    username: "کاربر۱",
+  },
+  {
+    access_codes: null,
+    address: null,
+    date_joined: "1674173495",
+    fullname: "سجاد فانی",
+    id: 3,
+    last_login: "1674173550",
+    phone: null,
+    role: "advisor",
+    username: "مشاور۱",
+  },
+  {
+    access_codes: "B3",
+    address: null,
+    date_joined: "1674173987",
+    fullname: "نام و نام خانوادگی",
+    id: 4,
+    last_login: "1674174006",
+    phone: "09105753654",
+    role: "admin",
+    username: "ادمین۱",
+  },
+  {
+    access_codes: null,
+    address: null,
+    date_joined: "1674174259",
+    fullname: "علیرضا چناری",
+    id: 5,
+    last_login: "1674174834",
+    phone: null,
+    role: "assistant",
+    username: "معاون۱",
+  },
+  {
+    access_codes: null,
+    address: null,
+    date_joined: "1674174948",
+    fullname: "vjkndfv",
+    id: 6,
+    last_login: "1674174963",
+    phone: null,
+    role: "assistant",
+    username: "assisstant",
+  },
+]
+
+const UsersTable = ({ searchKey, loading, refetch }) => {
   const fuse = new Fuse(data ?? [], {
     includeScore: true,
     keys: ["fullname", "address", "phone", "role"],
@@ -18,10 +76,10 @@ const UsersTable = ({ searchKey, data, loading, refetch }) => {
     : data
 
   const deleteUser = ({ id }) =>
-    axios.delete(`users/list/${id}/`).then(() => {
-      message.success("کاربر با موفقیت حذف گردید.")
-      refetch()
-    })
+    // axios.delete(`users/list/${id}/`).then(() => {
+    message.success("کاربر با موفقیت حذف گردید.")
+  // refetch()
+  // })
 
   return (
     <>

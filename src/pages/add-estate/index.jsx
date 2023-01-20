@@ -12,14 +12,14 @@ const AddEstatePage = () => {
   const [loading, setLoading] = useState(false)
 
   const AddEstate = (values) => {
-    setLoading(true)
-    axios
-      .post("/estate/create-home/", values)
-      .then(() => {
-        message.success("ملک با موفقیت اضافه شد.")
-        form.resetFields()
-      })
-      .finally(() => setLoading(false))
+    // setLoading(true)
+    // axios
+    // .post("/estate/create-home/", values)
+    // .then(() => {
+    message.success("ملک با موفقیت اضافه شد.")
+    form.resetFields()
+    // })
+    // .finally(() => setLoading(false))
   }
 
   return (

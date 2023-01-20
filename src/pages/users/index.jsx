@@ -12,7 +12,8 @@ const UsersPage = () => {
   const [search, setSearch] = useState("")
   const [showModal, setShowModal] = useState(false)
   const { role } = JSON.parse(localStorage.getItem("user") || "{}")
-  const { data, isLoading, refetch } = useQuery("users", () => getUsers())
+  // const { data, isLoading, refetch } = useQuery("users", () => getUsers())
+  // console.log(data)
 
   return (
     <AdminLayout>
@@ -46,13 +47,13 @@ const UsersPage = () => {
         </Row>
         <PeopleTable
           searchKey={search}
-          data={data}
-          loading={isLoading}
-          refetch={refetch}
+          // data={data}
+          // loading={isLoading}
+          // refetch={refetch}
         />
       </div>
       <AddUserModal
-        refetch={refetch}
+        // refetch={refetch}
         isOpen={showModal}
         onClose={() => setShowModal(false)}
       />

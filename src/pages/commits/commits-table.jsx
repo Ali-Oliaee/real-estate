@@ -3,20 +3,83 @@ import { CheckCircleFilled, CloseOutlined } from "@ant-design/icons"
 import axios from "../../utils/axios"
 import "./styles.scss"
 
+const data = [
+  {
+    area_code: "A2",
+    bathtub: "",
+    bottom: "",
+    checked_by: null,
+    checked_date: null,
+    created_at: "1674172920",
+    creator: 1,
+    customer_name: "",
+    date: "10/10",
+    description: "خودشون میخان بفروشن",
+    electricity: "",
+    faucets: "",
+    floors: "",
+    heating: "",
+    id: 40,
+    is_archived: false,
+    kitchen: "",
+    meterage: 250,
+    owner_name: " رامشینی",
+    owner_phone: "",
+    plaque: "00",
+    price_per_meter: 60,
+    status: true,
+    street: "امامت 00",
+    style: "",
+    total_price: 15000,
+    updated_at: "1674172920",
+    window: "",
+  },
+  {
+    area_code: "A2",
+    bathtub: "",
+    bottom: "",
+    checked_by: null,
+    checked_date: null,
+    created_at: "1674172920",
+    creator: 1,
+    customer_name: "",
+    date: "9/10",
+    description: "دست مستاجره",
+    electricity: "",
+    faucets: "",
+    floors: "",
+    heating: "",
+    id: 45,
+    is_archived: false,
+    kitchen: "",
+    meterage: 250,
+    owner_name: "رجبی",
+    owner_phone: "",
+    plaque: "00",
+    price_per_meter: 60,
+    status: true,
+    street: "جلال 00",
+    style: "",
+    total_price: 15000,
+    updated_at: "1674172920",
+    window: "",
+  },
+]
+
 const CommitsTable = ({
-  data,
+  // data,
   fullscreen,
   setFullscreen,
   loading,
   refetch,
 }) => {
   const onClick = (id, status) =>
-    axios.post("/estate/change-status/", { home: id, status }).then(() => {
-      status
-        ? message.success("ملک با موفقیت تایید شد.")
-        : message.success("ملک با موفقیت رد شد.")
-      refetch()
-    })
+    // axios.post("/estate/change-status/", { home: id, status }).then(() => {
+    status
+      ? message.success("ملک با موفقیت تایید شد.")
+      : message.success("ملک با موفقیت رد شد.")
+  // refetch()
+  // })
 
   return (
     <>

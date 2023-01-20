@@ -21,7 +21,7 @@ const SideMenu = () => {
     <Sider breakpoint="md" theme="light" width={200}>
       <div>
         <div className="user-container">
-          <p className="username">{fullname}</p>
+          <p className="username">{fullname ?? "نام کاربری"}</p>
         </div>
         <div className="divider" />
         <Menu

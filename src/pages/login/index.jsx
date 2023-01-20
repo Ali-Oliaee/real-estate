@@ -1,5 +1,5 @@
 import { useState } from "react"
-import { Form, Input, Button, message } from "antd"
+import { Form, Input, Button, message, Select } from "antd"
 import { useNavigate } from "react-router-dom"
 import axios from "../../utils/axios"
 import { useValidators } from "../../hooks"
@@ -13,25 +13,26 @@ const LoginPage = () => {
   const navigate = useNavigate()
   const { requiredUsername, requiredPassword } = useValidators()
 
-  const handleLogin = ({ username, password }) => {
+  const handleLogin = ({ username, password, data }) => {
     setLoading(true)
-    axios
-      .post("users/login/", { username, password })
-      .then(({ data }) => {
-        localStorage.setItem("token", JSON.stringify(data.tokens))
-        localStorage.setItem("user", JSON.stringify(data.user))
-        message.success("شما با موفقیت وارد شدید")
-        data.user.role === "advisor"
-          ? navigate("/add-estate")
-          : data.user.role === "admin"
-          ? navigate("/commits")
-          : navigate("/estates")
-        window.location.reload()
-      })
-      .catch(({ response }) => {
-        const { data } = response
-        message.error(data?.username ?? data?.password)
-      })
+    // axios
+    //   .post("users/login/", { username, password })
+    //   .then(({ data }) => {
+    localStorage.setItem("token", "csdcc")
+    localStorage.setItem("user", JSON.stringify({ name: "ali", role: data }))
+    message.success("شما با موفقیت وارد شدید")
+    data === "advisor"
+      ? navigate("/add-estate")
+      : data === "admin"
+      ? navigate("/commits")
+      : navigate("/estates")
+    window.location
+      .reload()
+      // })
+      // .catch(({ response }) => {
+      //   const { data } = response
+      //   message.error(data?.username ?? data?.password)
+      // })
       .finally(() => setLoading(false))
   }
 
@@ -69,6 +70,43 @@ const LoginPage = () => {
                 >
                   ورود به حساب
                 </Button>
+              </Form.Item>
+              <Form.Item
+                name="data"
+                rules={[
+                  {
+                    required: true,
+                    message: "لطفا نقش خود را انتخاب کنید",
+                  },
+                ]}
+              >
+                <Select
+                  className="input"
+                  placeholder="نقش"
+                  size="large"
+                  options={[
+                    {
+                      value: "manager",
+                      label: "مدیر",
+                    },
+                    {
+                      value: "assistant",
+                      label: "معاون",
+                    },
+                    {
+                      value: "admin",
+                      label: "ادمین",
+                    },
+                    {
+                      value: "advisor",
+                      label: "مشاور",
+                    },
+                    {
+                      value: "user",
+                      label: "کاربر",
+                    },
+                  ]}
+                />
               </Form.Item>
             </SmoothList>
           </Form>

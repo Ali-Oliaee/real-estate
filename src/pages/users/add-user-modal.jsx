@@ -11,16 +11,16 @@ const AddUserModal = ({ isOpen, onClose, refetch }) => {
   const [loading, setLoading] = useState(false)
 
   const handleConfirmStep = (values) => {
-    setLoading(true)
-    axios
-      .post("/users/register/", values)
-      .then(() => {
-        message.success("کاربر با موفقیت افزوده شد.")
-        formInstance.resetFields()
-        refetch()
-        onClose()
-      })
-      .finally(() => setLoading(false))
+    // setLoading(true)
+    // axios
+    //   .post("/users/register/", values)
+    //   .then(() => {
+    message.success("کاربر با موفقیت افزوده شد.")
+    formInstance.resetFields()
+    // refetch()
+    onClose()
+    // })
+    // .finally(() => setLoading(false))
   }
 
   return (

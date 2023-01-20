@@ -2,6 +2,7 @@
   "name": "real-state",
   "version": "0.0.1",
   "private": true,
+  "homepage": "https://ali-oliaee.github.io/real-state",
   "dependencies": {
     "@ant-design/icons": "^5.0.0",
     "@craco/craco": "^7.0.0",
@@ -13,6 +14,7 @@
     "dayjs": "^1.11.7",
     "dotenv": "^16.0.3",
     "fuse.js": "^6.6.2",
+    "gh-pages": "^4.0.0",
     "jalaliday": "^2.3.0",
     "query-string": "^8.1.0",
     "react": "^18.2.0",
@@ -29,7 +31,9 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "predeploy": "npm run build",
+   "deploy": "gh-pages -d build"
   },
   "eslintConfig": {
     "extends": [

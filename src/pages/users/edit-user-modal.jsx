@@ -18,21 +18,21 @@ const EditUserModal = ({ refetch }) => {
   const navigate = useNavigate()
 
   const handleConfirmStep = (values) => {
-    setLoading(true)
-    axios
-      .patch(`/users/list/${id}/`, values)
-      .then(() => {
-        message.success("کاربر با موفقیت ویرایش گردید.")
-        navigate("/users")
-        refetch()
-      })
-      .finally(() => setLoading(false))
+    // setLoading(true)
+    // axios
+    //   .patch(`/users/list/${id}/`, values)
+    //   .then(() => {
+    message.success("کاربر با موفقیت ویرایش گردید.")
+    navigate("/users")
+    // refetch()
+    // })
+    // .finally(() => setLoading(false))
   }
-  const { data, isLoading } = useQuery(["user", id], () => getUser(id))
+  // const { data, isLoading } = useQuery(["user", id], () => getUser(id))
 
-  useEffect(() => {
-    formInstance.setFieldsValue(data)
-  }, [data, formInstance])
+  // useEffect(() => {
+  //   formInstance.setFieldsValue(data)
+  // }, [data, formInstance])
 
   return (
     <ModalContainer
@@ -42,11 +42,11 @@ const EditUserModal = ({ refetch }) => {
         formInstance.resetFields()
         navigate("/users")
       }}
-      confirmLoading={isLoading}
+      // confirmLoading={isLoading}
       title="ویرایش شخص"
       footer={false}
     >
-      <Spin spinning={isLoading} size="large">
+      <Spin spinning={false} size="large">
         <Form
           form={formInstance}
           onFinish={handleConfirmStep}

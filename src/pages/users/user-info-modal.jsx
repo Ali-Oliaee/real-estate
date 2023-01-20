@@ -9,12 +9,18 @@ import dayjs from "dayjs"
 const UserInfoModal = () => {
   const { id, mode } = useParams()
   const navigate = useNavigate()
-  const { data: history } = useQuery(["user-history", id], () =>
-    getUserHistoryById(id)
-  )
-  const { data: user, isLoading } = useQuery(["current-user", id], () =>
-    getUser(id)
-  )
+  // const { data: history } = useQuery(["user-history", id], () =>
+  //   getUserHistoryById(id)
+  // )
+  // const { data: user, isLoading } = useQuery(["current-user", id], () =>
+  //   getUser(id)
+  // )
+
+  const user = {
+    fullname: "محمد محمدی",
+    username: "mohammad",
+    role: "manager",
+  }
 
   return (
     <ModalContainer
@@ -24,7 +30,7 @@ const UserInfoModal = () => {
       footer={false}
       title="اطلاعات حساب "
     >
-      <Spin size="large" spinning={isLoading}>
+      <Spin size="large" spinning={false}>
         <div className="user-info-modal">
           <Row align="middle" justify="start" wrap style={{ marginTop: 20 }}>
             <div className="item">
@@ -42,7 +48,7 @@ const UserInfoModal = () => {
           </Row>
           <Divider />
           <h2>تاریخچه</h2>
-          {history?.map((item) => {
+          {[1]?.map((item) => {
             switch (item.title) {
               case "create-user":
                 return (

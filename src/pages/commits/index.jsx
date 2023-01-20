@@ -8,10 +8,10 @@ import { getPendingEstates } from "../../api/estates"
 
 const CommitsPage = () => {
   const [fullscreen, setFullscreen] = useState(false)
-  const { data, refetch, isLoading } = useQuery(
-    "pending-estates",
-    getPendingEstates
-  )
+  // const { data, refetch, isLoading } = useQuery(
+  //   "pending-estates",
+  //   getPendingEstates
+  // )
 
   return (
     <AdminLayout>
@@ -24,9 +24,9 @@ const CommitsPage = () => {
         <CommitsTable
           fullscreen={fullscreen}
           setFullscreen={setFullscreen}
-          data={data}
-          loading={isLoading}
-          refetch={refetch}
+          // data={data}
+          // loading={isLoading}
+          // refetch={refetch}
         />
       </div>
     </AdminLayout>

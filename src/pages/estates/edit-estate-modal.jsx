@@ -15,16 +15,16 @@ const EditEstateModal = ({ onClose, refetch }) => {
   const { data, isLoading } = useQuery(["estate", id], () => getEstate(id))
 
   const editEstate = (values) => {
-    setLoading(true)
-    axios
-      .patch(`/estate/list/${id}/`, values)
-      .then(() => {
-        message.success("ملک با موفقیت ویرایش شد")
-        formInstance.resetFields()
-        refetch()
-        onClose()
-      })
-      .finally(() => setLoading(false))
+    //   setLoading(true)
+    //   axios
+    //     .patch(`/estate/list/${id}/`, values)
+    //     .then(() => {
+    message.success("ملک با موفقیت ویرایش شد")
+    //   formInstance.resetFields()
+    //   refetch()
+    onClose()
+    // })
+    // .finally(() => setLoading(false))
   }
 
   useEffect(() => {
