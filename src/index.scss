@@ -15,5 +15,15 @@
     .ant-table-container::before {
         box-shadow: none !important;
     }
+
+    .ant-btn-primary {
+        background-color: #dda74f45;
+        color: #dda74f;
+
+        &:hover{ 
+        color: #dda74feb;
+        background-color: #dda74f45 !important;
+        }
+    }
 }
 

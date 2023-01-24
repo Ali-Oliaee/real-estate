@@ -1,12 +1,68 @@
 .admin-layout-container {
   width: 100%;
   min-height: 100vh;
+  
+
+  .ant-layout-sider {
+    background: #181619 ;
+
+    .ant-menu {
+    background: #181619;
+
+    .ant-menu-item {
+      color: #dda74f;
+      &:hover {
+        color: #dda74fb5;
+      }
+    }
+    .ant-menu-item-selected {
+        background-color: #dda74f37;
+    }
+    }
+  }
 
   .admin-layout {
+    background: #181822;
     transition: 0.2s;
+
+
     .content {
       height: 100%;
       margin: 20px;
+
+      
+      .ant-table {
+        background-color: rgb(56, 56, 56);
+        color: #dda74f;
+       
+        .ant-table-thead > tr > th {
+          background-color: rgb(46, 46, 46) !important;
+          color: #dda74f;
+          border-bottom: 1px solid #dda74f7c;
+          padding-block: 12px;
+          svg {
+          color: #dda74f;
+          }
+        }
+       .ant-table-tbody > tr > td{
+          border-bottom: 0.5px solid #dda74f7c;
+          border-top: 0.5px solid #dda74f7c;
+          text-overflow: ellipsis !important;
+          white-space: nowrap;
+      }
+
+        tbody > tr:hover > td {
+          background: rgba(35, 35, 35, 0.588);
+        }
+        .ant-table-cell {
+          padding-block: 0;
+        }
+        .ant-table-row {
+          height: unset;
+          min-height: unset;
+        }
+  
+      }
     }
     @media screen and (min-width: 768px) {
       .content {

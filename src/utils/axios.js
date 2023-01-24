@@ -17,7 +17,7 @@ const logError = (err) => {
   }
 }
 
-const API_URL = "http://130.185.73.147:6549"
+const API_URL = "http://192.168.187.188:8000"
 const API_BASE_PATH = "/api/v1/"
 
 const instance = axios.create({

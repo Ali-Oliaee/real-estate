@@ -32,7 +32,9 @@ const EstatesPage = () => {
               content={<SearchBar setData={setSearch} data={data} />}
               trigger="click"
             >
-              <Button size="large">جستجوی پیشرفته</Button>
+              <Button type="primary" size="large">
+                جستجوی پیشرفته
+              </Button>
             </Popover>
           </Col>
           <Col
@@ -54,6 +56,7 @@ const EstatesPage = () => {
             <Button
               size="large"
               type="ghost"
+              className="full-screen-button"
               onClick={() => setFullscreen(true)}
             >
               <FullscreenOutlined />

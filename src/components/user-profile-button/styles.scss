@@ -2,7 +2,6 @@
   padding: 0;
 }
 .profile-menu {
-  padding: 0;
   border: none;
   border-radius: 8px;
   overflow: hidden;
@@ -21,10 +20,12 @@
   }
 }
 .profile-menu-item.danger {
-  color: #ff4d4f;
+  color: #ff4d4f !important;
 }
 .readonly {
   cursor: auto !important;
-  color: inherit;
   pointer-events: none;
+  span {
+    color: #dda74f !important;
+  }
 }
