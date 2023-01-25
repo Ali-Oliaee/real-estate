@@ -97,7 +97,7 @@ const EstatesTable = ({
                   okText="بله"
                   cancelText="خیر"
                 >
-                  <Button icon={<DeleteOutlined className="delete-icon" />} />
+                  <Button icon={<DeleteOutlined />} />
                 </Popconfirm>
                 <Button
                   icon={<EditOutlined />}

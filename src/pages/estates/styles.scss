@@ -38,10 +38,11 @@
       background-color: transparent;
       cursor: pointer;
       margin: 0 8px;
-    }
+      color: #dda74f;
 
-    .delete-icon {
-      color: #ff4d4f;
+      &:hover {
+        color: #dda74f83;
+      }
     }
   }
 
@@ -60,19 +61,55 @@
     right: 0;
     width: 100%;
     height: 100%;
-    background: #fff;
+    background: #181619;
   }
   .exit-fullscreen-button {
     position: absolute;
     top: 0;
     left: 0;
     z-index: 10;
+    color: #dda74f;
   }
 }
 
 .search-bar {
   position: relative;
+  .ant-popover-arrow::after {
+    background-color: #181619 !important;
+  }
+  .ant-popover-inner{
+    background-color: #181619 !important;
 
+    .ant-divider {
+      background-color: #d7af7089;
+    }
+    .ant-popover-title {
+      color: #dda74f;
+    }
+
+    .ant-slider-rail {
+      background-color: #d7af7034;
+    }
+    .ant-slider-track {
+      background-color: #dda74f;
+    }
+    .ant-slider-handle::after {
+      box-shadow: 0 0 0 2px #dda74f;
+    }
+
+    input {
+      color: #dda74f;
+    }
+
+    .ant-popover-inner-content{
+      color: #dda74f;
+
+      h4, h5 {
+      color: #dda74f;
+      }
+    }
+  }
+  
   .reset-button {
     position: absolute;
     top: -20px;
@@ -84,6 +121,10 @@
     margin: 0;
     padding: 0;
     box-shadow: none;
+
+    &:hover {
+    background-color: transparent !important;
+    }
   }
 
   .slider {
@@ -91,17 +132,21 @@
   }
 
   h5 { 
-    min-width: 70px;
+    min-width: 74px;
   }
   .input-number {
     width: 70px;
+    border-bottom: 1px solid #dda74f7d;
+    border-radius: 0;
   }
 
   .input {
     width: 120px;
     border: 0;
-    border-bottom: 1px solid #c9dae3;
+    border-bottom: 1px solid #dda74f;
     border-radius: 0;
+    background: transparent;
+    color: #fff;
     margin-inline-end: 50px;
     box-shadow: none;
 
@@ -110,7 +155,7 @@
     &:focus {
       border: 0;
       box-shadow: none;
-      border-bottom: 1px solid #c9dae3;
+      border-bottom: 1px solid #dda74f;
     }
   }
 

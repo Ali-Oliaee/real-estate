@@ -27,7 +27,9 @@ const ArchiveEstates = () => {
               content={<SearchBar />}
               trigger="click"
             >
-              <Button size="large">جستجوی پیشرفته</Button>
+              <Button type="primary" size="large">
+                جستجوی پیشرفته
+              </Button>
             </Popover>
           </Col>
           <Col
@@ -38,7 +40,7 @@ const ArchiveEstates = () => {
           >
             <Button
               size="large"
-              type="ghost"
+              type="primary"
               onClick={() => setFullscreen(true)}
             >
               <FullscreenOutlined />

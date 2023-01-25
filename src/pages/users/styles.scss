@@ -3,6 +3,18 @@
   .header {
     margin-bottom: 24px;
 
+    .ant-input-affix-wrapper, input  {
+      background: #191619;
+      color: #fff;
+
+      input:focus {
+        border-color: red !important;
+      }
+      input::placeholder, svg {
+        color: #fff;
+      }
+    }
+
     .title {
       background-color: #e6f4fe;
       padding: 16px;
@@ -62,10 +74,6 @@
       background-color: transparent;
       cursor: pointer;
       margin: 0 8px;
-    }
-
-    .delete-icon {
-      color: #ff4d4f;
     }
   }
 }

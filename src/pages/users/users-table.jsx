@@ -78,7 +78,7 @@ const UsersTable = ({ searchKey, data, loading, refetch }) => {
                   okText="بله"
                   cancelText="خیر"
                 >
-                  <Button icon={<DeleteOutlined className="delete-icon" />} />
+                  <Button icon={<DeleteOutlined />} />
                 </Popconfirm>
                 <Link to={`/users/edit/${render.id}`}>
                   <Button icon={<EditOutlined />} />

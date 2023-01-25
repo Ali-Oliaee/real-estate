@@ -18,7 +18,9 @@ const CommitsPage = () => {
       <div className="estates-page">
         <Row align="middle" justify="space-between" className="header">
           <Col sm={12} md={8} lg={8}>
-            <Button onClick={() => setFullscreen(true)}>نمایش تمام صفحه</Button>
+            <Button type="primary" onClick={() => setFullscreen(true)}>
+              نمایش تمام صفحه
+            </Button>
           </Col>
         </Row>
         <CommitsTable

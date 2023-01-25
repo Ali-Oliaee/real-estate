@@ -22,7 +22,11 @@ const SearchBar = () => {
       <Col>
         <Row>
           <Col>
-            <Button className="reset-button" onClick={() => form.resetFields()}>
+            <Button
+              type="primary"
+              className="reset-button"
+              onClick={() => form.resetFields()}
+            >
               حذف فیلتر
             </Button>
             <Row className="price-container">

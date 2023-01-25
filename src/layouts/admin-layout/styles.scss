@@ -30,6 +30,19 @@
       height: 100%;
       margin: 20px;
 
+      .ant-modal-content, .ant-modal-header {        
+        background-color: #181619 ;
+
+        .ant-modal-close,.ant-modal-title {
+          color: #dda74f;
+        }
+
+        .ant-input {
+          color: #fff;
+          background-color: #181619;
+        }
+      }
+
       
       .ant-table {
         background-color: rgb(56, 56, 56);

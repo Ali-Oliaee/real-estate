@@ -1,8 +1,13 @@
 .profile-page {
-  background-color: #fff;
+  background-color: #191619;
   border-radius: 14px;
   min-height: 100%;
+  color: #dda74f;
   padding: 20px;
+
+  .ant-divider {
+    background-color: #dda74f45;
+  }
 
   .item {
     display: flex;

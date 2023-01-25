@@ -50,6 +50,7 @@ const SearchBar = ({ setData, data }) => {
           <Col>
             <Button
               className="reset-button"
+              type="primary"
               onClick={() => {
                 form.resetFields()
                 setData(null)
@@ -76,14 +77,22 @@ const SearchBar = ({ setData, data }) => {
                     value={minPrice}
                     className="slider"
                   />
-                  <InputNumber
+                  <Input
                     value={minPrice}
-                    onChange={(value) => {
-                      setMinPrice(value)
-                      const newData = data.filter(
-                        (estate) => estate.total_price >= value
-                      )
-                      setData(newData)
+                    onChange={(e) => {
+                      const { value: inputValue } = e.target
+                      const reg = /^-?\d*(\.\d*)?$/
+                      if (
+                        reg.test(inputValue) ||
+                        inputValue === "" ||
+                        inputValue === "-"
+                      ) {
+                        setMinPrice(inputValue)
+                        const newData = data.filter(
+                          (estate) => estate.total_price >= inputValue
+                        )
+                        setData(newData)
+                      }
                     }}
                     bordered={false}
                     className="input-number"
@@ -106,14 +115,22 @@ const SearchBar = ({ setData, data }) => {
                     value={maxPrice}
                     className="slider"
                   />
-                  <InputNumber
+                  <Input
                     value={maxPrice}
-                    onChange={(value) => {
-                      setMaxPrice(value)
-                      const newData = data.filter(
-                        (estate) => estate.total_price <= value
-                      )
-                      setData(newData)
+                    onChange={(e) => {
+                      const { value: inputValue } = e.target
+                      const reg = /^-?\d*(\.\d*)?$/
+                      if (
+                        reg.test(inputValue) ||
+                        inputValue === "" ||
+                        inputValue === "-"
+                      ) {
+                        setMaxPrice(inputValue)
+                        const newData = data.filter(
+                          (estate) => estate.total_price <= inputValue
+                        )
+                        setData(newData)
+                      }
                     }}
                     bordered={false}
                     className="input-number"
