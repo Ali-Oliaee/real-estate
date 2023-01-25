@@ -3,7 +3,7 @@ import { useEffect, useState } from "react"
 import { useQuery } from "react-query"
 import { useParams } from "react-router-dom"
 import { getUser } from "../../api/users"
-import { useNavigate } from "react-router-dom"
+import { useHistory } from "react-router-dom"
 import { FloatLabel, ModalContainer } from "../../components"
 import { useValidators } from "../../hooks"
 import ChangePasswordModal from "./change-password-modal"
@@ -15,7 +15,7 @@ const EditUserModal = ({ refetch }) => {
   const [loading, setLoading] = useState(false)
   const { requiredField } = useValidators()
   let { id, mode } = useParams()
-  const navigate = useNavigate()
+  const history = useHistory()
 
   const handleConfirmStep = (values) => {
     setLoading(true)
@@ -23,7 +23,7 @@ const EditUserModal = ({ refetch }) => {
       .patch(`/users/list/${id}/`, values)
       .then(() => {
         message.success("کاربر با موفقیت ویرایش گردید.")
-        navigate("/users")
+        history.push("/users")
         refetch()
       })
       .finally(() => setLoading(false))
@@ -40,7 +40,7 @@ const EditUserModal = ({ refetch }) => {
       open={!!id && mode === "edit"}
       onCancel={() => {
         formInstance.resetFields()
-        navigate("/users")
+        history.push("/users")
       }}
       confirmLoading={isLoading}
       title="ویرایش شخص"

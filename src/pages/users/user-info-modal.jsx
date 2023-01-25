@@ -3,13 +3,13 @@ import { Col, Divider, Row, Spin } from "antd"
 import { useQuery } from "react-query"
 import { getUser, getUserHistoryById } from "../../api/users"
 import { ModalContainer } from "../../components"
-import { useParams, useNavigate } from "react-router"
+import { useParams, useHistory } from "react-router"
 import dayjs from "dayjs"
 
 const UserInfoModal = () => {
   const { id, mode } = useParams()
-  const navigate = useNavigate()
-  const { data: history } = useQuery(["user-history", id], () =>
+  const history = useHistory()
+  const { data: userHistory } = useQuery(["user-history", id], () =>
     getUserHistoryById(id)
   )
   const { data: user, isLoading } = useQuery(["current-user", id], () =>
@@ -20,7 +20,7 @@ const UserInfoModal = () => {
     <ModalContainer
       open={mode === "info"}
       centered
-      onCancel={() => navigate("/users")}
+      onCancel={() => history.push("/users")}
       footer={false}
       title="اطلاعات حساب "
     >
@@ -42,7 +42,7 @@ const UserInfoModal = () => {
           </Row>
           <Divider />
           <h2>تاریخچه</h2>
-          {history?.map((item) => {
+          {userHistory?.map((item) => {
             switch (item.title) {
               case "create-user":
                 return (

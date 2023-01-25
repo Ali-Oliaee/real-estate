@@ -1,16 +1,17 @@
 import { useState } from "react"
 import { Form, Input, Button, message } from "antd"
-import { useNavigate } from "react-router-dom"
 import axios from "../../utils/axios"
 import { useValidators } from "../../hooks"
 import { GuestLayout } from "../../layouts"
 import SmoothList from "react-smooth-list"
+import { useHistory } from "react-router-dom"
 import "./styles.scss"
 
 const LoginPage = () => {
   const [form] = Form.useForm()
   const [loading, setLoading] = useState(false)
-  const navigate = useNavigate()
+  const history = useHistory()
+
   const { requiredUsername, requiredPassword } = useValidators()
 
   const handleLogin = ({ username, password }) => {
@@ -21,11 +22,7 @@ const LoginPage = () => {
         localStorage.setItem("token", JSON.stringify(data.tokens))
         localStorage.setItem("user", JSON.stringify(data.user))
         message.success("شما با موفقیت وارد شدید")
-        data.user.role === "advisor"
-          ? navigate("/add-estate")
-          : data.user.role === "admin"
-          ? navigate("/commits")
-          : navigate("/estates")
+        history.push("/")
         window.location.reload()
       })
       .catch(({ response }) => {

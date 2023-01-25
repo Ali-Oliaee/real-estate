@@ -1,13 +1,15 @@
 import IR from "antd/es/locale/fa_IR"
 import { useEffect } from "react"
-import { RouterProvider } from "react-router-dom"
 import { QueryClient, QueryClientProvider } from "react-query"
 import { ConfigProvider } from "antd"
-import authRouter from "./routes/auth"
 import dayjs from "dayjs"
-import guestRouter from "./routes/guest"
+import { BrowserRouter as Router, Switch } from "react-router-dom"
+import PrivateRoutes from "./routes/private-route"
+import PublicRoutes from "./routes/public-route"
 import jalaliday from "jalaliday"
 import "dayjs/locale/fa"
+import { PublicRoute, PrivateRoute } from "./routes/custom-routes"
+import { AdminLayout } from "./layouts"
 
 dayjs.extend(jalaliday)
 dayjs.locale("fa")
@@ -23,7 +25,7 @@ export const queryClient = new QueryClient({
 })
 
 function App() {
-  const isAuth = localStorage.getItem("token")
+  const { role } = JSON.parse(localStorage.getItem("user") || "{}")
 
   useEffect(() => {
     document.addEventListener("contextmenu", (e) => {
@@ -34,7 +36,47 @@ function App() {
   return (
     <QueryClientProvider client={queryClient}>
       <ConfigProvider direction="rtl" locale={IR}>
-        <RouterProvider router={isAuth ? authRouter : guestRouter} />
+        {/* <RouterProvider router={isAuth ? authRouter : guestRouter} /> */}
+        {/* <MainRouter /> */}
+        <Router>
+          <Switch>
+            {role === "manager" &&
+              PrivateRoutes.manager.map((item, index) => (
+                <PrivateRoute key={[index]} exact={item.exact} path={item.path}>
+                  {item.cmp}
+                </PrivateRoute>
+              ))}
+            {role === "assistant" &&
+              PrivateRoutes.assistant.map((item, index) => (
+                <PrivateRoute key={[index]} exact={item.exact} path={item.path}>
+                  {item.cmp}
+                </PrivateRoute>
+              ))}
+            {role === "admin" &&
+              PrivateRoutes.admin.map((item, index) => (
+                <PrivateRoute key={[index]} exact={item.exact} path={item.path}>
+                  {item.cmp}
+                </PrivateRoute>
+              ))}
+            {role === "advisor" &&
+              PrivateRoutes.advisor.map((item, index) => (
+                <PrivateRoute key={[index]} exact={item.exact} path={item.path}>
+                  {item.cmp}
+                </PrivateRoute>
+              ))}
+            {role === "user" &&
+              PrivateRoutes.user.map((item, index) => (
+                <PrivateRoute key={[index]} exact={item.exact} path={item.path}>
+                  {item.cmp}
+                </PrivateRoute>
+              ))}
+            {PublicRoutes.map((item, index) => (
+              <PublicRoute key={[index]} path={item.path}>
+                {item.cmp}
+              </PublicRoute>
+            ))}
+          </Switch>
+        </Router>
       </ConfigProvider>
     </QueryClientProvider>
   )

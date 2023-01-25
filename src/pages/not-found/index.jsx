@@ -6,8 +6,6 @@ import { GuestLayout } from "../../layouts"
 import "./styles.scss"
 
 const NotFoundPage = () => {
-  const isAuth = localStorage.getItem("APi_key")
-
   return (
     <GuestLayout>
       <SmoothList delay={100} transitionDuration={500} className="animate-form">
@@ -16,7 +14,7 @@ const NotFoundPage = () => {
             <h1>۴۰۴</h1>
             <h2>صفحه مورد نظر یافت نشد</h2>
             <Button type="link">
-              <Link to={isAuth ? "/" : "/login"}>بازگشت به صفحه اصلی</Link>
+              <Link to="/">بازگشت به صفحه اصلی</Link>
             </Button>
           </SmoothList>
         </div>

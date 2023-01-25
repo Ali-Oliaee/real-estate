@@ -2,7 +2,7 @@ import React from "react"
 import { Menu, Modal } from "antd"
 import { InfoCircleOutlined, LogoutOutlined } from "@ant-design/icons"
 import pkj from "../../../package.json"
-import { useNavigate } from "react-router-dom"
+import { useHistory } from "react-router-dom"
 import "./styles.scss"
 
 /**
@@ -10,14 +10,14 @@ import "./styles.scss"
  * @param {string=} [className='']
  */
 const UserProfileButton = () => {
-  const navigate = useNavigate()
+  const history = useHistory()
 
   const handleLogout = () => {
     Modal.confirm({
       content: "آیا مایل به خروج از حساب کاربری خود هستید",
       onOk: () => {
         localStorage.clear()
-        navigate("/login")
+        history.push("/login")
         window.location.reload()
       },
       okText: "بله،‌ خارج شو",

@@ -7,7 +7,7 @@ import {
   ReloadOutlined,
 } from "@ant-design/icons"
 import EditEstateModal from "./edit-estate-modal"
-import { useNavigate } from "react-router-dom"
+import { useHistory } from "react-router-dom"
 import axios from "../../utils/axios"
 import dayjs from "dayjs"
 
@@ -18,7 +18,7 @@ const EstatesTable = ({
   refetch,
   loading,
 }) => {
-  const navigate = useNavigate()
+  const history = useHistory()
 
   const deleteEstate = (id) =>
     axios.delete(`/estate/list/${id}/`).then(() => {
@@ -101,7 +101,7 @@ const EstatesTable = ({
                 </Popconfirm>
                 <Button
                   icon={<EditOutlined />}
-                  onClick={() => navigate(`/archives/${estate.id}`)}
+                  onClick={() => history.push(`/archives/${estate.id}`)}
                 />
                 <Popconfirm
                   title="آیا از بازنشانی ملک اطمینان دارید؟"
@@ -123,7 +123,7 @@ const EstatesTable = ({
         scroll={{ x: 1024 }}
       />
       <EditEstateModal
-        onClose={() => navigate("/archives")}
+        onClose={() => history.push("/archives")}
         refetch={refetch}
       />
     </>

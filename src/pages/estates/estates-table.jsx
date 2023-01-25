@@ -2,7 +2,7 @@ import React from "react"
 import { Button, Input, message, Popconfirm, Table } from "antd"
 import { CloseOutlined, DeleteOutlined, EditOutlined } from "@ant-design/icons"
 import EditEstateModal from "./edit-estate-modal"
-import { useNavigate } from "react-router-dom"
+import { useHistory } from "react-router-dom"
 import axios from "../../utils/axios"
 import dayjs from "dayjs"
 
@@ -14,7 +14,7 @@ const EstatesTable = ({
   loading,
 }) => {
   const { role } = JSON.parse(localStorage.getItem("user") || "{}")
-  const navigate = useNavigate()
+  const history = useHistory()
   const saveDescription = (home, description) =>
     axios.post("/estate/set-description/", { home, description }).then(() => {
       message.success("توضیحات ذخیره شد")
@@ -107,7 +107,7 @@ const EstatesTable = ({
                 </Popconfirm>
                 <Button
                   icon={<EditOutlined />}
-                  onClick={() => navigate(`/estates/${estate.id}`)}
+                  onClick={() => history.push(`/estates/${estate.id}`)}
                 />
               </div>
             ),
@@ -119,7 +119,10 @@ const EstatesTable = ({
         pagination={false}
         scroll={{ x: 1024 }}
       />
-      <EditEstateModal onClose={() => navigate("/estates")} refetch={refetch} />
+      <EditEstateModal
+        onClose={() => history.push("/estates")}
+        refetch={refetch}
+      />
     </>
   )
 }
