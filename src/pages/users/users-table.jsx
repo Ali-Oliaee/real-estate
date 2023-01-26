@@ -48,12 +48,6 @@ const UsersTable = ({ searchKey, data, loading, refetch }) => {
               >
                 {username}
               </Button>
-              // <Link
-              //   to={`/users/info/${item.id}`}
-              //   style={{ color: "#dda74f", textDecoration: "underline" }}
-              // >
-              //   {username}
-              // </Link>
             ),
           },
           {
@@ -86,7 +80,8 @@ const UsersTable = ({ searchKey, data, loading, refetch }) => {
           {
             title: "اخرین ورود",
             dataIndex: "last_login",
-            render: (date) => dayjs(date * 1000).format("HH:mm YYYY/MM/DD"),
+            render: (date) =>
+              date ? dayjs(date * 1000).format("HH:mm YYYY/MM/DD") : "_",
           },
           {
             title: "عملیات",
