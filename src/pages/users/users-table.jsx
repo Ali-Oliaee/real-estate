@@ -70,6 +70,10 @@ const UsersTable = ({ searchKey, data, loading, refetch }) => {
               }
             },
           },
+          {
+            title: "سطح دسترسی",
+            dataIndex: "access_codes",
+          },
           { title: "شماره تلفن", dataIndex: "phone" },
           { title: "آدرس", dataIndex: "address" },
           {

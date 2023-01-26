@@ -41,6 +41,10 @@ const UserInfoModal = () => {
               <h4>نقش: </h4>
               <p>{user?.role ?? "-"}</p>
             </div>
+            <div className="item">
+              <h4> سطح دسترسی: </h4>
+              <p>{user?.access_codes ?? "-"}</p>
+            </div>
           </Row>
           <Divider style={{ background: "#dda74f" }} />
           <h2>تاریخچه</h2>
