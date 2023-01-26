@@ -1,9 +1,9 @@
 import React from "react"
 import { Button, Input, message, Popconfirm, Table } from "antd"
 import { CloseOutlined, DeleteOutlined, EditOutlined } from "@ant-design/icons"
-import EditEstateModal from "./edit-estate-modal"
 import { useHistory } from "react-router-dom"
 import axios from "../../utils/axios"
+import qs from "query-string"
 import dayjs from "dayjs"
 
 const EstatesTable = ({
@@ -84,7 +84,7 @@ const EstatesTable = ({
               role === "user" ? (
                 <Input
                   bordered={false}
-                  style={{ width: 150 }}
+                  style={{ width: 150, color: "#ddd" }}
                   defaultValue={description}
                   placeholder="توضیحات"
                   onBlur={(e) => saveDescription(item.id, e.target.value)}
@@ -95,7 +95,7 @@ const EstatesTable = ({
           },
           {
             title: "عملیات",
-            render: (estate) => (
+            render: (estate, render) => (
               <div className="action-buttons">
                 <Popconfirm
                   title="آیا از حذف ملک اطمینان دارید؟"
@@ -107,7 +107,15 @@ const EstatesTable = ({
                 </Popconfirm>
                 <Button
                   icon={<EditOutlined />}
-                  onClick={() => history.push(`/estates/${estate.id}`)}
+                  onClick={() =>
+                    history.push({
+                      search: qs.stringify({
+                        ...qs.parse(history.location.search),
+                        mode: "edit",
+                        estate_id: render.id,
+                      }),
+                    })
+                  }
                 />
               </div>
             ),
@@ -118,10 +126,6 @@ const EstatesTable = ({
         loading={loading}
         pagination={false}
         scroll={{ x: 1024 }}
-      />
-      <EditEstateModal
-        onClose={() => history.push("/estates")}
-        refetch={refetch}
       />
     </>
   )

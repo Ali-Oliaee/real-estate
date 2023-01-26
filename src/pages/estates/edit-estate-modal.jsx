@@ -2,7 +2,8 @@ import { Button, Form, Input, message, Spin } from "antd"
 import axios from "../../utils/axios"
 import { useEffect, useState } from "react"
 import { useQuery } from "react-query"
-import { useParams } from "react-router-dom"
+import qs from "query-string"
+import { useLocation } from "react-router-dom"
 import { getEstate } from "../../api/estates"
 import { FloatLabel, ModalContainer } from "../../components"
 import { useValidators } from "../../hooks"
@@ -11,8 +12,11 @@ const EditEstateModal = ({ onClose, refetch }) => {
   const [loading, setLoading] = useState(false)
   const [formInstance] = Form.useForm()
   const { requiredField } = useValidators()
-  const { id } = useParams()
-  const { data, isLoading } = useQuery(["estate", id], () => getEstate(id))
+  const location = useLocation()
+  const { mode, estate_id: id } = qs.parse(location.search)
+  const { data, isLoading } = useQuery(["estate", id], () =>
+    getEstate(String(id))
+  )
 
   const editEstate = (values) => {
     setLoading(true)
@@ -34,7 +38,7 @@ const EditEstateModal = ({ onClose, refetch }) => {
   return (
     <ModalContainer
       centered
-      open={!!id}
+      open={mode === "edit"}
       onCancel={onClose}
       afterClose={formInstance.resetFields}
       title={<span>ویرایش ملک</span>}

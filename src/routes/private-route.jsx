@@ -59,7 +59,7 @@ const PrivateRoutes = {
     },
     {
       cmp: <ArchiveEstatesPage />,
-      path: "/archive-estates",
+      path: "/archives",
     },
     {
       cmp: <ProfilePage />,
@@ -116,6 +116,7 @@ const PrivateRoutes = {
     {
       cmp: <Redirect to="/estates" />,
       path: "/",
+      exact: true,
     },
     {
       cmp: <EstatesPage />,

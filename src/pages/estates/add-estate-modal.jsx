@@ -2,10 +2,14 @@ import { Button, Form, Input, message } from "antd"
 import axios from "../../utils/axios"
 import { useState } from "react"
 import { FloatLabel, ModalContainer } from "../../components"
+import qs from "query-string"
+import { useLocation } from "react-router-dom"
 import { useValidators } from "../../hooks"
 import "./styles.scss"
 
-const AddEstateModal = ({ isOpen, onClose, refetch }) => {
+const AddEstateModal = ({ onClose, refetch }) => {
+  const location = useLocation()
+  const { mode } = qs.parse(location.search)
   const [loading, setLoading] = useState(false)
   const [formInstance] = Form.useForm()
   const { requiredField } = useValidators()
@@ -25,7 +29,7 @@ const AddEstateModal = ({ isOpen, onClose, refetch }) => {
   return (
     <ModalContainer
       centered
-      open={isOpen}
+      open={mode === "create"}
       onCancel={onClose}
       afterClose={formInstance.resetFields}
       title={<span>افزودن ملک</span>}

@@ -1,7 +1,8 @@
 import { Button, Form, Input, Spin, Select, message } from "antd"
 import { useEffect, useState } from "react"
 import { useQuery } from "react-query"
-import { useParams } from "react-router-dom"
+import { useLocation } from "react-router-dom"
+import qs from "query-string"
 import { getUser } from "../../api/users"
 import { useHistory } from "react-router-dom"
 import { FloatLabel, ModalContainer } from "../../components"
@@ -13,8 +14,9 @@ const EditUserModal = ({ refetch }) => {
   const [formInstance] = Form.useForm()
   const [passwordModal, setPasswordModal] = useState(false)
   const [loading, setLoading] = useState(false)
+  const location = useLocation()
   const { requiredField } = useValidators()
-  let { id, mode } = useParams()
+  const { mode, user_id: id } = qs.parse(location.search)
   const history = useHistory()
 
   const handleConfirmStep = (values) => {
@@ -37,7 +39,7 @@ const EditUserModal = ({ refetch }) => {
   return (
     <ModalContainer
       centered
-      open={!!id && mode === "edit"}
+      open={mode === "edit"}
       onCancel={() => {
         formInstance.resetFields()
         history.push("/users")

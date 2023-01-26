@@ -4,15 +4,24 @@ import { FullscreenOutlined } from "@ant-design/icons"
 import EstatesTable from "./estates-table"
 import { AdminLayout } from "../../layouts"
 import AddStateModal from "./add-estate-modal"
+import { useHistory, useLocation } from "react-router-dom"
 import { getEstates } from "../../api/estates"
 import SearchBar from "./search-bar"
+import qs from "query-string"
 import { useQuery } from "react-query"
+import EditEstateModal from "./edit-estate-modal"
 import "./styles.scss"
 
 const EstatesPage = () => {
   const [fullscreen, setFullscreen] = useState(false)
-  const [addModal, setAddModal] = useState(false)
+  const history = useHistory()
+  const location = useLocation()
   const { role } = JSON.parse(localStorage.getItem("user") || "{}")
+  const onModalClose = () => {
+    history.push({
+      search: qs.exclude(location.search, ["mode"]),
+    })
+  }
 
   const { data, isLoading, refetch } = useQuery("estates", getEstates, {
     staleTime: Infinity,
@@ -48,7 +57,14 @@ const EstatesPage = () => {
                 size="large"
                 type="primary"
                 className="add-button"
-                onClick={() => setAddModal(true)}
+                onClick={() =>
+                  history.push({
+                    search: qs.stringify({
+                      ...qs.parse(history.location.search),
+                      mode: "create",
+                    }),
+                  })
+                }
               >
                 افزودن ملک +
               </Button>
@@ -71,9 +87,13 @@ const EstatesPage = () => {
           refetch={refetch}
         />
       </div>
-      <AddStateModal
-        isOpen={addModal}
-        onClose={() => setAddModal(false)}
+      <AddStateModal onClose={onModalClose} refetch={refetch} />
+      <EditEstateModal
+        onClose={() =>
+          history.push({
+            search: qs.exclude(location.search, ["mode", "estate_id"]),
+          })
+        }
         refetch={refetch}
       />
     </AdminLayout>

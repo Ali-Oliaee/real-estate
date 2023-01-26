@@ -3,12 +3,14 @@ import { Col, Divider, Row, Spin } from "antd"
 import { useQuery } from "react-query"
 import { getUser, getUserHistoryById } from "../../api/users"
 import { ModalContainer } from "../../components"
-import { useParams, useHistory } from "react-router"
+import { useHistory, useLocation } from "react-router"
+import qs from "query-string"
 import dayjs from "dayjs"
 
 const UserInfoModal = () => {
-  const { id, mode } = useParams()
+  const location = useLocation()
   const history = useHistory()
+  const { mode, user_id: id } = qs.parse(location.search)
   const { data: userHistory } = useQuery(["user-history", id], () =>
     getUserHistoryById(id)
   )
@@ -40,7 +42,7 @@ const UserInfoModal = () => {
               <p>{user?.role ?? "-"}</p>
             </div>
           </Row>
-          <Divider />
+          <Divider style={{ background: "#dda74f" }} />
           <h2>تاریخچه</h2>
           {userHistory?.map((item) => {
             switch (item.title) {

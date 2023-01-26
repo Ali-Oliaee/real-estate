@@ -1,13 +1,17 @@
 import { useState } from "react"
 import { Button, Form, Input, message, Select } from "antd"
 import { FloatLabel, ModalContainer } from "../../components"
+import qs from "query-string"
+import { useLocation } from "react-router-dom"
 import axios from "../../utils/axios"
 import { useValidators } from "../../hooks"
 import "./styles.scss"
 
-const AddUserModal = ({ isOpen, onClose, refetch }) => {
+const AddUserModal = ({ onClose, refetch }) => {
   const [formInstance] = Form.useForm()
   const { requiredField } = useValidators()
+  const location = useLocation()
+  const { mode } = qs.parse(location.search)
   const [loading, setLoading] = useState(false)
 
   const handleConfirmStep = (values) => {
@@ -26,7 +30,7 @@ const AddUserModal = ({ isOpen, onClose, refetch }) => {
   return (
     <ModalContainer
       centered
-      open={isOpen}
+      open={mode === "create"}
       onCancel={onClose}
       title={<span>افزودن شخص</span>}
       footer={null}

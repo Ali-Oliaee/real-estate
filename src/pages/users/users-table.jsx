@@ -3,12 +3,12 @@ import { Button, message, Popconfirm, Table } from "antd"
 import { DeleteOutlined, EditOutlined } from "@ant-design/icons"
 import axios from "../../utils/axios"
 import Fuse from "fuse.js"
-import { Link } from "react-router-dom"
-import EditUserModal from "./edit-user-modal"
+import { useHistory } from "react-router-dom"
+import qs from "query-string"
 import dayjs from "dayjs"
-import UserInfoModal from "./user-info-modal"
 
 const UsersTable = ({ searchKey, data, loading, refetch }) => {
+  const history = useHistory()
   const fuse = new Fuse(data ?? [], {
     includeScore: true,
     keys: ["fullname", "address", "phone", "role"],
@@ -33,12 +33,27 @@ const UsersTable = ({ searchKey, data, loading, refetch }) => {
             title: "نام کاربری",
             dataIndex: "username",
             render: (username, item) => (
-              <Link
-                to={`/users/info/${item.id}`}
+              <Button
                 style={{ color: "#dda74f", textDecoration: "underline" }}
+                type="link"
+                onClick={() =>
+                  history.push({
+                    search: qs.stringify({
+                      ...qs.parse(history.location.search),
+                      mode: "info",
+                      user_id: item.id,
+                    }),
+                  })
+                }
               >
                 {username}
-              </Link>
+              </Button>
+              // <Link
+              //   to={`/users/info/${item.id}`}
+              //   style={{ color: "#dda74f", textDecoration: "underline" }}
+              // >
+              //   {username}
+              // </Link>
             ),
           },
           {
@@ -85,9 +100,18 @@ const UsersTable = ({ searchKey, data, loading, refetch }) => {
                 >
                   <Button icon={<DeleteOutlined />} />
                 </Popconfirm>
-                <Link to={`/users/edit/${render.id}`}>
-                  <Button icon={<EditOutlined />} />
-                </Link>
+                <Button
+                  icon={<EditOutlined />}
+                  onClick={() =>
+                    history.push({
+                      search: qs.stringify({
+                        ...qs.parse(history.location.search),
+                        mode: "edit",
+                        user_id: render.id,
+                      }),
+                    })
+                  }
+                />
               </div>
             ),
           },
@@ -98,8 +122,6 @@ const UsersTable = ({ searchKey, data, loading, refetch }) => {
         pagination={false}
         scroll={{ x: 1024 }}
       />
-      <EditUserModal refetch={refetch} />
-      <UserInfoModal />
     </>
   )
 }
