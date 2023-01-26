@@ -11,7 +11,7 @@ import axios from "../../utils/axios"
 
 const EditUserModal = ({ refetch }) => {
   const [formInstance] = Form.useForm()
-  const [passwrordModal, setPasswrordModal] = useState(false)
+  const [passwordModal, setPasswordModal] = useState(false)
   const [loading, setLoading] = useState(false)
   const { requiredField } = useValidators()
   let { id, mode } = useParams()
@@ -111,7 +111,7 @@ const EditUserModal = ({ refetch }) => {
             </Form.Item>
             <Button
               style={{ width: 200, height: 55, marginBottom: 24 }}
-              onClick={() => setPasswrordModal(true)}
+              onClick={() => setPasswordModal(true)}
               size="large"
             >
               تغییر کلمه عبور
@@ -129,8 +129,8 @@ const EditUserModal = ({ refetch }) => {
           </Button>
         </Form>
         <ChangePasswordModal
-          open={passwrordModal}
-          onClose={() => setPasswrordModal(false)}
+          open={passwordModal}
+          onClose={() => setPasswordModal(false)}
           id={id}
         />
       </Spin>

@@ -1,13 +1,4 @@
-import {
-  Col,
-  Divider,
-  Input,
-  InputNumber,
-  Row,
-  Slider,
-  Button,
-  Form,
-} from "antd"
+import { Col, Divider, Input, Row, Slider, Button, Form } from "antd"
 import axios from "../../utils/axios"
 import { useState } from "react"
 import "./styles.scss"

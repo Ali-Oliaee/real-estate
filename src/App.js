@@ -36,8 +36,6 @@ function App() {
   return (
     <QueryClientProvider client={queryClient}>
       <ConfigProvider direction="rtl" locale={IR}>
-        {/* <RouterProvider router={isAuth ? authRouter : guestRouter} /> */}
-        {/* <MainRouter /> */}
         <Router>
           <Switch>
             {role === "manager" &&
@@ -72,7 +70,7 @@ function App() {
               ))}
             {PublicRoutes.map((item, index) => (
               <PublicRoute key={[index]} path={item.path}>
-                {item.cmp}
+                <AdminLayout>{item.cmp}</AdminLayout>
               </PublicRoute>
             ))}
           </Switch>

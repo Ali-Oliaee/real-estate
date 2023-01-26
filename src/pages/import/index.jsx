@@ -32,7 +32,7 @@ const ImportDataPage = () => {
             showUploadList={false}
             onChange={({ file }) => setExel(file.originFileObj)}
           >
-            <Button>Click to Upload</Button>
+            <Button type="primary">Click to Upload</Button>
           </Upload>
           {exel && (
             <div
@@ -46,7 +46,9 @@ const ImportDataPage = () => {
                 justifyContent: "center",
               }}
             >
-              <h5>فایل وارد شده به انتهای لیست املاک اضافه خواهد شد! </h5>
+              <h5 style={{ color: "#dda74f" }}>
+                فایل وارد شده به انتهای لیست املاک اضافه خواهد شد!
+              </h5>
               <div
                 style={{
                   width: "100%",

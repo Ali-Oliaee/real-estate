@@ -27,7 +27,13 @@ const LoginPage = () => {
       })
       .catch(({ response }) => {
         const { data } = response
-        message.error(data?.username ?? data?.password)
+        message.error(
+          data?.username
+            ? "نام کاربری وارد شده اشتباه است!"
+            : data?.password
+            ? "کلمه عبور وارد شده صحیح نمیباشد!"
+            : "خطایی رخ داده است!"
+        )
       })
       .finally(() => setLoading(false))
   }

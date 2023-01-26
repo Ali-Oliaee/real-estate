@@ -33,7 +33,12 @@ const UsersTable = ({ searchKey, data, loading, refetch }) => {
             title: "نام کاربری",
             dataIndex: "username",
             render: (username, item) => (
-              <Link to={`/users/info/${item.id}`}>{username}</Link>
+              <Link
+                to={`/users/info/${item.id}`}
+                style={{ color: "#dda74f", textDecoration: "underline" }}
+              >
+                {username}
+              </Link>
             ),
           },
           {

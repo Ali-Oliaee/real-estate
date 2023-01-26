@@ -1,10 +1,10 @@
 import { useState } from "react"
 import { Button, Col, Input, Row } from "antd"
 import { SearchOutlined } from "@ant-design/icons"
-import PeopleTable from "./users-table"
 import { AdminLayout } from "../../layouts"
 import { getUsers } from "../../api/users"
 import { useQuery } from "react-query"
+import PeopleTable from "./users-table"
 import AddUserModal from "./add-user-modal"
 import "./styles.scss"
 

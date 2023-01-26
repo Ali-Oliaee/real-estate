@@ -8,7 +8,7 @@
     margin: 0;
     padding: 0;
     user-select: none;
-    font-family: 'vazirmatn', sans-serif;
+    font-family: 'vazirmatn', sans-serif !important;
 
 
     .ant-table-container::after,
@@ -17,6 +17,10 @@
     }
     .ant-table-wrapper {
         background: #000 !important;
+
+        .ant-table-column-sort {
+            background-color: #dda74f45  !important;
+        }
 
         .ant-empty-description {
             svg {
