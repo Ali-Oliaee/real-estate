@@ -6,7 +6,7 @@ import {
   EditOutlined,
   ReloadOutlined,
 } from "@ant-design/icons"
-import EditEstateModal from "./edit-estate-modal"
+import qs from "query-string"
 import { useHistory } from "react-router-dom"
 import axios from "../../utils/axios"
 import dayjs from "dayjs"
@@ -89,7 +89,7 @@ const EstatesTable = ({
           },
           {
             title: "عملیات",
-            render: (estate) => (
+            render: (estate, render) => (
               <div className="action-buttons">
                 <Popconfirm
                   title="آیا از حذف ملک اطمینان دارید؟"
@@ -101,7 +101,15 @@ const EstatesTable = ({
                 </Popconfirm>
                 <Button
                   icon={<EditOutlined />}
-                  onClick={() => history.push(`/archives/${estate.id}`)}
+                  onClick={() =>
+                    history.push({
+                      search: qs.stringify({
+                        ...qs.parse(history.location.search),
+                        mode: "edit",
+                        estate_id: render.id,
+                      }),
+                    })
+                  }
                 />
                 <Popconfirm
                   title="آیا از بازنشانی ملک اطمینان دارید؟"
@@ -121,10 +129,6 @@ const EstatesTable = ({
         loading={loading}
         pagination={false}
         scroll={{ x: 1024 }}
-      />
-      <EditEstateModal
-        onClose={() => history.push("/archives")}
-        refetch={refetch}
       />
     </>
   )

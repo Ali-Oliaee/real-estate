@@ -10,13 +10,15 @@ import "./styles.scss"
 const AddEstateModal = ({ onClose, refetch }) => {
   const location = useLocation()
   const { mode } = qs.parse(location.search)
+  const { role } = JSON.parse(localStorage.getItem("user"))
   const [loading, setLoading] = useState(false)
   const [formInstance] = Form.useForm()
   const { requiredField } = useValidators()
   const addEstate = (values) => {
     setLoading(true)
+    const status = role === "manager" || role === "assistant" ? true : false
     axios
-      .post("/estate/create-home/", values)
+      .post("/estate/create-home/", values, status)
       .then(() => {
         message.success("ملک با موفقیت افزوده شد")
         formInstance.resetFields()

@@ -28,6 +28,9 @@ const EditUserModal = ({ refetch }) => {
         history.push("/users")
         refetch()
       })
+      .catch(({ response }) => {
+        response?.data?.username && message.error("نام کاربری تکراری است")
+      })
       .finally(() => setLoading(false))
   }
   const { data, isLoading } = useQuery(["user", id], () => getUser(id))
@@ -84,6 +87,11 @@ const EditUserModal = ({ refetch }) => {
             </Form.Item>
             <Form.Item name="address">
               <FloatLabel label="آدرس">
+                <Input className="input" type="text" />
+              </FloatLabel>
+            </Form.Item>
+            <Form.Item name="access_codes">
+              <FloatLabel label="سطح دسترسی">
                 <Input className="input" type="text" />
               </FloatLabel>
             </Form.Item>

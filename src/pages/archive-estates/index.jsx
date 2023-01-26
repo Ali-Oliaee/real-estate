@@ -6,9 +6,14 @@ import { getArchiveEstates } from "../../api/estates"
 import { useQuery } from "react-query"
 import EstatesTable from "./estates-table"
 import SearchBar from "./search-bar"
+import qs from "query-string"
+import { useLocation, useHistory } from "react-router"
+import EditEstateModal from "./edit-estate-modal"
 import "./styles.scss"
 
 const ArchiveEstates = () => {
+  const location = useLocation()
+  const history = useHistory()
   const [fullscreen, setFullscreen] = useState(false)
   const { data, isLoading, refetch } = useQuery(
     "archive-estates",
@@ -55,6 +60,14 @@ const ArchiveEstates = () => {
           refetch={refetch}
         />
       </div>
+      <EditEstateModal
+        onClose={() =>
+          history.push({
+            search: qs.exclude(location.search, ["mode", "estate_id"]),
+          })
+        }
+        refetch={refetch}
+      />
     </AdminLayout>
   )
 }
