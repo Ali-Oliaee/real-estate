@@ -17,7 +17,7 @@ const UserProfileButton = () => {
       content: "آیا مایل به خروج از حساب کاربری خود هستید",
       onOk: () => {
         localStorage.clear()
-        history.push("/login")
+        history.push("/")
         window.location.reload()
       },
       okText: "بله،‌ خارج شو",

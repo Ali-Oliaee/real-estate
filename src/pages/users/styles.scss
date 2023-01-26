@@ -84,6 +84,16 @@
   flex-wrap: wrap;
   justify-content: space-between;
   align-items: center;
+
+  .ant-input-affix-wrapper,.ant-select-selector  {
+    background-color: #191619 !important;
+    span {
+      color: #91a2ab ;
+    }
+    svg { 
+      color: #91a2ab ;
+    }
+  }
   .input {
     width: 200px;
     height: 54px;
@@ -102,10 +112,20 @@
 
 .change-password-modal {
   width: 400px !important;
+  .ant-input-affix-wrapper,.ant-select-selector  {
+    background-color: #191619 !important;
+    span {
+      color: #91a2ab ;
+    }
+    svg { 
+      color: #91a2ab ;
+    }
+  }
 }
 
 .user-info-modal {
   color: #dda74f;
+
   .item {
     display: flex;
     align-items: center;

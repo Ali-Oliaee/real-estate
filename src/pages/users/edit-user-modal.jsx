@@ -112,6 +112,7 @@ const EditUserModal = ({ refetch }) => {
               />
             </Form.Item>
             <Button
+              type="primary"
               style={{ width: 200, height: 55, marginBottom: 24 }}
               onClick={() => setPasswordModal(true)}
               size="large"

@@ -16,7 +16,12 @@ const ChangePasswordModal = ({ open, onClose, id }) => {
       .post("/users/change-password/", { ...values, user_id: id })
       .then(() => {
         message.success("کلمه عبور با موفقیت تغییر کرد.")
+        formInstance.resetFields()
         onClose()
+      })
+      .catch(({ response }) => {
+        response.data.Password &&
+          message.error("کلمه عبور شما اشتباه است. لطفا دوباره تلاش کنید.")
       })
       .finally(() => setLoading(false))
   }
@@ -27,14 +32,14 @@ const ChangePasswordModal = ({ open, onClose, id }) => {
       className="change-password-modal"
       open={open}
       onCancel={() => {
-        onClose()
         formInstance.resetFields()
+        onClose()
       }}
       afterClose={formInstance.resetFields}
       title={<span>تغییر کلمه عبور</span>}
       footer={false}
     >
-      <Form onFinish={changePassword}>
+      <Form onFinish={changePassword} form={formInstance}>
         <Form.Item name="user_password" rules={[requiredField]}>
           <FloatLabel label="کلمه عبور شما">
             <Input.Password size="small" />
