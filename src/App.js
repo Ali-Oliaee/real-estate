@@ -70,7 +70,7 @@ function App() {
               ))}
             {PublicRoutes.map((item, index) => (
               <PublicRoute key={[index]} path={item.path}>
-                <AdminLayout>{item.cmp}</AdminLayout>
+                {item.cmp}
               </PublicRoute>
             ))}
           </Switch>

@@ -52,7 +52,10 @@
           background-color: rgb(46, 46, 46) !important;
           color: #dda74f;
           min-width: 0 !important;
+          padding-block: 4px !important;
           border-bottom: 1px solid #dda74f7c;
+          text-overflow: ellipsis !important;
+          white-space: nowrap;
           padding-block: 12px;
           svg {
           color: #dda74f;
