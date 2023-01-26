@@ -78,6 +78,20 @@ const ProfilePage = () => {
                         <Divider />
                       </Row>
                     )
+                  case "change-password":
+                    return (
+                      <Row align="middle" justify="start" key={item.id}>
+                        <Col span={24}>
+                          رمز عبور کاربر{" "}
+                          {item.low_user.username || "deleted Account "} توسط{" "}
+                          {item?.up_user?.username} تغییر کرد.
+                          <Row style={{ fontSize: "0.7em", marginTop: 10 }}>
+                            {dayjs(item.created_at * 1000).format("YYYY/MM/DD")}
+                          </Row>
+                        </Col>
+                        <Divider />
+                      </Row>
+                    )
                   case "update-user":
                     return (
                       <Row align="middle" justify="start" key={item.id}>
